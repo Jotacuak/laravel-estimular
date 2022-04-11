@@ -1,0 +1,45 @@
+footer{
+    background-color: hsl(60, 44%, 93%);
+    margin-top: auto;
+    padding: 2rem 5%;
+    width: 90%;
+
+    .footer-top{
+        
+        .footer-element{
+            li{
+                margin-bottom: .2rem;
+
+                svg{
+                    height: 1rem;
+                    width: 1rem;
+
+                    path{
+                        fill: $secondary-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-bottom{
+        border-top: .1rem solid hsl(0, 0%, 60%);
+
+        .footer-element{
+            margin-top: 1rem;
+            width: 100%;
+    
+            .footer-element-icon{
+                float: right;
+    
+                svg{
+                    height: 1.5rem;
+                    width: 1.5rem;
+                    path{
+                        fill: $secondary-color;
+                    }
+                }
+            }
+        }
+    }
+}

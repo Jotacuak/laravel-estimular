@@ -1,0 +1,34 @@
+.personal-element{
+    width: 80%;
+
+    .personal-element-txt{
+        margin-right: 2rem;
+    
+        .personal-element-txt-studies{
+            margin-bottom: 2rem;
+    
+            p{
+                display: list-item;
+                list-style-type: disc;
+                list-style-position: inside;
+            }
+        }
+    
+        .personal-element-txt-exp{
+            margin-bottom: 2rem;
+    
+            p{
+                display: list-item;
+                list-style-type: disc;
+                list-style-position: inside;
+            }
+        }
+    
+        .personal-element-txt-about{
+            p{
+                margin-bottom: 1rem;
+            }
+    
+        }
+    }
+}

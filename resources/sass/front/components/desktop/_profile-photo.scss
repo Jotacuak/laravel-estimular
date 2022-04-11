@@ -1,0 +1,15 @@
+.profile-photo{ 
+    background-size: cover;
+    background-position: 50%;
+    height: 40%;
+    float: right;
+    margin-top: 4rem;
+    width: 40%;
+
+    img{      
+        border-radius: 50%;    
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+    }
+}

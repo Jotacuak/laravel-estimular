@@ -1,0 +1,36 @@
+header{
+    background-color: hsla(0, 0%, 100%, 0.95);
+    height: 5vh;
+    padding: .5rem 5%;
+    position: fixed;
+    top: 0;
+    width: 90%;
+    z-index: $z-index-header;
+
+	.header-logo{
+        display: flex;
+        width: max-content;
+
+        .header-logo-image{
+
+			svg{
+				height: 3rem;
+				width: 3rem;
+
+				path{
+					fill:$secondary-color;
+				}
+			}
+        }
+
+        .header-logo-title{
+            margin-left: 1rem;
+
+            h1{
+				font-size: 2rem;
+                text-align: left;
+            }
+        }
+    }	
+}
+

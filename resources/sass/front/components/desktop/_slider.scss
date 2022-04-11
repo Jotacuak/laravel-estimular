@@ -1,0 +1,38 @@
+.slider{
+    height: 65vh;
+    position: relative;
+    margin-bottom: 2rem;
+    top: 3vh;
+    width: 100%;
+
+    .slider-image{
+        max-height: 65vh;
+        overflow: hidden;
+        position: absolute;
+        z-index: $z-index-slider-image;
+        width: 100%;
+    }
+
+    .slider-title{
+        padding: 1.5rem 1rem;
+        position: absolute;
+        left: 15%;
+        top: 15vh;
+        z-index: $z-index-slider-elements;
+
+        h2{
+            color: white;
+        }
+    }
+    
+    .slider-button{
+        position: absolute;
+        left: 15%;
+        top: 30vh;
+        z-index: $z-index-slider-elements;
+    }   
+}
+
+
+
+

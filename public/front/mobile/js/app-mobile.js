@@ -1,0 +1,1 @@
+(()=>{"use strict";var t,e;t=document.getElementById("collapse-button"),e=document.getElementById("overlay"),t.addEventListener("click",(function(){t.classList.toggle("active"),e.classList.toggle("active")}))})();
