@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="shortcut icon" href="">
+		<link rel="shortcut icon" href="{{Storage::url('favicon.ico')}}">
 
 		<title>@yield('title', trans('front/seo.title'))</title>
 		<meta name="description" content="@yield('description', trans('front/seo.description'))">
@@ -22,7 +22,7 @@
     </head>
 
     <body>
-        @include('front.layout.partials.wait')
+        {{-- @include('front.layout.partials.wait') --}}
         @include("front.layout.partials.header_fixed")
 
         <div class="wrapper" id="app">

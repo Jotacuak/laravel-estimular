@@ -13,9 +13,10 @@
     }
 
     .textual-banner-image{
-        width: 40%;
+        width: 100%;
 
         img{
+            border-radius: .5rem;
             max-width: 100%;
         }
     }

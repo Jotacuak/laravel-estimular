@@ -8,6 +8,7 @@ footer{
         
         .footer-element{
             li{
+                font-weight: 300;
                 margin-bottom: .2rem;
 
                 svg{
@@ -26,6 +27,7 @@ footer{
         border-top: .1rem solid hsl(0, 0%, 60%);
 
         .footer-element{
+            font-weight: 300;
             margin-top: 1rem;
             width: 100%;
     
@@ -35,6 +37,7 @@ footer{
                 svg{
                     height: 1.5rem;
                     width: 1.5rem;
+
                     path{
                         fill: $secondary-color;
                     }

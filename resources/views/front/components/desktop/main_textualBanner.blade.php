@@ -10,10 +10,10 @@
                 </p>
             </div>
         </div>
-
+    
         <div class="column">
             <div class="textual-banner-image">
-                <img src="images/post.webp" alt="dementia">
+                <img src="{{Storage::url('post.webp')}}" alt="dementia">
             </div>
         </div>
     </div>

@@ -1,1 +1,1382 @@
-(()=>{"use strict";var e=Object.defineProperty,i=Object.getOwnPropertySymbols,t=Object.prototype.hasOwnProperty,r=Object.prototype.propertyIsEnumerable,s=(i,t,r)=>t in i?e(i,t,{enumerable:!0,configurable:!0,writable:!0,value:r}):i[t]=r,l=(e,l)=>{for(var o in l||(l={}))t.call(l,o)&&s(e,o,l[o]);if(i)for(var o of i(l))r.call(l,o)&&s(e,o,l[o]);return e},o=(e,i,t)=>(s(e,"symbol"!=typeof i?i+"":i,t),t);const a=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,n=/^[0-9]+$/,d=/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,u=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;var c,h,f,b,g;(h=c||(c={})).Required="required",h.Email="email",h.MinLength="minLength",h.MaxLength="maxLength",h.Password="password",h.Number="number",h.MaxNumber="maxNumber",h.MinNumber="minNumber",h.StrongPassword="strongPassword",h.CustomRegexp="customRegexp",h.MinFilesCount="minFilesCount",h.MaxFilesCount="maxFilesCount",h.Files="files",(f||(f={})).Required="required",(g=b||(b={})).Label="label",g.LabelArrow="labelArrow";const m=e=>!!e&&"function"==typeof e.then,v={errorFieldStyle:{color:"#b81111",border:"1px solid #B81111"},errorFieldCssClass:"just-validate-error-field",successFieldCssClass:"just-validate-success-field",errorLabelStyle:{color:"#b81111"},errorLabelCssClass:"just-validate-error-label",successLabelCssClass:"just-validate-success-label",focusInvalidField:!0,lockForm:!0,testingMode:!1};class p{constructor(e,i,t){o(this,"form",null),o(this,"fields",{}),o(this,"groupFields",{}),o(this,"errors",{}),o(this,"isValid",!1),o(this,"isSubmitted",!1),o(this,"globalConfig",v),o(this,"errorLabels",{}),o(this,"successLabels",{}),o(this,"eventListeners",[]),o(this,"dictLocale",[]),o(this,"currentLocale"),o(this,"customStyleTags",{}),o(this,"onSuccessCallback"),o(this,"onFailCallback"),o(this,"tooltips",[]),o(this,"lastScrollPosition"),o(this,"isScrollTick"),o(this,"refreshAllTooltips",(()=>{this.tooltips.forEach((e=>{e.refresh()}))})),o(this,"handleDocumentScroll",(()=>{this.lastScrollPosition=window.scrollY,this.isScrollTick||(window.requestAnimationFrame((()=>{this.refreshAllTooltips(),this.isScrollTick=!1})),this.isScrollTick=!0)})),o(this,"formSubmitHandler",(e=>{e.preventDefault(),this.isSubmitted=!0,this.validateHandler(e)})),o(this,"handleFieldChange",(e=>{let i;for(const t in this.fields){if(this.fields[t].elem===e){i=t;break}}i&&this.validateField(i,!0)})),o(this,"handleGroupChange",(e=>{let i,t;for(const r in this.groupFields){const s=this.groupFields[r];if(s.elems.find((i=>i===e))){i=s,t=r;break}}i&&t&&this.validateGroup(t,i)})),o(this,"handlerChange",(e=>{e.target&&(this.handleFieldChange(e.target),this.handleGroupChange(e.target),this.renderErrors())})),this.initialize(e,i,t)}initialize(e,i,t){if(this.form=null,this.errors={},this.isValid=!1,this.isSubmitted=!1,this.globalConfig=v,this.errorLabels={},this.successLabels={},this.eventListeners=[],this.customStyleTags={},this.tooltips=[],"string"==typeof e){const i=document.querySelector(e);if(!i)throw Error(`Form with ${e} selector not found! Please check the form selector`);this.setForm(i)}else{if(!(e instanceof HTMLFormElement))throw Error("Form selector is not valid. Please specify a string selector or a DOM element.");this.setForm(e)}if(this.globalConfig=l(l({},v),i),t&&(this.dictLocale=t),this.isTooltip()){const e=document.createElement("style");e.textContent=".just-validate-error-label[data-tooltip=true]{position:fixed;padding:4px 8px;background:#423f3f;color:#fff;white-space:nowrap;z-index:10;border-radius:4px;transform:translateY(-5px)}.just-validate-error-label[data-tooltip=true]:before{content:'';width:0;height:0;border-left:solid 5px transparent;border-right:solid 5px transparent;border-bottom:solid 5px #423f3f;position:absolute;z-index:3;display:block;bottom:-5px;transform:rotate(180deg);left:calc(50% - 5px)}.just-validate-error-label[data-tooltip=true][data-direction=left]{transform:translateX(-5px)}.just-validate-error-label[data-tooltip=true][data-direction=left]:before{right:-7px;bottom:auto;left:auto;top:calc(50% - 2px);transform:rotate(90deg)}.just-validate-error-label[data-tooltip=true][data-direction=right]{transform:translateX(5px)}.just-validate-error-label[data-tooltip=true][data-direction=right]:before{right:auto;bottom:auto;left:-7px;top:calc(50% - 2px);transform:rotate(-90deg)}.just-validate-error-label[data-tooltip=true][data-direction=bottom]{transform:translateY(5px)}.just-validate-error-label[data-tooltip=true][data-direction=bottom]:before{right:auto;bottom:auto;left:calc(50% - 5px);top:-5px;transform:rotate(0)}",this.customStyleTags[b.Label]=document.head.appendChild(e),this.addListener("scroll",document,this.handleDocumentScroll)}}getLocalisedString(e){var i;if(!this.currentLocale||!this.dictLocale.length)return e;return(null==(i=this.dictLocale.find((i=>i.key===e)))?void 0:i.dict[this.currentLocale])||e}getFieldErrorMessage(e,i){const t="function"==typeof e.errorMessage?e.errorMessage(this.getElemValue(i),this.fields):e.errorMessage;return this.getLocalisedString(t)||((e,i)=>{switch(e){case c.Required:return"The field is required";case c.Email:return"Email has invalid format";case c.MaxLength:return"The field must contain a maximum of :value characters".replace(":value",String(i));case c.MinLength:return"The field must contain a minimum of :value characters".replace(":value",String(i));case c.Password:return"Password must contain minimum eight characters, at least one letter and one number";case c.Number:return"Value should be a number";case c.StrongPassword:return"Password should contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";case c.MaxNumber:return"Number should be less or equal than :value".replace(":value",String(i));case c.MinNumber:return"Number should be more or equal than :value".replace(":value",String(i));case c.MinFilesCount:return"Files count should be more or equal than :value".replace(":value",String(i));case c.MaxFilesCount:return"Files count should be less or equal than :value".replace(":value",String(i));case c.Files:return"Uploaded files have one or several invalid properties (extension/size/type etc)";default:return"Value is incorrect"}})(e.rule,e.value)}getFieldSuccessMessage(e,i){const t="function"==typeof e?e(this.getElemValue(i),this.fields):e;return this.getLocalisedString(t)}getGroupErrorMessage(e){return this.getLocalisedString(e.errorMessage)||(e.rule===f.Required?"The field is required":"Group is incorrect")}getGroupSuccessMessage(e){return this.getLocalisedString(e.successMessage)}setFieldInvalid(e,i){this.fields[e].isValid=!1,this.fields[e].errorMessage=this.getFieldErrorMessage(i,this.fields[e].elem)}setFieldValid(e,i){this.fields[e].isValid=!0,void 0!==i&&(this.fields[e].successMessage=this.getFieldSuccessMessage(i,this.fields[e].elem))}setGroupInvalid(e,i){this.groupFields[e].isValid=!1,this.groupFields[e].errorMessage=this.getGroupErrorMessage(i)}setGroupValid(e,i){this.groupFields[e].isValid=!0,this.groupFields[e].successMessage=this.getGroupSuccessMessage(i)}getElemValue(e){switch(e.type){case"checkbox":return e.checked;case"file":return e.files;default:return e.value}}validateGroupRule(e,i,t,r){if(r.rule===f.Required)"radio"!==i&&"checkbox"!==i||(t.every((e=>!e.checked))?this.setGroupInvalid(e,r):this.setGroupValid(e,r))}validateFieldRule(e,i,t,r=!1){const s=t.value,l=this.getElemValue(i);if(t.plugin){t.plugin(l,this.fields)||this.setFieldInvalid(e,t)}else{switch(t.rule){case c.Required:(e=>{let i=e;return"string"==typeof e&&(i=e.trim()),!i})(l)&&this.setFieldInvalid(e,t);break;case c.Email:if("string"!=typeof l){this.setFieldInvalid(e,t);break}o=l,a.test(o)||this.setFieldInvalid(e,t);break;case c.MaxLength:if(void 0===s){console.error(`Value for ${t.rule} rule for [${e}] field is not defined. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if("number"!=typeof s){console.error(`Value for ${t.rule} rule for [${e}] should be a number. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if("string"!=typeof l){this.setFieldInvalid(e,t);break}if(""===l)break;((e,i)=>e.length>i)(l,s)&&this.setFieldInvalid(e,t);break;case c.MinLength:if(void 0===s){console.error(`Value for ${t.rule} rule for [${e}] field is not defined. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if("number"!=typeof s){console.error(`Value for ${t.rule} rule for [${e}] should be a number. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if("string"!=typeof l){this.setFieldInvalid(e,t);break}if(""===l)break;((e,i)=>e.length<i)(l,s)&&this.setFieldInvalid(e,t);break;case c.Password:if("string"!=typeof l){this.setFieldInvalid(e,t);break}if(""===l)break;(e=>d.test(e))(l)||this.setFieldInvalid(e,t);break;case c.StrongPassword:if("string"!=typeof l){this.setFieldInvalid(e,t);break}if(""===l)break;(e=>u.test(e))(l)||this.setFieldInvalid(e,t);break;case c.Number:if("string"!=typeof l){this.setFieldInvalid(e,t);break}if(""===l)break;(e=>n.test(e))(l)||this.setFieldInvalid(e,t);break;case c.MaxNumber:{if(void 0===s){console.error(`Value for ${t.rule} rule for [${e}] field is not defined. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if("number"!=typeof s){console.error(`Value for ${t.rule} rule for [${e}] field should be a number. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if("string"!=typeof l){this.setFieldInvalid(e,t);break}if(""===l)break;const i=+l;(Number.isNaN(i)||((e,i)=>e>i)(i,s))&&this.setFieldInvalid(e,t);break}case c.MinNumber:{if(void 0===s){console.error(`Value for ${t.rule} rule for [${e}] field is not defined. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if("number"!=typeof s){console.error(`Value for ${t.rule} rule for [${e}] field should be a number. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if("string"!=typeof l){this.setFieldInvalid(e,t);break}if(""===l)break;const i=+l;(Number.isNaN(i)||((e,i)=>e<i)(i,s))&&this.setFieldInvalid(e,t);break}case c.CustomRegexp:{if(void 0===s)return console.error(`Value for ${t.rule} rule for [${e}] field is not defined. This field will be always invalid.`),void this.setFieldInvalid(e,t);let i;try{i=new RegExp(s)}catch(i){console.error(`Value for ${t.rule} rule for [${e}] should be a valid regexp. This field will be always invalid.`),this.setFieldInvalid(e,t);break}const r=String(l);""===r||i.test(r)||this.setFieldInvalid(e,t);break}case c.MinFilesCount:if(void 0===s){console.error(`Value for ${t.rule} rule for [${e}] field is not defined. This field will be always invalid.`),this.setFieldInvalid(e,t);break}if("number"!=typeof s){console.error(`Value for ${t.rule} rule for [${e}] field should be a number. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if(Number.isFinite(null==l?void 0:l.length)&&l.length<s){this.setFieldInvalid(e,t);break}break;case c.MaxFilesCount:if(void 0===s){console.error(`Value for ${t.rule} rule for [${e}] field is not defined. This field will be always invalid.`),this.setFieldInvalid(e,t);break}if("number"!=typeof s){console.error(`Value for ${t.rule} rule for [${e}] field should be a number. The field will be always invalid.`),this.setFieldInvalid(e,t);break}if(Number.isFinite(null==l?void 0:l.length)&&l.length>s){this.setFieldInvalid(e,t);break}break;case c.Files:{if(void 0===s)return console.error(`Value for ${t.rule} rule for [${e}] field is not defined. This field will be always invalid.`),void this.setFieldInvalid(e,t);if("object"!=typeof s)return console.error(`Value for ${t.rule} rule for [${e}] field should be an object. This field will be always invalid.`),void this.setFieldInvalid(e,t);const i=s.files;if("object"!=typeof i)return console.error(`Value for ${t.rule} rule for [${e}] field should be an object with files array. This field will be always invalid.`),void this.setFieldInvalid(e,t);const r=(e,i)=>{const t=Number.isFinite(i.minSize)&&e.size<i.minSize,r=Number.isFinite(i.maxSize)&&e.size>i.maxSize,s=Array.isArray(i.names)&&!i.names.includes(e.name),l=Array.isArray(i.extensions)&&!i.extensions.includes(e.name.split(".")[e.name.split(".").length-1]),o=Array.isArray(i.types)&&!i.types.includes(e.type);return t||r||s||l||o};if("object"==typeof l&&null!==l)for(let s=0,o=l.length;s<o;++s){const o=l.item(s);if(!o){this.setFieldInvalid(e,t);break}if(r(o,i)){this.setFieldInvalid(e,t);break}}break}default:{if("function"!=typeof t.validator)return console.error(`Validator for custom rule for [${e}] field should be a function. This field will be always invalid.`),void this.setFieldInvalid(e,t);const i=t.validator(l,this.fields);if("boolean"!=typeof i&&"function"!=typeof i&&console.error(`Validator return value for [${e}] field should be boolean or function. It will be cast to boolean.`),"function"==typeof i){if(!r){this.fields[e].asyncCheckPending=!1;const r=i();return m(r)?r.then((i=>{i||this.setFieldInvalid(e,t)})).catch((()=>{this.setFieldInvalid(e,t)})):(console.error(`Validator function for custom rule for [${e}] field should return a Promise. This field will be always invalid.`),void this.setFieldInvalid(e,t))}this.fields[e].asyncCheckPending=!0}i||this.setFieldInvalid(e,t)}}var o}}validateField(e,i=!1){var t;const r=this.fields[e];r.isValid=!0;const s=[];return[...r.rules].reverse().forEach((t=>{const l=this.validateFieldRule(e,r.elem,t,i);m(l)&&s.push(l)})),r.isValid&&this.setFieldValid(e,null==(t=r.config)?void 0:t.successMessage),Promise.allSettled(s)}revalidateField(e){if("string"!=typeof e)throw Error("Field selector is not valid. Please specify a string selector.");return this.fields[e]?new Promise((i=>{this.validateField(e,!0).finally((()=>{this.clearFieldError(e),this.clearFieldLabel(e),this.renderFieldError(e),i(!!this.fields[e].isValid)}))})):(console.error("Field not found. Check the field selector."),Promise.reject())}validateGroup(e,i){const t=[];return[...i.rules].reverse().forEach((r=>{const s=this.validateGroupRule(e,i.type,i.elems,r);m(s)&&t.push(s)})),Promise.allSettled(t)}focusInvalidField(){for(const e in this.fields){const i=this.fields[e];if(!i.isValid){setTimeout((()=>i.elem.focus()),0);break}}}afterSubmitValidation(e=!1){this.renderErrors(e),this.globalConfig.focusInvalidField&&this.focusInvalidField()}validate(e=!1){return new Promise((i=>{const t=[];Object.keys(this.fields).forEach((e=>{const i=this.validateField(e);m(i)&&t.push(i)})),Object.keys(this.groupFields).forEach((e=>{const i=this.groupFields[e],r=this.validateGroup(e,i);m(r)&&t.push(r)})),t.length?Promise.allSettled(t).then((()=>{this.afterSubmitValidation(e),i(!0)})):(this.afterSubmitValidation(e),i(!1))}))}revalidate(){return new Promise((e=>{this.validateHandler(void 0,!0).finally((()=>{this.globalConfig.focusInvalidField&&this.focusInvalidField(),e(this.isValid)}))}))}validateHandler(e,i=!1){return this.globalConfig.lockForm&&this.lockForm(),this.validate(i).finally((()=>{var i,t;this.globalConfig.lockForm&&this.unlockForm(),this.isValid?null==(i=this.onSuccessCallback)||i.call(this,e):null==(t=this.onFailCallback)||t.call(this,this.fields,this.groupFields)}))}setForm(e){this.form=e,this.form.setAttribute("novalidate","novalidate"),this.removeListener("submit",this.form,this.formSubmitHandler),this.addListener("submit",this.form,this.formSubmitHandler)}addListener(e,i,t){i.addEventListener(e,t),this.eventListeners.push({type:e,elem:i,func:t})}removeListener(e,i,t){i.removeEventListener(e,t),this.eventListeners=this.eventListeners.filter((t=>t.type!==e||t.elem!==i))}addField(e,i,t){if("string"!=typeof e)throw Error("Field selector is not valid. Please specify a string selector.");const r=this.form.querySelector(e);if(!r)throw Error(`Field with ${e} selector not found! Please check the field selector.`);if(!Array.isArray(i)||!i.length)throw Error(`Rules argument for the field [${e}] should be an array and should contain at least 1 element.`);return i.forEach((i=>{if(!("rule"in i||"validator"in i||"plugin"in i))throw Error(`Rules argument for the field [${e}] must contain at least one rule or validator property.`);if(!(i.validator||i.plugin||i.rule&&Object.values(c).includes(i.rule)))throw Error(`Rule should be one of these types: ${Object.values(c).join(", ")}. Provided value: ${i.rule}`)})),this.fields[e]={elem:r,rules:i,isValid:void 0,config:t},this.setListeners(r),this.isSubmitted&&this.validate(),this}removeField(e){if("string"!=typeof e)throw Error("Field selector is not valid. Please specify a string selector.");if(!this.fields[e])return console.error("Field not found. Check the field selector."),this;const i=this.getListenerType(this.fields[e].elem.type);return this.removeListener(i,this.fields[e].elem,this.handlerChange),this.clearErrors(),delete this.fields[e],this}removeGroup(e){if("string"!=typeof e)throw Error("Group selector is not valid. Please specify a string selector.");return this.groupFields[e]?(this.groupFields[e].elems.forEach((e=>{const i=this.getListenerType(e.type);this.removeListener(i,e,this.handlerChange)})),this.clearErrors(),delete this.groupFields[e],this):(console.error("Group not found. Check the group selector."),this)}addRequiredGroup(e,i,t,r){if("string"!=typeof e)throw Error("Group selector is not valid. Please specify a string selector.");const s=this.form.querySelector(e);if(!s)throw Error(`Group with ${e} selector not found! Please check the group selector.`);const l=s.querySelectorAll("input"),o=Array.from(l).every((e=>"radio"===e.type)),a=Array.from(l).every((e=>"checkbox"===e.type));if(!o&&!a)throw Error("Group should contain either or checkboxes or radio buttons");return this.groupFields[e]={rules:[{rule:f.Required,errorMessage:i,successMessage:r}],groupElem:s,elems:Array.from(l),type:o?"radio":"checkbox",isDirty:!1,isValid:void 0,config:t},l.forEach((e=>{this.setListeners(e)})),this}getListenerType(e){switch(e){case"checkbox":case"select-one":case"file":case"radio":return"change";default:return"input"}}setListeners(e){const i=this.getListenerType(e.type);this.removeListener(i,e,this.handlerChange),this.addListener(i,e,this.handlerChange)}clearFieldLabel(e){var i,t;null==(i=this.errorLabels[e])||i.remove(),null==(t=this.successLabels[e])||t.remove()}clearFieldError(e){var i,t,r,s;const l=this.fields[e],o=(null==(i=l.config)?void 0:i.errorFieldStyle)||this.globalConfig.errorFieldStyle;Object.keys(o).forEach((e=>{l.elem.style[e]=""}));const a=(null==(t=l.config)?void 0:t.successFieldStyle)||this.globalConfig.successFieldStyle||{};Object.keys(a).forEach((e=>{l.elem.style[e]=""})),l.elem.classList.remove((null==(r=l.config)?void 0:r.errorFieldCssClass)||this.globalConfig.errorFieldCssClass,(null==(s=l.config)?void 0:s.successFieldCssClass)||this.globalConfig.successFieldCssClass)}clearErrors(){var e,i;Object.keys(this.errorLabels).forEach((e=>this.errorLabels[e].remove())),Object.keys(this.successLabels).forEach((e=>this.successLabels[e].remove()));for(const e in this.fields)this.clearFieldError(e);for(const t in this.groupFields){const r=this.groupFields[t],s=(null==(e=r.config)?void 0:e.errorFieldStyle)||this.globalConfig.errorFieldStyle;Object.keys(s).forEach((e=>{r.elems.forEach((i=>{var t;i.style[e]="",i.classList.remove((null==(t=r.config)?void 0:t.errorFieldCssClass)||this.globalConfig.errorFieldCssClass)}))}));const l=(null==(i=r.config)?void 0:i.successFieldStyle)||this.globalConfig.successFieldStyle||{};Object.keys(l).forEach((e=>{r.elems.forEach((i=>{var t;i.style[e]="",i.classList.remove((null==(t=r.config)?void 0:t.successFieldCssClass)||this.globalConfig.successFieldCssClass)}))}))}this.tooltips=[]}isTooltip(){return!!this.globalConfig.tooltip}lockForm(){const e=this.form.querySelectorAll("input, textarea, button, select");for(let i=0,t=e.length;i<t;++i)e[i].setAttribute("disabled","disabled"),e[i].style.pointerEvents="none",e[i].style.webkitFilter="grayscale(100%)",e[i].style.filter="grayscale(100%)"}unlockForm(){const e=this.form.querySelectorAll("input, textarea, button, select");for(let i=0,t=e.length;i<t;++i)e[i].removeAttribute("disabled"),e[i].style.pointerEvents="",e[i].style.webkitFilter="",e[i].style.filter=""}renderTooltip(e,i,t){var r;const{top:s,left:l,width:o,height:a}=e.getBoundingClientRect(),n=i.getBoundingClientRect(),d=t||(null==(r=this.globalConfig.tooltip)?void 0:r.position);switch(d){case"left":i.style.top=s+a/2-n.height/2+"px",i.style.left=l-n.width-5+"px";break;case"top":i.style.top=s-n.height-5+"px",i.style.left=l+o/2-n.width/2+"px";break;case"right":i.style.top=s+a/2-n.height/2+"px",i.style.left=`${l+o+5}px`;break;case"bottom":i.style.top=`${s+a+5}px`,i.style.left=l+o/2-n.width/2+"px"}i.dataset.direction=d;return{refresh:()=>{this.renderTooltip(e,i,t)}}}createErrorLabelElem(e,i,t){const r=document.createElement("div");r.innerHTML=i;const s=this.isTooltip()?null==t?void 0:t.errorLabelStyle:(null==t?void 0:t.errorLabelStyle)||this.globalConfig.errorLabelStyle;return Object.assign(r.style,s),r.classList.add((null==t?void 0:t.errorLabelCssClass)||this.globalConfig.errorLabelCssClass,"just-validate-error-label"),this.isTooltip()&&(r.dataset.tooltip="true"),this.globalConfig.testingMode&&(r.dataset.testId=`error-label-${e}`),this.errorLabels[e]=r,r}createSuccessLabelElem(e,i,t){if(void 0===i)return null;const r=document.createElement("div");r.innerHTML=i;const s=(null==t?void 0:t.successLabelStyle)||this.globalConfig.successLabelStyle;return Object.assign(r.style,s),r.classList.add((null==t?void 0:t.successLabelCssClass)||this.globalConfig.successLabelCssClass,"just-validate-success-label"),this.globalConfig.testingMode&&(r.dataset.testId=`success-label-${e}`),this.successLabels[e]=r,r}renderErrorsContainer(e,i){const t=i||this.globalConfig.errorsContainer;if("string"==typeof t){const i=this.form.querySelector(t);if(i)return i.appendChild(e),!0;console.error(`Error container with ${t} selector not found. Errors will be rendered as usual`)}return t instanceof Element?(t.appendChild(e),!0):(void 0!==t&&console.error("Error container not found. It should be a string or existing Element. Errors will be rendered as usual"),!1)}renderGroupLabel(e,i,t,r){if(!r){if(this.renderErrorsContainer(i,t))return}e.appendChild(i)}renderFieldLabel(e,i,t,r){var s,l,o,a,n,d,u;if(!r){if(this.renderErrorsContainer(i,t))return}if("checkbox"===e.type||"radio"===e.type){const t=document.querySelector(`label[for="${e.getAttribute("id")}"]`);"label"===(null==(l=null==(s=e.parentElement)?void 0:s.tagName)?void 0:l.toLowerCase())?null==(a=null==(o=e.parentElement)?void 0:o.parentElement)||a.appendChild(i):t?null==(n=t.parentElement)||n.appendChild(i):null==(d=e.parentElement)||d.appendChild(i)}else null==(u=e.parentElement)||u.appendChild(i)}renderFieldError(e){var i,t,r,s,l,o;const a=this.fields[e];if(a.isValid){if(!a.asyncCheckPending){const r=this.createSuccessLabelElem(e,a.successMessage,a.config);r&&this.renderFieldLabel(a.elem,r,null==(i=a.config)?void 0:i.errorsContainer,!0),a.elem.classList.add((null==(t=a.config)?void 0:t.successFieldCssClass)||this.globalConfig.successFieldCssClass)}return}this.isValid=!1,a.elem.classList.add((null==(r=a.config)?void 0:r.errorFieldCssClass)||this.globalConfig.errorFieldCssClass);const n=this.createErrorLabelElem(e,a.errorMessage,a.config);this.renderFieldLabel(a.elem,n,null==(s=a.config)?void 0:s.errorsContainer),this.isTooltip()&&this.tooltips.push(this.renderTooltip(a.elem,n,null==(o=null==(l=a.config)?void 0:l.tooltip)?void 0:o.position))}renderErrors(e=!1){var i,t,r,s;if(this.isSubmitted||e){this.clearErrors(),this.isValid=!0;for(const e in this.groupFields){const l=this.groupFields[e];if(l.isValid){l.elems.forEach((e=>{var i,t;Object.assign(e.style,(null==(i=l.config)?void 0:i.successFieldStyle)||this.globalConfig.successFieldStyle),e.classList.add((null==(t=l.config)?void 0:t.successFieldCssClass)||this.globalConfig.successFieldCssClass)}));const t=this.createSuccessLabelElem(e,l.successMessage,l.config);t&&this.renderGroupLabel(l.groupElem,t,null==(i=l.config)?void 0:i.errorsContainer,!0);continue}this.isValid=!1,l.elems.forEach((e=>{var i,t;Object.assign(e.style,(null==(i=l.config)?void 0:i.errorFieldStyle)||this.globalConfig.errorFieldStyle),e.classList.add((null==(t=l.config)?void 0:t.errorFieldCssClass)||this.globalConfig.errorFieldCssClass)}));const o=this.createErrorLabelElem(e,l.errorMessage,l.config);this.renderGroupLabel(l.groupElem,o,null==(t=l.config)?void 0:t.errorsContainer),this.isTooltip()&&this.tooltips.push(this.renderTooltip(l.groupElem,o,null==(s=null==(r=l.config)?void 0:r.tooltip)?void 0:s.position))}for(const e in this.fields)this.renderFieldError(e)}}destroy(){this.eventListeners.forEach((e=>{this.removeListener(e.type,e.elem,e.func)})),Object.keys(this.customStyleTags).forEach((e=>{this.customStyleTags[e].remove()})),this.clearErrors(),this.globalConfig.lockForm&&this.unlockForm()}refresh(){this.destroy(),this.form?(this.initialize(this.form,this.globalConfig),Object.keys(this.fields).forEach((e=>{this.addField(e,[...this.fields[e].rules],this.fields[e].config)}))):console.error("Cannot initialize the library! Form is not defined")}setCurrentLocale(e){"string"==typeof e||void 0===e?(this.currentLocale=e,this.isSubmitted&&this.validate()):console.error("Current locale should be a string")}onSuccess(e){return this.onSuccessCallback=e,this}onFail(e){return this.onFailCallback=e,this}}function y(e,i){var t="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!t){if(Array.isArray(e)||(t=function(e,i){if(!e)return;if("string"==typeof e)return F(e,i);var t=Object.prototype.toString.call(e).slice(8,-1);"Object"===t&&e.constructor&&(t=e.constructor.name);if("Map"===t||"Set"===t)return Array.from(e);if("Arguments"===t||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t))return F(e,i)}(e))||i&&e&&"number"==typeof e.length){t&&(e=t);var r=0,s=function(){};return{s,n:function(){return r>=e.length?{done:!0}:{done:!1,value:e[r++]}},e:function(e){throw e},f:s}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var l,o=!0,a=!1;return{s:function(){t=t.call(e)},n:function(){var e=t.next();return o=e.done,e},e:function(e){a=!0,l=e},f:function(){try{o||null==t.return||t.return()}finally{if(a)throw l}}}}function F(e,i){(null==i||i>e.length)&&(i=e.length);for(var t=0,r=new Array(i);t<i;t++)r[t]=e[t];return r}var C,L,k,E;C=document.querySelector(".submit-button"),L=document.querySelectorAll(".front-form"),C&&C.addEventListener("click",(function(){L.forEach((function(e){var i=function(e){var i=document.querySelectorAll(".is-invalid"),t=new p(e,{errorFieldCssClass:"is-invalid",errorLabelStyle:{color:"red",fontsize:"14px"},focusInvalidField:!0,lockForm:!0,errorsContainer:"#errors-container"});return i.length>0&&t.destroy(),t.addField("#name",[{rule:"required",errorMessage:"Name is required!"},{rule:"minLength",value:3},{rule:"maxLength",value:30}]).addField("#surname",[{rule:"required",errorMessage:"Surname is required!"},{rule:"minLength",value:3},{rule:"maxLength",value:30}]).addField("#mobile_phone",[{rule:"required",errorMessage:"Mobile phone is required!"}]).addField("#email",[{rule:"required",errorMessage:"Email is required!"},{rule:"email",errorMessage:"Email is invalid!"}]),t}(e);i.onSuccess((function(i){i.preventDefault();var t,r=y(new FormData(e).entries());try{for(r.s();!(t=r.n()).done;){var s=t.value;console.log(s[0]+", "+s[1])}}catch(e){r.e(e)}finally{r.f()}})),i.onFail((function(){}))}))})),k=document.getElementById("collapse-button"),E=document.getElementById("overlay"),k.addEventListener("click",(function(){k.classList.toggle("active"),E.classList.toggle("active")}))})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./resources/js/front/desktop/renderForm.js":
+/*!**************************************************!*\
+  !*** ./resources/js/front/desktop/renderForm.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderForm": () => (/* binding */ renderForm)
+/* harmony export */ });
+/* harmony import */ var _validador_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validador.js */ "./resources/js/front/desktop/validador.js");
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
+var renderForm = function renderForm() {
+  var buttonSubmit = document.querySelector('.submit-button');
+  var forms = document.querySelectorAll('.front-form');
+
+  if (buttonSubmit) {
+    buttonSubmit.addEventListener("click", function () {
+      forms.forEach(function (form) {
+        var validate = (0,_validador_js__WEBPACK_IMPORTED_MODULE_0__.validador)(form);
+        validate.onSuccess(function (ev) {
+          ev.preventDefault();
+          var formData = new FormData(form);
+
+          var _iterator = _createForOfIteratorHelper(formData.entries()),
+              _step;
+
+          try {
+            for (_iterator.s(); !(_step = _iterator.n()).done;) {
+              var pair = _step.value;
+              console.log(pair[0] + ', ' + pair[1]);
+            }
+          } catch (err) {
+            _iterator.e(err);
+          } finally {
+            _iterator.f();
+          }
+
+          ;
+        });
+        validate.onFail(function () {});
+      });
+    });
+  }
+
+  ;
+};
+
+/***/ }),
+
+/***/ "./resources/js/front/desktop/validador.js":
+/*!*************************************************!*\
+  !*** ./resources/js/front/desktop/validador.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "validador": () => (/* binding */ validador)
+/* harmony export */ });
+/* harmony import */ var _node_modules_just_validate_dist_just_validate_es__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/just-validate/dist/just-validate.es */ "./node_modules/just-validate/dist/just-validate.es.js");
+
+var validador = function validador(form) {
+  var invalidElements = document.querySelectorAll('.is-invalid');
+  var validate = new _node_modules_just_validate_dist_just_validate_es__WEBPACK_IMPORTED_MODULE_0__["default"](form, {
+    errorFieldCssClass: 'is-invalid',
+    errorLabelStyle: {
+      color: 'red',
+      fontsize: '14px'
+    },
+    focusInvalidField: true,
+    lockForm: true,
+    errorsContainer: '#errors-container'
+  });
+
+  if (invalidElements.length > 0) {
+    validate.destroy();
+  }
+
+  ;
+  validate.addField('#name', [{
+    rule: 'required',
+    errorMessage: 'Name is required!'
+  }, {
+    rule: 'minLength',
+    value: 3
+  }, {
+    rule: 'maxLength',
+    value: 30
+  }]).addField('#surname', [{
+    rule: 'required',
+    errorMessage: 'Surname is required!'
+  }, {
+    rule: 'minLength',
+    value: 3
+  }, {
+    rule: 'maxLength',
+    value: 30
+  }]) // .addField('#address', [
+  //     {
+  //         rule: 'required',
+  //         errorMessage: 'Address is required!'
+  //     }
+  // ])    
+  // .addField('#location', [
+  //     {
+  //         rule: 'required',
+  //         errorMessage: 'Location is required!'
+  //     }
+  // ]) 
+  // .addField('#postal_code', [
+  //     {
+  //         rule: 'required',
+  //         errorMessage: 'Postal code is required!'
+  //     }
+  // ])
+  .addField('#mobile_phone', [{
+    rule: 'required',
+    errorMessage: 'Mobile phone is required!'
+  }]).addField('#email', [{
+    rule: 'required',
+    errorMessage: 'Email is required!'
+  }, {
+    rule: 'email',
+    errorMessage: 'Email is invalid!'
+  }]); // .addRequiredGroup(
+  //     '#checkbox_group',
+  //     'You should select at least one communication channel',
+  //     {
+  //         errorsContainer: '#errors-container',
+  //     }
+  // );                 
+
+  return validate;
+};
+
+/***/ }),
+
+/***/ "./resources/js/front/mobile/menu.js":
+/*!*******************************************!*\
+  !*** ./resources/js/front/mobile/menu.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderMenu": () => (/* binding */ renderMenu)
+/* harmony export */ });
+var renderMenu = function renderMenu() {
+  var hamburger = document.getElementById("collapse-button");
+  var overlay = document.getElementById("overlay");
+  hamburger.addEventListener("click", function () {
+    hamburger.classList.toggle("active");
+    overlay.classList.toggle("active");
+  });
+};
+
+/***/ }),
+
+/***/ "./node_modules/just-validate/dist/just-validate.es.js":
+/*!*************************************************************!*\
+  !*** ./node_modules/just-validate/dist/just-validate.es.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ JustValidate)
+/* harmony export */ });
+var __defProp = Object.defineProperty;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+const EMAIL_REGEXP = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const NUMBER_REGEXP = /^[0-9]+$/;
+const PASSWORD_REGEXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+const STRONG_PASSWORD_REGEXP = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+const isEmpty = (value) => {
+  let newVal = value;
+  if (typeof value === "string") {
+    newVal = value.trim();
+  }
+  return !newVal;
+};
+const isEmail = (value) => {
+  return EMAIL_REGEXP.test(value);
+};
+const isLengthMoreThanMax = (value, len) => {
+  return value.length > len;
+};
+const isLengthLessThanMin = (value, len) => {
+  return value.length < len;
+};
+const isNumber = (value) => {
+  return NUMBER_REGEXP.test(value);
+};
+const isPassword = (value) => {
+  return PASSWORD_REGEXP.test(value);
+};
+const isStrongPassword = (value) => {
+  return STRONG_PASSWORD_REGEXP.test(value);
+};
+const isNumberMoreThanMax = (value, len) => {
+  return value > len;
+};
+const isNumberLessThanMin = (value, len) => {
+  return value < len;
+};
+var Rules;
+(function(Rules2) {
+  Rules2["Required"] = "required";
+  Rules2["Email"] = "email";
+  Rules2["MinLength"] = "minLength";
+  Rules2["MaxLength"] = "maxLength";
+  Rules2["Password"] = "password";
+  Rules2["Number"] = "number";
+  Rules2["MaxNumber"] = "maxNumber";
+  Rules2["MinNumber"] = "minNumber";
+  Rules2["StrongPassword"] = "strongPassword";
+  Rules2["CustomRegexp"] = "customRegexp";
+  Rules2["MinFilesCount"] = "minFilesCount";
+  Rules2["MaxFilesCount"] = "maxFilesCount";
+  Rules2["Files"] = "files";
+})(Rules || (Rules = {}));
+var GroupRules;
+(function(GroupRules2) {
+  GroupRules2["Required"] = "required";
+})(GroupRules || (GroupRules = {}));
+var CustomStyleTagIds;
+(function(CustomStyleTagIds2) {
+  CustomStyleTagIds2["Label"] = "label";
+  CustomStyleTagIds2["LabelArrow"] = "labelArrow";
+})(CustomStyleTagIds || (CustomStyleTagIds = {}));
+const getDefaultFieldMessage = (rule, ruleValue) => {
+  switch (rule) {
+    case Rules.Required:
+      return "The field is required";
+    case Rules.Email:
+      return "Email has invalid format";
+    case Rules.MaxLength:
+      return "The field must contain a maximum of :value characters".replace(":value", String(ruleValue));
+    case Rules.MinLength:
+      return "The field must contain a minimum of :value characters".replace(":value", String(ruleValue));
+    case Rules.Password:
+      return "Password must contain minimum eight characters, at least one letter and one number";
+    case Rules.Number:
+      return "Value should be a number";
+    case Rules.StrongPassword:
+      return "Password should contain minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character";
+    case Rules.MaxNumber:
+      return "Number should be less or equal than :value".replace(":value", String(ruleValue));
+    case Rules.MinNumber:
+      return "Number should be more or equal than :value".replace(":value", String(ruleValue));
+    case Rules.MinFilesCount:
+      return "Files count should be more or equal than :value".replace(":value", String(ruleValue));
+    case Rules.MaxFilesCount:
+      return "Files count should be less or equal than :value".replace(":value", String(ruleValue));
+    case Rules.Files:
+      return "Uploaded files have one or several invalid properties (extension/size/type etc)";
+    default:
+      return "Value is incorrect";
+  }
+};
+const getDefaultGroupMessage = (rule) => {
+  switch (rule) {
+    case GroupRules.Required:
+      return "The field is required";
+    default:
+      return "Group is incorrect";
+  }
+};
+const isPromise = (val) => !!val && typeof val.then === "function";
+const errorLabelCss = `.just-validate-error-label[data-tooltip=true]{position:fixed;padding:4px 8px;background:#423f3f;color:#fff;white-space:nowrap;z-index:10;border-radius:4px;transform:translateY(-5px)}.just-validate-error-label[data-tooltip=true]:before{content:'';width:0;height:0;border-left:solid 5px transparent;border-right:solid 5px transparent;border-bottom:solid 5px #423f3f;position:absolute;z-index:3;display:block;bottom:-5px;transform:rotate(180deg);left:calc(50% - 5px)}.just-validate-error-label[data-tooltip=true][data-direction=left]{transform:translateX(-5px)}.just-validate-error-label[data-tooltip=true][data-direction=left]:before{right:-7px;bottom:auto;left:auto;top:calc(50% - 2px);transform:rotate(90deg)}.just-validate-error-label[data-tooltip=true][data-direction=right]{transform:translateX(5px)}.just-validate-error-label[data-tooltip=true][data-direction=right]:before{right:auto;bottom:auto;left:-7px;top:calc(50% - 2px);transform:rotate(-90deg)}.just-validate-error-label[data-tooltip=true][data-direction=bottom]{transform:translateY(5px)}.just-validate-error-label[data-tooltip=true][data-direction=bottom]:before{right:auto;bottom:auto;left:calc(50% - 5px);top:-5px;transform:rotate(0)}`;
+const TOOLTIP_ARROW_HEIGHT = 5;
+const defaultGlobalConfig = {
+  errorFieldStyle: {
+    color: "#b81111",
+    border: "1px solid #B81111"
+  },
+  errorFieldCssClass: "just-validate-error-field",
+  successFieldCssClass: "just-validate-success-field",
+  errorLabelStyle: {
+    color: "#b81111"
+  },
+  errorLabelCssClass: "just-validate-error-label",
+  successLabelCssClass: "just-validate-success-label",
+  focusInvalidField: true,
+  lockForm: true,
+  testingMode: false
+};
+class JustValidate {
+  constructor(form, globalConfig, dictLocale) {
+    __publicField(this, "form", null);
+    __publicField(this, "fields", {});
+    __publicField(this, "groupFields", {});
+    __publicField(this, "errors", {});
+    __publicField(this, "isValid", false);
+    __publicField(this, "isSubmitted", false);
+    __publicField(this, "globalConfig", defaultGlobalConfig);
+    __publicField(this, "errorLabels", {});
+    __publicField(this, "successLabels", {});
+    __publicField(this, "eventListeners", []);
+    __publicField(this, "dictLocale", []);
+    __publicField(this, "currentLocale");
+    __publicField(this, "customStyleTags", {});
+    __publicField(this, "onSuccessCallback");
+    __publicField(this, "onFailCallback");
+    __publicField(this, "tooltips", []);
+    __publicField(this, "lastScrollPosition");
+    __publicField(this, "isScrollTick");
+    __publicField(this, "refreshAllTooltips", () => {
+      this.tooltips.forEach((item) => {
+        item.refresh();
+      });
+    });
+    __publicField(this, "handleDocumentScroll", () => {
+      this.lastScrollPosition = window.scrollY;
+      if (!this.isScrollTick) {
+        window.requestAnimationFrame(() => {
+          this.refreshAllTooltips();
+          this.isScrollTick = false;
+        });
+        this.isScrollTick = true;
+      }
+    });
+    __publicField(this, "formSubmitHandler", (ev) => {
+      ev.preventDefault();
+      this.isSubmitted = true;
+      this.validateHandler(ev);
+    });
+    __publicField(this, "handleFieldChange", (target) => {
+      let currentFieldName;
+      for (const fieldName in this.fields) {
+        const field = this.fields[fieldName];
+        if (field.elem === target) {
+          currentFieldName = fieldName;
+          break;
+        }
+      }
+      if (!currentFieldName) {
+        return;
+      }
+      this.validateField(currentFieldName, true);
+    });
+    __publicField(this, "handleGroupChange", (target) => {
+      let currentGroup;
+      let currentGroupName;
+      for (const groupName in this.groupFields) {
+        const group = this.groupFields[groupName];
+        if (group.elems.find((elem) => elem === target)) {
+          currentGroup = group;
+          currentGroupName = groupName;
+          break;
+        }
+      }
+      if (!currentGroup || !currentGroupName) {
+        return;
+      }
+      this.validateGroup(currentGroupName, currentGroup);
+    });
+    __publicField(this, "handlerChange", (ev) => {
+      if (!ev.target) {
+        return;
+      }
+      this.handleFieldChange(ev.target);
+      this.handleGroupChange(ev.target);
+      this.renderErrors();
+    });
+    this.initialize(form, globalConfig, dictLocale);
+  }
+  initialize(form, globalConfig, dictLocale) {
+    this.form = null;
+    this.errors = {};
+    this.isValid = false;
+    this.isSubmitted = false;
+    this.globalConfig = defaultGlobalConfig;
+    this.errorLabels = {};
+    this.successLabels = {};
+    this.eventListeners = [];
+    this.customStyleTags = {};
+    this.tooltips = [];
+    if (typeof form === "string") {
+      const elem = document.querySelector(form);
+      if (!elem) {
+        throw Error(`Form with ${form} selector not found! Please check the form selector`);
+      }
+      this.setForm(elem);
+    } else if (form instanceof HTMLFormElement) {
+      this.setForm(form);
+    } else {
+      throw Error(`Form selector is not valid. Please specify a string selector or a DOM element.`);
+    }
+    this.globalConfig = __spreadValues(__spreadValues({}, defaultGlobalConfig), globalConfig);
+    if (dictLocale) {
+      this.dictLocale = dictLocale;
+    }
+    if (this.isTooltip()) {
+      const styleTag = document.createElement("style");
+      styleTag.textContent = errorLabelCss;
+      this.customStyleTags[CustomStyleTagIds.Label] = document.head.appendChild(styleTag);
+      this.addListener("scroll", document, this.handleDocumentScroll);
+    }
+  }
+  getLocalisedString(str) {
+    var _a;
+    if (!this.currentLocale || !this.dictLocale.length) {
+      return str;
+    }
+    const localisedStr = (_a = this.dictLocale.find((item) => item.key === str)) == null ? void 0 : _a.dict[this.currentLocale];
+    return localisedStr || str;
+  }
+  getFieldErrorMessage(fieldRule, elem) {
+    const msg = typeof fieldRule.errorMessage === "function" ? fieldRule.errorMessage(this.getElemValue(elem), this.fields) : fieldRule.errorMessage;
+    return this.getLocalisedString(msg) || getDefaultFieldMessage(fieldRule.rule, fieldRule.value);
+  }
+  getFieldSuccessMessage(successMessage, elem) {
+    const msg = typeof successMessage === "function" ? successMessage(this.getElemValue(elem), this.fields) : successMessage;
+    return this.getLocalisedString(msg);
+  }
+  getGroupErrorMessage(groupRule) {
+    return this.getLocalisedString(groupRule.errorMessage) || getDefaultGroupMessage(groupRule.rule);
+  }
+  getGroupSuccessMessage(groupRule) {
+    return this.getLocalisedString(groupRule.successMessage);
+  }
+  setFieldInvalid(field, fieldRule) {
+    this.fields[field].isValid = false;
+    this.fields[field].errorMessage = this.getFieldErrorMessage(fieldRule, this.fields[field].elem);
+  }
+  setFieldValid(field, successMessage) {
+    this.fields[field].isValid = true;
+    if (successMessage !== void 0) {
+      this.fields[field].successMessage = this.getFieldSuccessMessage(successMessage, this.fields[field].elem);
+    }
+  }
+  setGroupInvalid(groupName, groupRule) {
+    this.groupFields[groupName].isValid = false;
+    this.groupFields[groupName].errorMessage = this.getGroupErrorMessage(groupRule);
+  }
+  setGroupValid(groupName, groupRule) {
+    this.groupFields[groupName].isValid = true;
+    this.groupFields[groupName].successMessage = this.getGroupSuccessMessage(groupRule);
+  }
+  getElemValue(elem) {
+    switch (elem.type) {
+      case "checkbox":
+        return elem.checked;
+      case "file":
+        return elem.files;
+      default:
+        return elem.value;
+    }
+  }
+  validateGroupRule(groupName, type, elems, groupRule) {
+    switch (groupRule.rule) {
+      case GroupRules.Required: {
+        if (type === "radio" || type === "checkbox") {
+          if (elems.every((elem) => !elem.checked)) {
+            this.setGroupInvalid(groupName, groupRule);
+          } else {
+            this.setGroupValid(groupName, groupRule);
+          }
+        }
+      }
+    }
+  }
+  validateFieldRule(field, elem, fieldRule, afterInputChanged = false) {
+    const ruleValue = fieldRule.value;
+    const elemValue = this.getElemValue(elem);
+    if (fieldRule.plugin) {
+      const result = fieldRule.plugin(elemValue, this.fields);
+      if (!result) {
+        this.setFieldInvalid(field, fieldRule);
+      }
+      return;
+    }
+    switch (fieldRule.rule) {
+      case Rules.Required: {
+        if (isEmpty(elemValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.Email: {
+        if (typeof elemValue !== "string") {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (!isEmail(elemValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.MaxLength: {
+        if (ruleValue === void 0) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof ruleValue !== "number") {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] should be a number. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof elemValue !== "string") {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (elemValue === "") {
+          break;
+        }
+        if (isLengthMoreThanMax(elemValue, ruleValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.MinLength: {
+        if (ruleValue === void 0) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof ruleValue !== "number") {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] should be a number. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof elemValue !== "string") {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (elemValue === "") {
+          break;
+        }
+        if (isLengthLessThanMin(elemValue, ruleValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.Password: {
+        if (typeof elemValue !== "string") {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (elemValue === "") {
+          break;
+        }
+        if (!isPassword(elemValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.StrongPassword: {
+        if (typeof elemValue !== "string") {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (elemValue === "") {
+          break;
+        }
+        if (!isStrongPassword(elemValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.Number: {
+        if (typeof elemValue !== "string") {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (elemValue === "") {
+          break;
+        }
+        if (!isNumber(elemValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.MaxNumber: {
+        if (ruleValue === void 0) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof ruleValue !== "number") {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be a number. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof elemValue !== "string") {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (elemValue === "") {
+          break;
+        }
+        const num = +elemValue;
+        if (Number.isNaN(num) || isNumberMoreThanMax(num, ruleValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.MinNumber: {
+        if (ruleValue === void 0) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof ruleValue !== "number") {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be a number. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof elemValue !== "string") {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (elemValue === "") {
+          break;
+        }
+        const num = +elemValue;
+        if (Number.isNaN(num) || isNumberLessThanMin(num, ruleValue)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.CustomRegexp: {
+        if (ruleValue === void 0) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. This field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          return;
+        }
+        let regexp;
+        try {
+          regexp = new RegExp(ruleValue);
+        } catch (e) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] should be a valid regexp. This field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        const str = String(elemValue);
+        if (str !== "" && !regexp.test(str)) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+        break;
+      }
+      case Rules.MinFilesCount: {
+        if (ruleValue === void 0) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. This field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof ruleValue !== "number") {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be a number. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (Number.isFinite(elemValue == null ? void 0 : elemValue.length) && elemValue.length < ruleValue) {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        break;
+      }
+      case Rules.MaxFilesCount: {
+        if (ruleValue === void 0) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. This field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (typeof ruleValue !== "number") {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be a number. The field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        if (Number.isFinite(elemValue == null ? void 0 : elemValue.length) && elemValue.length > ruleValue) {
+          this.setFieldInvalid(field, fieldRule);
+          break;
+        }
+        break;
+      }
+      case Rules.Files: {
+        if (ruleValue === void 0) {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field is not defined. This field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          return;
+        }
+        if (typeof ruleValue !== "object") {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be an object. This field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          return;
+        }
+        const filesConfig = ruleValue.files;
+        if (typeof filesConfig !== "object") {
+          console.error(`Value for ${fieldRule.rule} rule for [${field}] field should be an object with files array. This field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          return;
+        }
+        const isFilePropsInvalid = (file, fileConfig) => {
+          const minSizeInvalid = Number.isFinite(fileConfig.minSize) && file.size < fileConfig.minSize;
+          const maxSizeInvalid = Number.isFinite(fileConfig.maxSize) && file.size > fileConfig.maxSize;
+          const nameInvalid = Array.isArray(fileConfig.names) && !fileConfig.names.includes(file.name);
+          const extInvalid = Array.isArray(fileConfig.extensions) && !fileConfig.extensions.includes(file.name.split(".")[file.name.split(".").length - 1]);
+          const typeInvalid = Array.isArray(fileConfig.types) && !fileConfig.types.includes(file.type);
+          return minSizeInvalid || maxSizeInvalid || nameInvalid || extInvalid || typeInvalid;
+        };
+        if (typeof elemValue === "object" && elemValue !== null) {
+          for (let fileIdx = 0, len = elemValue.length; fileIdx < len; ++fileIdx) {
+            const file = elemValue.item(fileIdx);
+            if (!file) {
+              this.setFieldInvalid(field, fieldRule);
+              break;
+            }
+            const filesInvalid = isFilePropsInvalid(file, filesConfig);
+            if (filesInvalid) {
+              this.setFieldInvalid(field, fieldRule);
+              break;
+            }
+          }
+        }
+        break;
+      }
+      default: {
+        if (typeof fieldRule.validator !== "function") {
+          console.error(`Validator for custom rule for [${field}] field should be a function. This field will be always invalid.`);
+          this.setFieldInvalid(field, fieldRule);
+          return;
+        }
+        const result = fieldRule.validator(elemValue, this.fields);
+        if (typeof result !== "boolean" && typeof result !== "function") {
+          console.error(`Validator return value for [${field}] field should be boolean or function. It will be cast to boolean.`);
+        }
+        if (typeof result === "function") {
+          if (afterInputChanged) {
+            this.fields[field].asyncCheckPending = true;
+          } else {
+            this.fields[field].asyncCheckPending = false;
+            const promise = result();
+            if (!isPromise(promise)) {
+              console.error(`Validator function for custom rule for [${field}] field should return a Promise. This field will be always invalid.`);
+              this.setFieldInvalid(field, fieldRule);
+              return;
+            }
+            return promise.then((resp) => {
+              if (!resp) {
+                this.setFieldInvalid(field, fieldRule);
+              }
+            }).catch(() => {
+              this.setFieldInvalid(field, fieldRule);
+            });
+          }
+        }
+        if (!result) {
+          this.setFieldInvalid(field, fieldRule);
+        }
+      }
+    }
+  }
+  validateField(fieldName, afterInputChanged = false) {
+    var _a;
+    const field = this.fields[fieldName];
+    field.isValid = true;
+    const promises = [];
+    [...field.rules].reverse().forEach((rule) => {
+      const res = this.validateFieldRule(fieldName, field.elem, rule, afterInputChanged);
+      if (isPromise(res)) {
+        promises.push(res);
+      }
+    });
+    if (field.isValid) {
+      this.setFieldValid(fieldName, (_a = field.config) == null ? void 0 : _a.successMessage);
+    }
+    return Promise.allSettled(promises);
+  }
+  revalidateField(field) {
+    if (typeof field !== "string") {
+      throw Error(`Field selector is not valid. Please specify a string selector.`);
+    }
+    if (!this.fields[field]) {
+      console.error(`Field not found. Check the field selector.`);
+      return Promise.reject();
+    }
+    return new Promise((resolve) => {
+      this.validateField(field, true).finally(() => {
+        this.clearFieldError(field);
+        this.clearFieldLabel(field);
+        this.renderFieldError(field);
+        resolve(!!this.fields[field].isValid);
+      });
+    });
+  }
+  validateGroup(groupName, group) {
+    const promises = [];
+    [...group.rules].reverse().forEach((rule) => {
+      const res = this.validateGroupRule(groupName, group.type, group.elems, rule);
+      if (isPromise(res)) {
+        promises.push(res);
+      }
+    });
+    return Promise.allSettled(promises);
+  }
+  focusInvalidField() {
+    for (const fieldName in this.fields) {
+      const field = this.fields[fieldName];
+      if (!field.isValid) {
+        setTimeout(() => field.elem.focus(), 0);
+        break;
+      }
+    }
+  }
+  afterSubmitValidation(forceRevalidation = false) {
+    this.renderErrors(forceRevalidation);
+    if (this.globalConfig.focusInvalidField) {
+      this.focusInvalidField();
+    }
+  }
+  validate(forceRevalidation = false) {
+    return new Promise((resolve) => {
+      const promises = [];
+      Object.keys(this.fields).forEach((fieldName) => {
+        const promise = this.validateField(fieldName);
+        if (isPromise(promise)) {
+          promises.push(promise);
+        }
+      });
+      Object.keys(this.groupFields).forEach((groupName) => {
+        const group = this.groupFields[groupName];
+        const promise = this.validateGroup(groupName, group);
+        if (isPromise(promise)) {
+          promises.push(promise);
+        }
+      });
+      if (promises.length) {
+        Promise.allSettled(promises).then(() => {
+          this.afterSubmitValidation(forceRevalidation);
+          resolve(true);
+        });
+      } else {
+        this.afterSubmitValidation(forceRevalidation);
+        resolve(false);
+      }
+    });
+  }
+  revalidate() {
+    return new Promise((resolve) => {
+      this.validateHandler(void 0, true).finally(() => {
+        if (this.globalConfig.focusInvalidField) {
+          this.focusInvalidField();
+        }
+        resolve(this.isValid);
+      });
+    });
+  }
+  validateHandler(ev, forceRevalidation = false) {
+    if (this.globalConfig.lockForm) {
+      this.lockForm();
+    }
+    return this.validate(forceRevalidation).finally(() => {
+      var _a, _b;
+      if (this.globalConfig.lockForm) {
+        this.unlockForm();
+      }
+      if (this.isValid) {
+        (_a = this.onSuccessCallback) == null ? void 0 : _a.call(this, ev);
+      } else {
+        (_b = this.onFailCallback) == null ? void 0 : _b.call(this, this.fields, this.groupFields);
+      }
+    });
+  }
+  setForm(form) {
+    this.form = form;
+    this.form.setAttribute("novalidate", "novalidate");
+    this.removeListener("submit", this.form, this.formSubmitHandler);
+    this.addListener("submit", this.form, this.formSubmitHandler);
+  }
+  addListener(type, elem, handler) {
+    elem.addEventListener(type, handler);
+    this.eventListeners.push({ type, elem, func: handler });
+  }
+  removeListener(type, elem, handler) {
+    elem.removeEventListener(type, handler);
+    this.eventListeners = this.eventListeners.filter((item) => item.type !== type || item.elem !== elem);
+  }
+  addField(field, rules, config) {
+    if (typeof field !== "string") {
+      throw Error(`Field selector is not valid. Please specify a string selector.`);
+    }
+    const elem = this.form.querySelector(field);
+    if (!elem) {
+      throw Error(`Field with ${field} selector not found! Please check the field selector.`);
+    }
+    if (!Array.isArray(rules) || !rules.length) {
+      throw Error(`Rules argument for the field [${field}] should be an array and should contain at least 1 element.`);
+    }
+    rules.forEach((item) => {
+      if (!("rule" in item || "validator" in item || "plugin" in item)) {
+        throw Error(`Rules argument for the field [${field}] must contain at least one rule or validator property.`);
+      }
+      if (!item.validator && !item.plugin && (!item.rule || !Object.values(Rules).includes(item.rule))) {
+        throw Error(`Rule should be one of these types: ${Object.values(Rules).join(", ")}. Provided value: ${item.rule}`);
+      }
+    });
+    this.fields[field] = {
+      elem,
+      rules,
+      isValid: void 0,
+      config
+    };
+    this.setListeners(elem);
+    if (this.isSubmitted) {
+      this.validate();
+    }
+    return this;
+  }
+  removeField(field) {
+    if (typeof field !== "string") {
+      throw Error(`Field selector is not valid. Please specify a string selector.`);
+    }
+    if (!this.fields[field]) {
+      console.error(`Field not found. Check the field selector.`);
+      return this;
+    }
+    const type = this.getListenerType(this.fields[field].elem.type);
+    this.removeListener(type, this.fields[field].elem, this.handlerChange);
+    this.clearErrors();
+    delete this.fields[field];
+    return this;
+  }
+  removeGroup(group) {
+    if (typeof group !== "string") {
+      throw Error(`Group selector is not valid. Please specify a string selector.`);
+    }
+    if (!this.groupFields[group]) {
+      console.error(`Group not found. Check the group selector.`);
+      return this;
+    }
+    this.groupFields[group].elems.forEach((elem) => {
+      const type = this.getListenerType(elem.type);
+      this.removeListener(type, elem, this.handlerChange);
+    });
+    this.clearErrors();
+    delete this.groupFields[group];
+    return this;
+  }
+  addRequiredGroup(groupField, errorMessage, config, successMessage) {
+    if (typeof groupField !== "string") {
+      throw Error(`Group selector is not valid. Please specify a string selector.`);
+    }
+    const elem = this.form.querySelector(groupField);
+    if (!elem) {
+      throw Error(`Group with ${groupField} selector not found! Please check the group selector.`);
+    }
+    const inputs = elem.querySelectorAll("input");
+    const isRadio = Array.from(inputs).every((input) => input.type === "radio");
+    const isCheckbox = Array.from(inputs).every((input) => input.type === "checkbox");
+    if (!isRadio && !isCheckbox) {
+      throw Error(`Group should contain either or checkboxes or radio buttons`);
+    }
+    this.groupFields[groupField] = {
+      rules: [
+        {
+          rule: GroupRules.Required,
+          errorMessage,
+          successMessage
+        }
+      ],
+      groupElem: elem,
+      elems: Array.from(inputs),
+      type: isRadio ? "radio" : "checkbox",
+      isDirty: false,
+      isValid: void 0,
+      config
+    };
+    inputs.forEach((input) => {
+      this.setListeners(input);
+    });
+    return this;
+  }
+  getListenerType(type) {
+    switch (type) {
+      case "checkbox":
+      case "select-one":
+      case "file":
+      case "radio": {
+        return "change";
+      }
+      default: {
+        return "input";
+      }
+    }
+  }
+  setListeners(elem) {
+    const type = this.getListenerType(elem.type);
+    this.removeListener(type, elem, this.handlerChange);
+    this.addListener(type, elem, this.handlerChange);
+  }
+  clearFieldLabel(fieldName) {
+    var _a, _b;
+    (_a = this.errorLabels[fieldName]) == null ? void 0 : _a.remove();
+    (_b = this.successLabels[fieldName]) == null ? void 0 : _b.remove();
+  }
+  clearFieldError(fieldName) {
+    var _a, _b, _c, _d;
+    const field = this.fields[fieldName];
+    const errorStyle = ((_a = field.config) == null ? void 0 : _a.errorFieldStyle) || this.globalConfig.errorFieldStyle;
+    Object.keys(errorStyle).forEach((key) => {
+      field.elem.style[key] = "";
+    });
+    const successStyle = ((_b = field.config) == null ? void 0 : _b.successFieldStyle) || this.globalConfig.successFieldStyle || {};
+    Object.keys(successStyle).forEach((key) => {
+      field.elem.style[key] = "";
+    });
+    field.elem.classList.remove(((_c = field.config) == null ? void 0 : _c.errorFieldCssClass) || this.globalConfig.errorFieldCssClass, ((_d = field.config) == null ? void 0 : _d.successFieldCssClass) || this.globalConfig.successFieldCssClass);
+  }
+  clearErrors() {
+    var _a, _b;
+    Object.keys(this.errorLabels).forEach((key) => this.errorLabels[key].remove());
+    Object.keys(this.successLabels).forEach((key) => this.successLabels[key].remove());
+    for (const fieldName in this.fields) {
+      this.clearFieldError(fieldName);
+    }
+    for (const groupName in this.groupFields) {
+      const group = this.groupFields[groupName];
+      const errorStyle = ((_a = group.config) == null ? void 0 : _a.errorFieldStyle) || this.globalConfig.errorFieldStyle;
+      Object.keys(errorStyle).forEach((key) => {
+        group.elems.forEach((elem) => {
+          var _a2;
+          elem.style[key] = "";
+          elem.classList.remove(((_a2 = group.config) == null ? void 0 : _a2.errorFieldCssClass) || this.globalConfig.errorFieldCssClass);
+        });
+      });
+      const successStyle = ((_b = group.config) == null ? void 0 : _b.successFieldStyle) || this.globalConfig.successFieldStyle || {};
+      Object.keys(successStyle).forEach((key) => {
+        group.elems.forEach((elem) => {
+          var _a2;
+          elem.style[key] = "";
+          elem.classList.remove(((_a2 = group.config) == null ? void 0 : _a2.successFieldCssClass) || this.globalConfig.successFieldCssClass);
+        });
+      });
+    }
+    this.tooltips = [];
+  }
+  isTooltip() {
+    return !!this.globalConfig.tooltip;
+  }
+  lockForm() {
+    const elems = this.form.querySelectorAll("input, textarea, button, select");
+    for (let i = 0, len = elems.length; i < len; ++i) {
+      elems[i].setAttribute("disabled", "disabled");
+      elems[i].style.pointerEvents = "none";
+      elems[i].style.webkitFilter = "grayscale(100%)";
+      elems[i].style.filter = "grayscale(100%)";
+    }
+  }
+  unlockForm() {
+    const elems = this.form.querySelectorAll("input, textarea, button, select");
+    for (let i = 0, len = elems.length; i < len; ++i) {
+      elems[i].removeAttribute("disabled");
+      elems[i].style.pointerEvents = "";
+      elems[i].style.webkitFilter = "";
+      elems[i].style.filter = "";
+    }
+  }
+  renderTooltip(elem, errorLabel, position) {
+    var _a;
+    const { top, left, width, height } = elem.getBoundingClientRect();
+    const errorLabelRect = errorLabel.getBoundingClientRect();
+    const pos = position || ((_a = this.globalConfig.tooltip) == null ? void 0 : _a.position);
+    switch (pos) {
+      case "left": {
+        errorLabel.style.top = `${top + height / 2 - errorLabelRect.height / 2}px`;
+        errorLabel.style.left = `${left - errorLabelRect.width - TOOLTIP_ARROW_HEIGHT}px`;
+        break;
+      }
+      case "top": {
+        errorLabel.style.top = `${top - errorLabelRect.height - TOOLTIP_ARROW_HEIGHT}px`;
+        errorLabel.style.left = `${left + width / 2 - errorLabelRect.width / 2}px`;
+        break;
+      }
+      case "right": {
+        errorLabel.style.top = `${top + height / 2 - errorLabelRect.height / 2}px`;
+        errorLabel.style.left = `${left + width + TOOLTIP_ARROW_HEIGHT}px`;
+        break;
+      }
+      case "bottom": {
+        errorLabel.style.top = `${top + height + TOOLTIP_ARROW_HEIGHT}px`;
+        errorLabel.style.left = `${left + width / 2 - errorLabelRect.width / 2}px`;
+        break;
+      }
+    }
+    errorLabel.dataset.direction = pos;
+    const refresh = () => {
+      this.renderTooltip(elem, errorLabel, position);
+    };
+    return {
+      refresh
+    };
+  }
+  createErrorLabelElem(name, errorMessage, config) {
+    const errorLabel = document.createElement("div");
+    errorLabel.innerHTML = errorMessage;
+    const customErrorLabelStyle = this.isTooltip() ? config == null ? void 0 : config.errorLabelStyle : (config == null ? void 0 : config.errorLabelStyle) || this.globalConfig.errorLabelStyle;
+    Object.assign(errorLabel.style, customErrorLabelStyle);
+    errorLabel.classList.add((config == null ? void 0 : config.errorLabelCssClass) || this.globalConfig.errorLabelCssClass, "just-validate-error-label");
+    if (this.isTooltip()) {
+      errorLabel.dataset.tooltip = "true";
+    }
+    if (this.globalConfig.testingMode) {
+      errorLabel.dataset.testId = `error-label-${name}`;
+    }
+    this.errorLabels[name] = errorLabel;
+    return errorLabel;
+  }
+  createSuccessLabelElem(name, successMessage, config) {
+    if (successMessage === void 0) {
+      return null;
+    }
+    const successLabel = document.createElement("div");
+    successLabel.innerHTML = successMessage;
+    const customSuccessLabelStyle = (config == null ? void 0 : config.successLabelStyle) || this.globalConfig.successLabelStyle;
+    Object.assign(successLabel.style, customSuccessLabelStyle);
+    successLabel.classList.add((config == null ? void 0 : config.successLabelCssClass) || this.globalConfig.successLabelCssClass, "just-validate-success-label");
+    if (this.globalConfig.testingMode) {
+      successLabel.dataset.testId = `success-label-${name}`;
+    }
+    this.successLabels[name] = successLabel;
+    return successLabel;
+  }
+  renderErrorsContainer(label, errorsContainer) {
+    const container = errorsContainer || this.globalConfig.errorsContainer;
+    if (typeof container === "string") {
+      const elem = this.form.querySelector(container);
+      if (elem) {
+        elem.appendChild(label);
+        return true;
+      } else {
+        console.error(`Error container with ${container} selector not found. Errors will be rendered as usual`);
+      }
+    }
+    if (container instanceof Element) {
+      container.appendChild(label);
+      return true;
+    }
+    if (container !== void 0) {
+      console.error(`Error container not found. It should be a string or existing Element. Errors will be rendered as usual`);
+    }
+    return false;
+  }
+  renderGroupLabel(elem, label, errorsContainer, isSuccess) {
+    if (!isSuccess) {
+      const renderedInErrorsContainer = this.renderErrorsContainer(label, errorsContainer);
+      if (renderedInErrorsContainer) {
+        return;
+      }
+    }
+    elem.appendChild(label);
+  }
+  renderFieldLabel(elem, label, errorsContainer, isSuccess) {
+    var _a, _b, _c, _d, _e, _f, _g;
+    if (!isSuccess) {
+      const renderedInErrorsContainer = this.renderErrorsContainer(label, errorsContainer);
+      if (renderedInErrorsContainer) {
+        return;
+      }
+    }
+    if (elem.type === "checkbox" || elem.type === "radio") {
+      const labelElem = document.querySelector(`label[for="${elem.getAttribute("id")}"]`);
+      if (((_b = (_a = elem.parentElement) == null ? void 0 : _a.tagName) == null ? void 0 : _b.toLowerCase()) === "label") {
+        (_d = (_c = elem.parentElement) == null ? void 0 : _c.parentElement) == null ? void 0 : _d.appendChild(label);
+      } else if (labelElem) {
+        (_e = labelElem.parentElement) == null ? void 0 : _e.appendChild(label);
+      } else {
+        (_f = elem.parentElement) == null ? void 0 : _f.appendChild(label);
+      }
+    } else {
+      (_g = elem.parentElement) == null ? void 0 : _g.appendChild(label);
+    }
+  }
+  renderFieldError(fieldName) {
+    var _a, _b, _c, _d, _e, _f;
+    const field = this.fields[fieldName];
+    if (field.isValid) {
+      if (!field.asyncCheckPending) {
+        const successLabel = this.createSuccessLabelElem(fieldName, field.successMessage, field.config);
+        if (successLabel) {
+          this.renderFieldLabel(field.elem, successLabel, (_a = field.config) == null ? void 0 : _a.errorsContainer, true);
+        }
+        field.elem.classList.add(((_b = field.config) == null ? void 0 : _b.successFieldCssClass) || this.globalConfig.successFieldCssClass);
+      }
+      return;
+    }
+    this.isValid = false;
+    field.elem.classList.add(((_c = field.config) == null ? void 0 : _c.errorFieldCssClass) || this.globalConfig.errorFieldCssClass);
+    const errorLabel = this.createErrorLabelElem(fieldName, field.errorMessage, field.config);
+    this.renderFieldLabel(field.elem, errorLabel, (_d = field.config) == null ? void 0 : _d.errorsContainer);
+    if (this.isTooltip()) {
+      this.tooltips.push(this.renderTooltip(field.elem, errorLabel, (_f = (_e = field.config) == null ? void 0 : _e.tooltip) == null ? void 0 : _f.position));
+    }
+  }
+  renderErrors(forceRevalidation = false) {
+    var _a, _b, _c, _d;
+    if (!this.isSubmitted && !forceRevalidation) {
+      return;
+    }
+    this.clearErrors();
+    this.isValid = true;
+    for (const groupName in this.groupFields) {
+      const group = this.groupFields[groupName];
+      if (group.isValid) {
+        group.elems.forEach((elem) => {
+          var _a2, _b2;
+          Object.assign(elem.style, ((_a2 = group.config) == null ? void 0 : _a2.successFieldStyle) || this.globalConfig.successFieldStyle);
+          elem.classList.add(((_b2 = group.config) == null ? void 0 : _b2.successFieldCssClass) || this.globalConfig.successFieldCssClass);
+        });
+        const successLabel = this.createSuccessLabelElem(groupName, group.successMessage, group.config);
+        if (successLabel) {
+          this.renderGroupLabel(group.groupElem, successLabel, (_a = group.config) == null ? void 0 : _a.errorsContainer, true);
+        }
+        continue;
+      }
+      this.isValid = false;
+      group.elems.forEach((elem) => {
+        var _a2, _b2;
+        Object.assign(elem.style, ((_a2 = group.config) == null ? void 0 : _a2.errorFieldStyle) || this.globalConfig.errorFieldStyle);
+        elem.classList.add(((_b2 = group.config) == null ? void 0 : _b2.errorFieldCssClass) || this.globalConfig.errorFieldCssClass);
+      });
+      const errorLabel = this.createErrorLabelElem(groupName, group.errorMessage, group.config);
+      this.renderGroupLabel(group.groupElem, errorLabel, (_b = group.config) == null ? void 0 : _b.errorsContainer);
+      if (this.isTooltip()) {
+        this.tooltips.push(this.renderTooltip(group.groupElem, errorLabel, (_d = (_c = group.config) == null ? void 0 : _c.tooltip) == null ? void 0 : _d.position));
+      }
+    }
+    for (const fieldName in this.fields) {
+      this.renderFieldError(fieldName);
+    }
+  }
+  destroy() {
+    this.eventListeners.forEach((event) => {
+      this.removeListener(event.type, event.elem, event.func);
+    });
+    Object.keys(this.customStyleTags).forEach((key) => {
+      this.customStyleTags[key].remove();
+    });
+    this.clearErrors();
+    if (this.globalConfig.lockForm) {
+      this.unlockForm();
+    }
+  }
+  refresh() {
+    this.destroy();
+    if (!this.form) {
+      console.error("Cannot initialize the library! Form is not defined");
+    } else {
+      this.initialize(this.form, this.globalConfig);
+      Object.keys(this.fields).forEach((key) => {
+        this.addField(key, [...this.fields[key].rules], this.fields[key].config);
+      });
+    }
+  }
+  setCurrentLocale(locale) {
+    if (typeof locale !== "string" && locale !== void 0) {
+      console.error("Current locale should be a string");
+      return;
+    }
+    this.currentLocale = locale;
+    if (this.isSubmitted) {
+      this.validate();
+    }
+  }
+  onSuccess(callback) {
+    this.onSuccessCallback = callback;
+    return this;
+  }
+  onFail(callback) {
+    this.onFailCallback = callback;
+    return this;
+  }
+}
+
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!******************************************!*\
+  !*** ./resources/js/front/app-mobile.js ***!
+  \******************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _mobile_menu_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mobile/menu.js */ "./resources/js/front/mobile/menu.js");
+/* harmony import */ var _desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./desktop/renderForm.js */ "./resources/js/front/desktop/renderForm.js");
+ // import './desktop/header.js'
+
+
+(0,_desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_1__.renderForm)();
+(0,_mobile_menu_js__WEBPACK_IMPORTED_MODULE_0__.renderMenu)();
+})();
+
+/******/ })()
+;
