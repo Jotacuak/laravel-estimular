@@ -425,7 +425,7 @@ a:hover, a:focus {
 }
 
 body {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(51deg, 100%, 94%);
   display: flex;
   flex-direction: column;
   margin: 0.2rem 0;
@@ -449,10 +449,10 @@ main {
 header {
   background-color: hsla(0deg, 0%, 100%, 0.95);
   height: 5vh;
-  padding: 0.5rem 5%;
+  padding: 1rem 0;
   position: fixed;
   top: 0;
-  width: 90%;
+  width: 100%;
   z-index: 2000;
 }
 header .header-logo {
@@ -596,24 +596,18 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 .featured-button {
-  background: radial-gradient(circle, hsl(271deg, 97%, 26%) 0%, hsl(271deg, 97%, 26%) 15%, hsl(271deg, 100%, 50%) 70%, hsl(0deg, 0%, 100%) 100%);
-  background-size: 200% auto;
-  border-radius: 1rem;
-  border: none;
-  color: white;
+  background-color: hsl(37deg, 100%, 64%);
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
   cursor: pointer;
-  font-size: 1.2rem;
-  font-weight: 600;
-  letter-spacing: 0;
-  line-height: 0px;
-  margin-top: 1rem;
-  min-width: 20%;
+  font-size: 1.5rem;
+  font-weight: 400;
   padding: 1rem 2rem;
-  transition: 0.5s;
-  text-decoration: none;
+  text-align: center;
 }
-.featured-button:hover {
-  background-size: 100% auto;
+.featured-button svg {
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .featured {
@@ -661,7 +655,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
   border-top-right-radius: 0.5rem;
 }
 .featured .featured-element-description {
-  border: 1px solid hsl(271deg, 100%, 50%);
+  border: 1px solid hsl(317deg, 100%, 32%);
   border-top: 0;
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
@@ -690,7 +684,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 .overlay {
-  background-color: hsl(0deg, 0%, 100%);
+  background-color: hsl(51deg, 100%, 94%);
   height: 100%;
   left: 0;
   position: fixed;
@@ -714,12 +708,12 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 .overlay .header-user .header-user-button button {
   background-color: transparent;
   border: transparent;
-  color: hsl(271deg, 100%, 50%);
+  color: hsl(317deg, 100%, 32%);
   font-weight: 600;
   padding: 0.5rem 1rem;
 }
 .overlay .header-user .header-user-button .header-button {
-  border: 0.2rem solid hsl(271deg, 100%, 50%);
+  border: 0.2rem solid hsl(317deg, 100%, 32%);
   border-radius: 0.25rem;
   margin-top: 0;
 }
@@ -729,8 +723,8 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 .page-title {
-  background: hsl(271deg, 100%, 50%);
-  background: radial-gradient(circle, hsl(271deg, 97%, 26%) 0%, hsl(271deg, 97%, 26%) 20%, hsl(271deg, 100%, 50%) 50%, hsl(0deg, 0%, 100%) 100%);
+  background: hsl(317deg, 100%, 32%);
+  background: radial-gradient(circle, hsl(271deg, 97%, 26%) 0%, hsl(271deg, 97%, 26%) 20%, hsl(317deg, 100%, 32%) 50%, hsl(51deg, 100%, 94%) 100%);
   padding: 4rem 0;
   text-align: center;
   width: 100%;
@@ -791,7 +785,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
   width: 100%;
 }
 .plus-minus-button .plus-minus-button-element button {
-  background-image: linear-gradient(to right, hsl(0deg, 0%, 100%) 0%, hsl(271deg, 97%, 26%) 50%, hsl(0deg, 0%, 100%) 100%);
+  background-image: linear-gradient(to right, hsl(51deg, 100%, 94%) 0%, hsl(271deg, 97%, 26%) 50%, hsl(51deg, 100%, 94%) 100%);
   background-size: 200% auto;
   border: 0.1rem solid hsl(0deg, 0%, 100%);
   border-radius: 0.2rem;
@@ -856,7 +850,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
   width: 90%;
 }
 .textual-banner .textual-banner-description {
-  border: 0.1rem solid hsl(271deg, 100%, 50%);
+  border: 0.1rem solid hsl(317deg, 100%, 32%);
   border-bottom: 0;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -904,7 +898,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 main .home .text-info {
-  background-color: hsl(271deg, 100%, 50%);
+  background-color: hsl(317deg, 100%, 32%);
   line-height: 2rem;
   margin: 3rem 0;
   padding: 3rem 0;

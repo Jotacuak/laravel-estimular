@@ -4,10 +4,10 @@ header{
     height: 5vh;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding: .5rem 5%;
+    padding: 1rem 0;
     position: fixed;
     top: 0;
-    width: 90%;
+    width: 100%;
     z-index: $z-index-header;
 
     .header-top{
@@ -65,13 +65,13 @@ header{
                 button{
                     background-color: transparent;
                     border: transparent;
-                    color: $primary-color-light;
+                    color: $border-button;
                     font-weight: 600;
-                    padding: .5rem 1rem;                
+                    padding: .5rem 1rem;             
                 }
 
                 .header-button{
-                    border: .2rem solid $primary-color-light;
+                    border: .2rem solid $border-button;
                     border-radius: .25rem;
                     margin-top: 0;
                 }  

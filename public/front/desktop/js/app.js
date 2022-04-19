@@ -2165,10 +2165,13 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./desktop/renderForm.js */ "./resources/js/front/desktop/renderForm.js");
+/* harmony import */ var _desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./desktop/cardFlip.js */ "./resources/js/front/desktop/cardFlip.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/front/bootstrap.js");
 
 
+
 (0,_desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_0__.renderForm)();
+(0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__.flipCard)();
 
 /***/ }),
 
@@ -2200,6 +2203,29 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/front/desktop/cardFlip.js":
+/*!************************************************!*\
+  !*** ./resources/js/front/desktop/cardFlip.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "flipCard": () => (/* binding */ flipCard)
+/* harmony export */ });
+var flipCard = function flipCard() {
+  var swichBtn = document.getElementById("swich-btn");
+  var cards = document.querySelectorAll(".card-container");
+  cards.forEach(function (card) {
+    swichBtn.addEventListener("click,", function () {
+      card.classList.toggle("flip");
+    });
+  });
+};
 
 /***/ }),
 

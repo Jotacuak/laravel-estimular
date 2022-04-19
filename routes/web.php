@@ -24,3 +24,8 @@ Route::get('/equipo', function () {
 Route::get('/contacto', function () {
     return view('front.pages.contact.index');
 });
+
+Route::get('/blog', function () {
+    return view('front.pages.blog.index');
+});
+

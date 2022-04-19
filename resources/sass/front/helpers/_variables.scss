@@ -12,10 +12,12 @@ $z-index-spinner: 5002;
 $font-stack: "Ubuntu", sans-serif;
 $font-stack-condensed: "Ubuntu Condensed", sans-serif;
 
-//colors
-$primary-color: hsl(0, 0%, 100%);
-$primary-color-light: hsl(271, 100%, 50%);
+//palette
+$primary-color: hsl(51, 100%, 94%);
+$primary-color-light: hsl(317, 100%, 32%);
 $secondary-color: hsl(271, 97%, 26%);
+$button-color: hsl(37, 100%, 64%);
+$border-button: hsl(14, 100%, 65%);
 
 //style
-$text-border: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+$text-border: 2px 2px 4px #000000;
