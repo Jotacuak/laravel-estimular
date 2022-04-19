@@ -6,7 +6,7 @@
                 <div class="swich-button">
                     <label class="switch xl">
                         <input id="swich-btn" type="checkbox">
-                        <span class="slider round"></span>
+                        <span class="slider-bar round"></span>
                     </label>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class="column">
     
                     <div class="card-container">
-                        <div data-aside="one" class="card-element side-a ">
+                        <div class="card-element side-a ">
                             <div class="card-element-image">
                                 <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
                             </div>    
@@ -37,12 +37,10 @@
                             </div>
                         </div>
     
-                        <div data-bside="one" class="card-element side-b">
-                            <div class="card-element-image-price3">
-                                <div class="card-element-image">
-                                    <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
-                                </div>
-                            </div>        
+                        <div class="card-element side-b">
+                            <div class="card-element-image">
+                                <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
+                            </div>    
                             <div  class="card-element-description">
                                 <div class="card-element-price">
                                     <h2>€45/día</h2>
@@ -65,12 +63,10 @@
                 <div class="column">
     
                     <div class="card-container">
-                        <div data-aside="two" class="card-element side-a">
-                            <div class="card-element-image-price">
-                                <div class="card-element-image">
-                                    <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
-                                </div>
-                            </div>        
+                        <div class="card-element side-a">
+                            <div class="card-element-image">
+                                <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
+                            </div>      
                             <div  class="card-element-description">
                                 <div class="card-element-price">
                                     <h2>€140</h2>
@@ -87,12 +83,10 @@
                             </div>
                         </div>
     
-                        <div data-bside="two" class="card-element side-b">
-                            <div class="card-element-image-price">
-                                <div class="card-element-image">
-                                    <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
-                                </div>
-                            </div>    
+                        <div class="card-element side-b">
+                            <div class="card-element-image">
+                                <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
+                            </div>   
                             <div  class="card-element-description">
                                 <div class="card-element-price">
                                     <h2>€150</h2>
@@ -115,12 +109,10 @@
                 <div class="column">
     
                     <div class="card-container">
-                        <div data-aside="three" class="card-element side-a">
-                            <div class="card-element-image-price">
-                                <div class="card-element-image">
-                                    <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
-                                </div>
-                            </div>        
+                        <div class="card-element side-a">
+                            <div class="card-element-image">
+                                <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
+                            </div>     
                             <div  class="card-element-description">
                                 <div class="card-element-price">
                                     <h2>€260</h2>
@@ -137,12 +129,10 @@
                             </div>
                         </div>
     
-                        <div data-bside="three" class="card-element side-b">
-                            <div class="card-element-image-price">
-                                <div class="card-element-image">
-                                    <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
-                                </div>
-                            </div>    
+                        <div class="card-element side-b">
+                            <div class="card-element-image">
+                                <img src="{{Storage::url('prices-card.webp')}}" alt="alquiler de llaut en Mallorca">
+                            </div>
                             <div  class="card-element-description">
                                 <div class="card-element-price">
                                     <h2>€285</h2>

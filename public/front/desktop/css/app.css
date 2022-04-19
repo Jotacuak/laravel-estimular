@@ -507,12 +507,13 @@ header .header-top .header-user .header-user-button {
 header .header-top .header-user .header-user-button button {
   background-color: transparent;
   border: transparent;
-  color: hsl(14deg, 100%, 65%);
+  color: hsl(271deg, 97%, 26%);
   font-weight: 600;
+  cursor: pointer;
   padding: 0.5rem 1rem;
 }
 header .header-top .header-user .header-user-button .header-button {
-  border: 0.2rem solid hsl(14deg, 100%, 65%);
+  border: 0.2rem solid hsl(271deg, 97%, 26%);
   border-radius: 0.25rem;
   margin-top: 0;
 }
@@ -631,7 +632,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 .featured .featured-title {
   font-size: 1.5rem;
-  margin: 2rem 0;
+  margin-bottom: 1rem;
   text-align: center;
 }
 .featured .featured-element-image-price {
@@ -710,8 +711,6 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 .price-cards {
-  background-color: hsl(0deg, 0%, 86%);
-  padding: 2rem 0;
   width: 100%;
 }
 .price-cards .price-container {
@@ -719,25 +718,36 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
   width: 50%;
 }
 .price-cards .card-container {
-  border-radius: 0.25rem;
-  -webkit-transition: transform 0.6s;
+  background-color: white;
+  border-radius: 0.35rem;
+  display: flex;
+  position: relative;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+  -moz-perspective: 1000;
+  -ms-perspective: 1000;
+  transform: perspective(1000px);
   transform-style: preserve-3d;
+  transition: 0.5s;
 }
 .price-cards .card-container .card-element {
   border-radius: 0.25rem;
-  box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.25rem 1rem hsl(0deg, 0%, 40%);
   display: flex;
+  flex: 1;
   flex-direction: column;
+  padding: 0 1rem;
   text-align: center;
 }
 .price-cards .card-container .card-element .card-element-image {
-  filter: drop-shadow(5px 5px 15px black);
+  filter: drop-shadow(5px 5px 10px black);
   margin: 0.5rem;
 }
 .price-cards .card-container .card-element .card-element-title {
   margin-bottom: 0.5rem;
 }
 .price-cards .card-container .card-element .card-element-text {
+  font-weight: 300;
   margin-bottom: 2rem;
 }
 .price-cards .card-container .card-element .card-element-price {
@@ -759,23 +769,20 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 .price-cards .card-container .side-a {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
   transform: rotateX(0deg);
   -webkit-transform: rotateX(0deg);
 }
 .price-cards .card-container .side-b {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  display: flex;
-  flex-direction: column;
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+  position: absolute;
+  transform: rotateY(-180deg);
+  -webkit-transform: rotateY(-180deg);
 }
 .price-cards .card-container.flip {
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
+  transform: rotateY(-180deg);
+  transform-style: preserve-3d;
+  -webkit-transform: rotateY(-180deg);
 }
 
 .profile-photo {
@@ -856,25 +863,29 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 .slider {
   height: 65vh;
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
   top: 3vh;
   width: 100%;
 }
 .slider .slider-image {
+  background-color: hsl(271deg, 97%, 26%);
   max-height: 65vh;
   overflow: hidden;
   position: absolute;
   z-index: 1000;
   width: 100%;
 }
+.slider .slider-image img {
+  mix-blend-mode: lighten;
+}
 .slider .slider-container {
   left: 12.5%;
   position: absolute;
-  top: 9vh;
+  top: 10vh;
   z-index: 1001;
 }
 .slider .slider-container .slider-title {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 .slider .slider-container .slider-title h1 {
   color: white;
@@ -894,6 +905,69 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
   color: white;
   text-shadow: 2px 2px 4px #000000;
 }
+
+.swich-button {
+  margin: auto;
+  margin-bottom: 3rem;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 3.75rem;
+  height: 2rem;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch .slider-bar {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: hsl(37deg, 100%, 64%);
+  transition: 0.4s;
+}
+
+.xl {
+  width: 7.5rem;
+}
+
+.slider-bar:before {
+  position: absolute;
+  content: "";
+  height: 1.6rem;
+  width: 1.6rem;
+  left: 0.25rem;
+  bottom: 0.25rem;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider-bar {
+  background-color: hsl(14deg, 100%, 65%);
+}
+
+input:checked + .slider-bar:before {
+  transform: translateX(26px);
+}
+
+.xl input:checked + .slider-bar:before {
+  transform: translateX(86px);
+}
+
+.slider-bar.round {
+  border-radius: 2rem;
+}
+
+.slider-bar.round:before {
+  border-radius: 50%;
+}
+
 .textual-banner {
   display: flex;
   margin: 3rem auto;

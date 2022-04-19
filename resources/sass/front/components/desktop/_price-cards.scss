@@ -1,6 +1,4 @@
 .price-cards{
-    background-color: hsl(0, 0%, 86%);
-    padding: 2rem 0;
     width: 100%;
 
     .price-container{
@@ -9,19 +7,36 @@
     }
 
     .card-container{
-        border-radius: .25rem;
-        -webkit-transition: transform 0.6s;
-        transform-style: preserve-3d;
+        background-color: white;
+        border-radius: .35rem;
+        display: flex;
+        position: relative;
+        perspective: 1000;
+        -webkit-perspective: 1000;
+        -moz-perspective: 1000;
+		-ms-perspective: 1000;
+        -webkit-transform: perspective(1000px);
+		-moz-transform: perspective(1000px);
+		-ms-transform: perspective(1000px);
+		transform: perspective(1000px);
+		-webkit-transform-style: preserve-3d; 
+		-moz-transform-style: preserve-3d; 
+		-ms-transform-style: preserve-3d; 
+		transform-style: preserve-3d; 
+        -webkit-transition: 0.5s;
+        transition: 0.5s; 
 
         .card-element{
             border-radius: .25rem;
-            box-shadow: 0 .25rem 1rem rgba(0,0,0,.15);
+            box-shadow: 0 .25rem 1rem hsl(0, 0%, 40%);
             display: flex;
+            flex: 1;
             flex-direction: column;
+            padding: 0 1rem;
             text-align: center;
     
             .card-element-image{
-                filter: drop-shadow(5px 5px 15px black);
+                filter: drop-shadow(5px 5px 10px black);
                 margin: .5rem;
             }
     
@@ -30,6 +45,7 @@
             }
     
             .card-element-text{
+                font-weight: 300;
                 margin-bottom: 2rem;
             }
     
@@ -56,9 +72,6 @@
         .side-a{
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
             transform: rotateX(0deg);
             -webkit-transform: rotateX(0deg);
         }
@@ -66,15 +79,15 @@
         .side-b{
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            display: flex;
-            flex-direction: column;
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
+            position: absolute;
+            transform: rotateY(-180deg);
+            -webkit-transform: rotateY(-180deg);
         }
 
         &.flip{
-            transform: rotateY(180deg);
-            -webkit-transform: rotateY(180deg);
+            transform: rotateY(-180deg);
+            transform-style: preserve-3d;
+            -webkit-transform: rotateY(-180deg);
         }
     }
 }

@@ -65,13 +65,14 @@ header{
                 button{
                     background-color: transparent;
                     border: transparent;
-                    color: $border-button;
+                    color: $secondary-color;
                     font-weight: 600;
+                    cursor: pointer;
                     padding: .5rem 1rem;             
                 }
 
                 .header-button{
-                    border: .2rem solid $border-button;
+                    border: .2rem solid $secondary-color;
                     border-radius: .25rem;
                     margin-top: 0;
                 }  

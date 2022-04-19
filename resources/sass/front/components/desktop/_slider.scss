@@ -1,26 +1,31 @@
 .slider{
     height: 65vh;
     position: relative;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     top: 3vh;
     width: 100%;
 
     .slider-image{
+        background-color: $secondary-color;
         max-height: 65vh;
         overflow: hidden;
         position: absolute;
         z-index: $z-index-slider-image;
         width: 100%;
+
+        img{
+            mix-blend-mode: lighten;
+        }
     }
 
     .slider-container{
         left: 12.5%;
         position: absolute;
-        top: 9vh;
+        top: 10vh;
         z-index: $z-index-slider-elements;
 
         .slider-title{   
-            margin-bottom: 2rem;       
+            margin-bottom: 1.5rem;       
     
             h1{
                 color: white;
@@ -45,9 +50,6 @@
                 text-shadow: $text-border;
             }
         }
-    
-        .slider-button{
-        }      
     }
 }
 

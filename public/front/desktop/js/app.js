@@ -2221,7 +2221,7 @@ var flipCard = function flipCard() {
   var swichBtn = document.getElementById("swich-btn");
   var cards = document.querySelectorAll(".card-container");
   cards.forEach(function (card) {
-    swichBtn.addEventListener("click,", function () {
+    swichBtn.addEventListener("click", function () {
       card.classList.toggle("flip");
     });
   });
