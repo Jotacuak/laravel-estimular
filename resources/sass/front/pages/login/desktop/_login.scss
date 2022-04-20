@@ -1,12 +1,12 @@
 .login{
     align-items: center;
+    background-color: $secondary-color;
     display: flex;
-    height: 100%;
+    height: 100vh;
     justify-content: center;
     width: 100%;
 
     .login-form{
-        background-color: $secondary-color;
         position: fixed;
         top: 40vh;
         .login-form-label{
