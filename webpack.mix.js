@@ -13,9 +13,9 @@ const mix = require('laravel-mix');
 
  mix.js('resources/js/front/app.js', 'public/front/desktop/js').version()
  .js('resources/js/front/app-mobile.js', 'public/front/mobile/js').version()
- // .js('resources/js/admin/desktop/app.js', 'public/admin/desktop/js').version()
- // .js('resources/js/admin/mobile/app.js', 'public/admin/mobile/js').version()
- // .sass('resources/sass/admin/app.scss', 'public/admin/desktop/css').version()
- // .sass('resources/sass/admin/mobile-app.scss', 'public/admin/mobile/css').version()
+ .js('resources/js/admin/desktop/app.js', 'public/admin/desktop/js').version()
+ .js('resources/js/admin/mobile/app.js', 'public/admin/mobile/js').version()
+ .sass('resources/sass/admin/app.scss', 'public/admin/desktop/css').version()
+ .sass('resources/sass/admin/mobile-app.scss', 'public/admin/mobile/css').version()
  .sass('resources/sass/front/app.scss', 'public/front/desktop/css').version()
  .sass('resources/sass/front/mobile-app.scss', 'public/front/mobile/css').version();

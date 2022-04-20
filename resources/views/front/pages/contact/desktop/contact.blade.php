@@ -2,7 +2,7 @@
 
     @include('front.layout.partials.page_title', [
         'title' => 'Contacta con nosotros',
-        'subtitle' => 'por su salud'
+        'subtitle' => ''
     ])
     
     <div class="desktop-one-column">

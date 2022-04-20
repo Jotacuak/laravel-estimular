@@ -428,7 +428,6 @@ body {
   background-color: white;
   display: flex;
   flex-direction: column;
-  margin-top: 3rem;
   min-height: 100vh;
   width: 100%;
 }
@@ -697,7 +696,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 
 .page-title {
   background: hsl(317deg, 100%, 32%);
-  background: radial-gradient(circle, hsl(271deg, 97%, 26%) 0%, hsl(271deg, 97%, 26%) 20%, hsl(317deg, 100%, 32%) 50%, hsl(51deg, 100%, 94%) 100%);
+  background: radial-gradient(circle, hsl(271deg, 97%, 26%) 0%, hsl(271deg, 97%, 26%) 30%, hsl(317deg, 100%, 32%) 50%, white 95%, white 100%);
   padding: 4rem 0;
   text-align: center;
   width: 100%;
@@ -728,7 +727,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
   -ms-perspective: 1000;
   transform: perspective(1000px);
   transform-style: preserve-3d;
-  transition: 0.5s;
+  transition: 1.5s;
 }
 .price-cards .card-container .card-element {
   border-radius: 0.25rem;
@@ -1098,4 +1097,20 @@ input:checked + .slider-bar:before {
   font-weight: 600;
   padding: 1rem 0.5rem;
   width: 20%;
+}
+
+.login {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+.login .login-form {
+  background-color: hsl(271deg, 97%, 26%);
+  position: fixed;
+  top: 40vh;
+}
+.login .login-form .login-form-label {
+  color: white;
 }

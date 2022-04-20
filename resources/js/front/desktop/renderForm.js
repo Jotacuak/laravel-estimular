@@ -19,6 +19,13 @@ export let renderForm = () => {
                     ev.preventDefault();
                     let formData = new FormData(form);
 
+                    // if (editor != 'null'){
+
+                    //     Object.entries(editor).forEach(([key, value]) =>{
+                    //         formData.append(key, value.getData());
+                    //     });
+                    // }
+
                     for (let pair of formData.entries()){
                         console.log(pair[0] + ', ' + pair[1])
                     };                

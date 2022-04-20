@@ -29,3 +29,10 @@ Route::get('/blog', function () {
     return view('front.pages.blog.index');
 });
 
+Route::get('/login', function () {
+    return view('front.pages.login.index');
+});
+
+Route::get('/admin/users', function () {
+    return view('admin.pages.users.index');
+});

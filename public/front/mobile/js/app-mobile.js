@@ -30,7 +30,11 @@ var renderForm = function renderForm() {
         var validate = (0,_validador_js__WEBPACK_IMPORTED_MODULE_0__.validador)(form);
         validate.onSuccess(function (ev) {
           ev.preventDefault();
-          var formData = new FormData(form);
+          var formData = new FormData(form); // if (editor != 'null'){
+          //     Object.entries(editor).forEach(([key, value]) =>{
+          //         formData.append(key, value.getData());
+          //     });
+          // }
 
           var _iterator = _createForOfIteratorHelper(formData.entries()),
               _step;
