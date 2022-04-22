@@ -1108,9 +1108,31 @@ input:checked + .slider-bar:before {
   width: 100%;
 }
 .login .login-form {
+  border: 0.2rem solid white;
+  border-radius: 0.25rem;
+  padding: 1rem;
   position: fixed;
-  top: 40vh;
+  top: 25vh;
 }
-.login .login-form .login-form-label {
+.login .login-form .login-form-element {
+  margin: 1rem auto;
   color: white;
+}
+.login .login-form .login-form-element input {
+  border-radius: 0.25rem;
+  padding: 0.2rem 0;
+}
+.login .login-form .login-form-element svg {
+  height: 10rem;
+  padding-left: 2.5rem;
+  width: 10rem;
+}
+.login .login-form .login-form-element button {
+  background-color: white;
+  border-radius: 0.25rem;
+  color: hsl(271deg, 97%, 26%);
+  cursor: pointer;
+  float: right;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
 }

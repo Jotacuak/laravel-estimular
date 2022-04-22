@@ -22,6 +22,18 @@ img {
     }
 }
 
+.two-columns-aside{
+    display: flex;
+    
+    .column-aside{
+        width: 30%;
+    }
+
+    .column-main{
+        width: 70%;
+    }
+}
+
 .three-columns{
     display: flex;
     justify-content: space-between;
@@ -45,6 +57,10 @@ img {
     justify-content: space-between;
 
     .form-group{
+        width: 18%;
+    }
+
+    .column{
         width: 18%;
     }
 }

@@ -12,7 +12,7 @@
     @if($agent->isDesktop())
         <div class="page-section">
             @include("admin.layout.partials.topbar")
-            {{-- @include("front.pages.home.desktop.home") --}}
+            @include("admin.pages.users.desktop.users")
         </div>
     @endif
 

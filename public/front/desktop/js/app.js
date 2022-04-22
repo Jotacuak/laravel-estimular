@@ -2197,13 +2197,10 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./desktop/renderForm.js */ "./resources/js/front/desktop/renderForm.js");
 /* harmony import */ var _desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./desktop/cardFlip.js */ "./resources/js/front/desktop/cardFlip.js");
-/* harmony import */ var _mobile_menu_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mobile/menu.js */ "./resources/js/front/mobile/menu.js");
 __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
 
 
-
-(0,_mobile_menu_js__WEBPACK_IMPORTED_MODULE_2__.renderMenu)();
 (0,_desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_0__.renderForm)();
 (0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__.flipCard)();
 
@@ -2378,28 +2375,6 @@ var validador = function validador(form) {
   // );                 
 
   return validate;
-};
-
-/***/ }),
-
-/***/ "./resources/js/front/mobile/menu.js":
-/*!*******************************************!*\
-  !*** ./resources/js/front/mobile/menu.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "renderMenu": () => (/* binding */ renderMenu)
-/* harmony export */ });
-var renderMenu = function renderMenu() {
-  var hamburger = document.getElementById("collapse-button");
-  var overlay = document.getElementById("overlay");
-  hamburger.addEventListener("click", function () {
-    hamburger.classList.toggle("active");
-    overlay.classList.toggle("active");
-  });
 };
 
 /***/ }),

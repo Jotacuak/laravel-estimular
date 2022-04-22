@@ -7,10 +7,36 @@
     width: 100%;
 
     .login-form{
+        border: .2rem solid white;
+        border-radius: .25rem;
+        padding: 1rem;
         position: fixed;
-        top: 40vh;
-        .login-form-label{
+        top: 25vh;
+
+        .login-form-element{
+            margin: 1rem auto;
             color: white;
+
+            input{
+                border-radius: .25rem;
+                padding: .2rem 0;
+            }
+
+            svg{
+                height: 10rem;
+                padding-left: 2.5rem;
+                width: 10rem;
+            }
+
+            button{
+                background-color: white;
+                border-radius: .25rem;
+                color: $secondary-color;
+                cursor: pointer;
+                float: right;
+                margin-top: .5rem;
+                padding: .5rem 1rem;
+            }
         }
     }
 }

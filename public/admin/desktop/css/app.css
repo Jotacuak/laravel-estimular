@@ -18,6 +18,16 @@ img {
   width: 47%;
 }
 
+.two-columns-aside {
+  display: flex;
+}
+.two-columns-aside .column-aside {
+  width: 30%;
+}
+.two-columns-aside .column-main {
+  width: 70%;
+}
+
 .three-columns {
   display: flex;
   justify-content: space-between;
@@ -39,6 +49,9 @@ img {
   justify-content: space-between;
 }
 .five-columns .form-group {
+  width: 18%;
+}
+.five-columns .column {
   width: 18%;
 }
 
@@ -547,6 +560,31 @@ a:hover, a:focus {
   width: 2rem;
 }
 
+.menu {
+  margin: 5rem auto;
+  width: 75%;
+}
+.menu .menu-element {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.menu .menu-element button {
+  background-color: transparent;
+  border: 0;
+}
+.menu .menu-element button svg {
+  height: 4rem;
+  width: 4rem;
+}
+.menu .menu-element button svg path {
+  fill: white;
+}
+.menu .menu-element h2 {
+  color: white;
+  text-align: center;
+}
+
 .overlay {
   background-color: hsl(271deg, 97%, 26%);
   height: 100%;
@@ -562,6 +600,141 @@ a:hover, a:focus {
   top: 8vh;
 }
 
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: auto;
+  width: 90%;
+}
+.admin-form .admin-form-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.admin-form .admin-form-buttons .admin-form-button {
+  display: flex;
+}
+.admin-form .admin-form-buttons .admin-form-button button {
+  background: transparent;
+  border: 0;
+}
+.admin-form .admin-form-buttons .admin-form-button button svg {
+  height: 2rem;
+  width: 2rem;
+}
+.admin-form .admin-form-buttons .admin-form-button button svg path {
+  fill: hsl(271deg, 97%, 26%);
+}
+.admin-form .admin-form-buttons .admin-form-button button:hover path {
+  fill: hsl(317deg, 100%, 32%);
+}
+.admin-form .admin-form-elements {
+  padding: 0 5%;
+  width: 90%;
+}
+.admin-form .admin-form-elements .admin-form-element {
+  margin: 1rem auto;
+}
+.admin-form .admin-form-elements .admin-form-element .input-bar {
+  border: none;
+  border-bottom: 2px solid hsl(271deg, 97%, 26%);
+  box-sizing: border-box;
+  width: 100%;
+}
+.admin-form .admin-form-elements .admin-form-element .ck-editor__editable {
+  height: 40vh;
+}
+
+.admin-table-element {
+  border: 1px solid hsl(271deg, 97%, 26%);
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.admin-table-element .admin-table-element-img svg {
+  height: 5rem;
+  width: 5rem;
+}
+.admin-table-element .admin-table-element-img svg path {
+  fill: hsl(271deg, 97%, 26%);
+}
+.admin-table-element .admin-table-info {
+  display: flex;
+  flex-wrap: wrap;
+}
+.admin-table-element .admin-table-info span {
+  color: black;
+  font-size: 1rem;
+  width: 100%;
+}
+.admin-table-element .admin-table-element-button button {
+  background: transparent;
+  border: 0;
+}
+.admin-table-element .admin-table-element-button button svg {
+  height: 2rem;
+  width: 2rem;
+}
+.admin-table-element .admin-table-element-button button svg path {
+  fill: hsl(271deg, 97%, 26%);
+}
+.admin-table-element .admin-table-element-button button:hover svg path {
+  fill: hsl(317deg, 100%, 32%);
+}
+
+.tabs {
+  overflow: hidden;
+}
+.tabs button {
+  background-color: inherit;
+  border: none;
+  color: hsl(271deg, 97%, 26%);
+  cursor: pointer;
+  float: left;
+  font-size: 1.5rem;
+  outline: none;
+  padding: 1rem;
+  transition: 0.3s;
+}
+.tabs button:hover {
+  background-color: hsl(271deg, 97%, 26%);
+  color: white;
+}
+.tabs button.active {
+  background-color: hsl(271deg, 97%, 26%);
+  color: white;
+  -webkit-text-decoration: underline white;
+          text-decoration: underline white;
+}
+
+.tabcontent {
+  -webkit-animation: fadeEffect 1s;
+          animation: fadeEffect 1s;
+  display: none;
+  padding: 0.5rem 1rem;
+}
+
+.tabcontent.active {
+  display: block;
+}
+
+@-webkit-keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeEffect {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .topbar {
   background-color: hsl(271deg, 97%, 26%);
   height: 5vh;
@@ -590,4 +763,135 @@ a:hover, a:focus {
 }
 .topbar .topbar-element button svg path {
   fill: white;
+}
+
+.toggle-button-cover {
+  margin-top: 0.7rem;
+  position: relative;
+}
+
+.button-cover,
+.knobs,
+.layer {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button {
+  position: relative;
+  top: 50%;
+  width: 74px;
+  height: 36px;
+  overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+/* Button 18 */
+#button-18 .knobs:before,
+#button-18 .knobs span {
+  content: "YES";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  color: #fff;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  background-color: hsl(271deg, 97%, 26%);
+  border-radius: 2px;
+}
+
+#button-18 .knobs:before {
+  top: 50%;
+  left: 8px;
+  width: 20px;
+  height: 10px;
+  margin-top: -5px;
+  background-color: transparent;
+  z-index: 2;
+}
+
+#button-18 .knobs span {
+  width: 20px;
+  height: 10px;
+  padding: 9px 4px;
+  transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
+  z-index: 1;
+}
+
+#button-18 .checkbox:active + .knobs:before {
+  left: 10px;
+  width: 46px;
+  height: 4px;
+  color: transparent;
+  margin-top: -2px;
+  background-color: hsl(271deg, 97%, 26%);
+  transition: 0.3s ease all;
+  overflow: hidden;
+}
+
+#button-18 .checkbox:active + .knobs span {
+  width: 58px;
+}
+
+#button-18 .checkbox:checked:active + .knobs:before {
+  left: auto;
+  right: 10px;
+  background-color: hsl(317deg, 100%, 32%);
+}
+
+#button-18 .checkbox:checked:active + .knobs span {
+  margin-left: -38px;
+}
+
+#button-18 .checkbox:checked + .knobs:before {
+  content: "NO";
+  left: 47px;
+}
+
+#button-18 .checkbox:checked + .knobs span {
+  left: 42px;
+  background-color: hsl(317deg, 100%, 32%);
+}
+
+#button-18 .checkbox:checked ~ .layer {
+  background-color: #fcebeb;
+}
+
+.admin-users {
+  margin: 5rem 1rem;
+  width: 100%;
 }

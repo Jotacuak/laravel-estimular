@@ -1,0 +1,29 @@
+.menu{
+    margin: 5rem auto;
+    width: 75%;
+
+    .menu-element{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        button{
+            background-color: transparent;
+            border: 0;
+    
+            svg{
+                height: 4rem;
+                width: 4rem;
+        
+                path{
+                    fill: white;
+                }
+            }
+        }
+    
+        h2{
+            color: white;
+            text-align: center;
+        }
+    }
+}

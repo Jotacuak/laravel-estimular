@@ -1,0 +1,56 @@
+.admin-form{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 90%;
+
+    .admin-form-buttons{
+        display: flex;
+        justify-content: space-between;
+
+        .admin-form-button{
+            display: flex;
+
+            button{
+                background: transparent;
+                border: 0;
+                
+                svg{
+                    height: 2rem;
+                    width: 2rem;
+    
+                    path{
+                        fill: $secondary-color;
+                    }
+                }
+            }
+    
+            button:hover{
+                path{
+                    fill: $primary-color-light;
+                }
+            }
+        }
+    }
+
+    .admin-form-elements{
+        padding: 0 5%;
+        width: 90%;
+
+        .admin-form-element{
+            margin: 1rem auto;
+
+            .input-bar{
+                border: none;
+                border-bottom: 2px solid $secondary-color;
+                box-sizing: border-box;
+                width: 100%;
+            }
+
+            .ck-editor__editable{
+                height: 40vh;
+            }
+        }
+    }
+}
