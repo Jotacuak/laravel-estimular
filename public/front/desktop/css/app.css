@@ -626,7 +626,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 .featured {
-  margin: 0 auto;
+  margin: 1rem auto;
   width: 90%;
 }
 .featured .featured-title {
@@ -862,7 +862,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 .slider {
   height: 65vh;
   position: relative;
-  margin-bottom: 1rem;
+  margin-bottom: 3rem;
   top: 3vh;
   width: 100%;
 }
