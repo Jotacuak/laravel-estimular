@@ -645,40 +645,37 @@ a:hover, a:focus {
   height: 40vh;
 }
 
-.admin-table-element {
+.admin-table {
+  margin-top: 1rem;
+}
+.admin-table .admin-table-elements {
   border: 1px solid hsl(271deg, 97%, 26%);
   display: flex;
   flex-wrap: nowrap;
   justify-content: space-between;
+  margin: 0.5rem auto;
 }
-.admin-table-element .admin-table-element-img svg {
-  height: 5rem;
-  width: 5rem;
-}
-.admin-table-element .admin-table-element-img svg path {
-  fill: hsl(271deg, 97%, 26%);
-}
-.admin-table-element .admin-table-info {
+.admin-table .admin-table-elements .admin-table-element-info {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  margin: auto;
 }
-.admin-table-element .admin-table-info span {
-  color: black;
-  font-size: 1rem;
+.admin-table .admin-table-elements .admin-table-element-info .info-element {
+  line-height: 1rem;
   width: 100%;
 }
-.admin-table-element .admin-table-element-button button {
+.admin-table .admin-table-elements .admin-table-element-button button {
   background: transparent;
   border: 0;
 }
-.admin-table-element .admin-table-element-button button svg {
+.admin-table .admin-table-elements .admin-table-element-button button svg {
   height: 2rem;
   width: 2rem;
 }
-.admin-table-element .admin-table-element-button button svg path {
+.admin-table .admin-table-elements .admin-table-element-button button svg path {
   fill: hsl(271deg, 97%, 26%);
 }
-.admin-table-element .admin-table-element-button button:hover svg path {
+.admin-table .admin-table-elements .admin-table-element-button button:hover svg path {
   fill: hsl(317deg, 100%, 32%);
 }
 
@@ -768,6 +765,10 @@ a:hover, a:focus {
 .toggle-button-cover {
   margin-top: 0.7rem;
   position: relative;
+}
+
+.button-cover {
+  border: 1px solid hsl(271deg, 97%, 26%);
 }
 
 .button-cover,

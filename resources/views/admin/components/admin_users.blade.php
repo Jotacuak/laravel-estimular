@@ -1,9 +1,9 @@
 <div class="admin-form">
     <div class="admin-form-buttons">
         <div class="tabs">
-            <button data-tab="zero" class="tabslinks">Contenido</button>
+            <button data-tab="zero" class="tabslinks active">Contenido</button>
             <button data-tab="one" class="tabslinks">Imagenes</button>
-            <button data-tab="two" class="tabslinks">Seo</button>
+            <button data-tab="two" class="tabslinks">Otros</button>
         </div>
         <div class="admin-form-button">
             <button type="button" id="save-button">
@@ -29,25 +29,18 @@
             </div>
         </div>
     </div>
+
     <div class="content">
-        <div  data-content="zero" class="tabcontent">
-            <form enctype="multipart/form-data" class="front-form" id="users-form">
+        <div data-content="zero" class="tabcontent active">
+            <form enctype="multipart/form-data" action="{{route("users_store")}}"  class="admin-form" id="users-form">
+
+                {{ csrf_field() }}
+
+                <input autocomplete="false" name="hidden" type="text" style="display:none;">
+                <input type="hidden" name="id" value="{{isset($user->id) ? $user->id : ''}}">
+
                 <div class="admin-form-elements">
                     <div class="two-columns">
-                        <div class="form-group">
-                            <div class="admin-form-element">
-                                <label for="category">Categoría</label>
-                            </div>
-                            <div class="admin-form-element">
-                                <select name="select" id="user-select">
-                                    <option value=""></option>
-                                    <option value="">osdivhbedw</option>
-                                    <option value="">iygiugiu</option>
-                                    <option value="">iugiugiub</option>
-                                    <option value="">htcyt</option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="admin-form-element">
                                 <label for="name">Nombre</label>
@@ -56,24 +49,36 @@
                                 <input class="input-bar" type="text" id="name">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <div class="admin-form-element">
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="admin-form-element">
+                                <input class="input-bar" type="text" id="email" name="email">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="admin-form-elements">
-                    <div class="admin-form-element">
-                        <label for="title">Título:</label>
+                    <div class="two-columns">
+                        <div class="form-group">
+                            <div class="admin-form-element">
+                                <label for="password">Password</label>
+                            </div>
+                            <div class="admin-form-element">
+                                <input class="input-bar" type="text" id="password" name="password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="admin-form-element">
+                                <label for="authpassword">Repite el password</label>
+                            </div>
+                            <div class="admin-form-element">
+                                <input class="input-bar" type="text" id="authpassword" name="authpassword">
+                            </div>
+                        </div>
                     </div>
-                    <div class="admin-form-element">
-                        <input class="input-bar" type="text" id="title" name="title">
-                    </div>
-                </div>
-                <div class="admin-form-elements">
-                    <div class="admin-form-element">
-                        <label for="comment">Descripción:</label>
-                    </div>
-                    <div class="admin-form-element">
-                        <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                    </div>
-                </div>
+                </div>          
             </form>
         </div>
 

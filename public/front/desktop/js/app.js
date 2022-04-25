@@ -2200,9 +2200,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
 
+ // import { memoryGame } from './desktop/renderMemory.js';
 
 (0,_desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_0__.renderForm)();
-(0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__.flipCard)();
+(0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__.flipCard)(); // memoryGame ();
 
 /***/ }),
 

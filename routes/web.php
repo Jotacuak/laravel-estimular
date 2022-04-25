@@ -13,6 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::resource('usuarios', 'App\Http\Controllers\Admin\UserController', [
+        'parameters' => [
+            'usuarios' => 'user', 
+        ],
+        'names' => [
+            'index' => 'users',
+            'create' => 'users_create',
+            'edit' => 'users_edit',
+            'store' => 'users_store',
+            'destroy' => 'users_destroy',
+            'show' => 'users_show',
+        ]
+    ]);
+
+});
+
 Route::get('/', function () {
     return view('front.pages.home.index');
 });
@@ -29,10 +47,11 @@ Route::get('/blog', function () {
     return view('front.pages.blog.index');
 });
 
+Route::get('/test', function () {
+    return view('front.pages.test.index');
+});
+
 Route::get('/login', function () {
     return view('front.pages.login.index');
 });
 
-Route::get('/admin/users', function () {
-    return view('admin.pages.users.index');
-});

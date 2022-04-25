@@ -11,13 +11,13 @@
 
     @if($agent->isDesktop())
         <div class="page-section">
-            @include("front.pages.about_us.desktop.about_us")
+            @include("front.pages.test.desktop.test")
         </div>
     @endif
 
     @if($agent->isMobile())
         <div class="page-section">
-            @include("front.pages.about_us.mobile.about_us")
+            @include("front.pages.test.mobile.test")
         </div>
     @endif
 @endsection

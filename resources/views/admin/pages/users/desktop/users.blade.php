@@ -5,7 +5,7 @@
         </div>
     
         <div class="column-main">
-            @include('admin.components.admin_form')
+            @include('admin.components.admin_users')
         </div>
     </div>
 </div>

@@ -432,8 +432,8 @@ body {
   width: 100%;
 }
 
-main {
-  margin: 2rem 0;
+.page-section {
+  margin: 5rem auto;
   width: 100%;
 }
 
@@ -696,7 +696,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 
 .page-title {
   background: hsl(317deg, 100%, 32%);
-  background: radial-gradient(circle, hsl(271deg, 97%, 26%) 0%, hsl(271deg, 97%, 26%) 30%, hsl(317deg, 100%, 32%) 50%, white 95%, white 100%);
+  background: radial-gradient(circle, hsl(271deg, 97%, 26%) 0%, hsl(271deg, 97%, 26%) 30%, hsl(317deg, 100%, 32%) 50%, white 90%, white 100%);
   padding: 4rem 0;
   text-align: center;
   width: 100%;

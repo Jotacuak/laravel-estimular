@@ -2219,6 +2219,34 @@ var renderCkeditor = function renderCkeditor() {
 
 /***/ }),
 
+/***/ "./resources/js/admin/desktop/form.js":
+/*!********************************************!*\
+  !*** ./resources/js/admin/desktop/form.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "adminForm": () => (/* binding */ adminForm)
+/* harmony export */ });
+var adminForm = function adminForm() {
+  var saveButton = document.getElementById('save-button');
+  var refreshButton = document.getElementById('refresh-button');
+  var activeButton = document.getElementById('active-button');
+  saveButton.addEventListener("click", function () {
+    console.log("hola");
+  });
+  refreshButton.addEventListener("click", function () {
+    console.log("hola");
+  });
+  activeButton.addEventListener("click", function () {
+    console.log("hola");
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/admin/desktop/menu.js":
 /*!********************************************!*\
   !*** ./resources/js/admin/desktop/menu.js ***!
@@ -2236,6 +2264,30 @@ var renderMenu = function renderMenu() {
   hamburger.addEventListener("click", function () {
     hamburger.classList.toggle("active");
     overlay.classList.toggle("active");
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/admin/desktop/table.js":
+/*!*********************************************!*\
+  !*** ./resources/js/admin/desktop/table.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "adminTable": () => (/* binding */ adminTable)
+/* harmony export */ });
+var adminTable = function adminTable() {
+  var editButton = document.getElementById('edit-button');
+  var deleteButton = document.getElementById('delete-button');
+  editButton.addEventListener("click", function () {
+    console.log("hola");
+  });
+  deleteButton.addEventListener("click", function () {
+    console.log("hola");
   });
 };
 
@@ -19816,7 +19868,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _menu_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./menu.js */ "./resources/js/admin/desktop/menu.js");
 /* harmony import */ var _ckeditor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ckeditor.js */ "./resources/js/admin/desktop/ckeditor.js");
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
+/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
+/* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./form.js */ "./resources/js/admin/desktop/form.js");
 __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
+
+
 
 
 
@@ -19824,6 +19880,8 @@ __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 (0,_tabs_js__WEBPACK_IMPORTED_MODULE_2__.renderTabs)();
 (0,_ckeditor_js__WEBPACK_IMPORTED_MODULE_1__.renderCkeditor)();
 (0,_menu_js__WEBPACK_IMPORTED_MODULE_0__.renderMenu)();
+(0,_table_js__WEBPACK_IMPORTED_MODULE_3__.adminTable)();
+(0,_form_js__WEBPACK_IMPORTED_MODULE_4__.adminForm)();
 })();
 
 /******/ })()

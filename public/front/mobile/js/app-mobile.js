@@ -2,17 +2,174 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./resources/js/front/desktop/renderForm.js":
-/*!**************************************************!*\
-  !*** ./resources/js/front/desktop/renderForm.js ***!
-  \**************************************************/
+/***/ "./resources/js/front/mobile/carrousel.js":
+/*!************************************************!*\
+  !*** ./resources/js/front/mobile/carrousel.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderCarrousel": () => (/* binding */ renderCarrousel)
+/* harmony export */ });
+var renderCarrousel = function renderCarrousel() {
+  var slider = document.getElementById('card-elements'),
+      sliderItems = document.getElementById('items'),
+      prev = document.getElementById('prev'),
+      next = document.getElementById('next');
+  slide(slider, sliderItems, prev, next);
+
+  function slide(wrapper, items, prev, next) {
+    var posX1 = 0,
+        posX2 = 0,
+        posInitial,
+        posFinal,
+        threshold = 100,
+        slides = items.getElementsByClassName('card-container'),
+        slidesLength = slides.length,
+        slideSize = items.getElementsByClassName('card-container')[0].offsetWidth,
+        firstSlide = slides[0],
+        lastSlide = slides[slidesLength - 1],
+        cloneFirst = firstSlide.cloneNode(true),
+        cloneLast = lastSlide.cloneNode(true),
+        index = 0,
+        allowShift = true; // Clone first and last slide
+
+    items.appendChild(cloneFirst);
+    items.insertBefore(cloneLast, firstSlide);
+    wrapper.classList.add('loaded'); // Mouse and Touch events
+
+    items.onmousedown = dragStart; // Touch events
+
+    items.addEventListener('touchstart', dragStart);
+    items.addEventListener('touchend', dragEnd);
+    items.addEventListener('touchmove', dragAction); // Click events
+
+    prev.addEventListener('click', function () {
+      shiftSlide(-1);
+    });
+    next.addEventListener('click', function () {
+      shiftSlide(1);
+    }); // Transition events
+
+    items.addEventListener('transitionend', checkIndex);
+
+    function dragStart(e) {
+      e = e || window.event;
+      e.preventDefault();
+      posInitial = items.offsetLeft;
+
+      if (e.type == 'touchstart') {
+        posX1 = e.touches[0].clientX;
+      } else {
+        posX1 = e.clientX;
+        document.onmouseup = dragEnd;
+        document.onmousemove = dragAction;
+      }
+    }
+
+    function dragAction(e) {
+      e = e || window.event;
+
+      if (e.type == 'touchmove') {
+        posX2 = posX1 - e.touches[0].clientX;
+        posX1 = e.touches[0].clientX;
+      } else {
+        posX2 = posX1 - e.clientX;
+        posX1 = e.clientX;
+      }
+
+      items.style.left = items.offsetLeft - posX2 + "px";
+    }
+
+    function dragEnd(e) {
+      posFinal = items.offsetLeft;
+
+      if (posFinal - posInitial < -threshold) {
+        shiftSlide(1, 'drag');
+      } else if (posFinal - posInitial > threshold) {
+        shiftSlide(-1, 'drag');
+      } else {
+        items.style.left = posInitial + "px";
+      }
+
+      document.onmouseup = null;
+      document.onmousemove = null;
+    }
+
+    function shiftSlide(dir, action) {
+      items.classList.add('shifting');
+
+      if (allowShift) {
+        if (!action) {
+          posInitial = items.offsetLeft;
+        }
+
+        if (dir == 1) {
+          items.style.left = posInitial - slideSize + "px";
+          index++;
+        } else if (dir == -1) {
+          items.style.left = posInitial + slideSize + "px";
+          index--;
+        }
+      }
+
+      ;
+      allowShift = false;
+    }
+
+    function checkIndex() {
+      items.classList.remove('shifting');
+
+      if (index == -1) {
+        items.style.left = -(slidesLength * slideSize) + "px";
+        index = slidesLength - 1;
+      }
+
+      if (index == slidesLength) {
+        items.style.left = -(1 * slideSize) + "px";
+        index = 0;
+      }
+
+      allowShift = true;
+    }
+  }
+};
+
+/***/ }),
+
+/***/ "./resources/js/front/mobile/menu.js":
+/*!*******************************************!*\
+  !*** ./resources/js/front/mobile/menu.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderMenu": () => (/* binding */ renderMenu)
+/* harmony export */ });
+var renderMenu = function renderMenu() {
+  var hamburger = document.getElementById("collapse-button");
+  var overlay = document.getElementById("overlay");
+  hamburger.addEventListener("click", function () {
+    hamburger.classList.toggle("active");
+    overlay.classList.toggle("active");
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/front/mobile/renderForm.js":
+/*!*************************************************!*\
+  !*** ./resources/js/front/mobile/renderForm.js ***!
+  \*************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "renderForm": () => (/* binding */ renderForm)
 /* harmony export */ });
-/* harmony import */ var _validador_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validador.js */ "./resources/js/front/desktop/validador.js");
+/* harmony import */ var _validador_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./validador.js */ "./resources/js/front/mobile/validador.js");
 function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -30,11 +187,7 @@ var renderForm = function renderForm() {
         var validate = (0,_validador_js__WEBPACK_IMPORTED_MODULE_0__.validador)(form);
         validate.onSuccess(function (ev) {
           ev.preventDefault();
-          var formData = new FormData(form); // if (editor != 'null'){
-          //     Object.entries(editor).forEach(([key, value]) =>{
-          //         formData.append(key, value.getData());
-          //     });
-          // }
+          var formData = new FormData(form);
 
           var _iterator = _createForOfIteratorHelper(formData.entries()),
               _step;
@@ -62,21 +215,21 @@ var renderForm = function renderForm() {
 
 /***/ }),
 
-/***/ "./resources/js/front/desktop/validador.js":
-/*!*************************************************!*\
-  !*** ./resources/js/front/desktop/validador.js ***!
-  \*************************************************/
+/***/ "./resources/js/front/mobile/validador.js":
+/*!************************************************!*\
+  !*** ./resources/js/front/mobile/validador.js ***!
+  \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "validador": () => (/* binding */ validador)
 /* harmony export */ });
-/* harmony import */ var _node_modules_just_validate_dist_just_validate_es__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/just-validate/dist/just-validate.es */ "./node_modules/just-validate/dist/just-validate.es.js");
+/* harmony import */ var just_validate__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! just-validate */ "./node_modules/just-validate/dist/just-validate.es.js");
 
 var validador = function validador(form) {
   var invalidElements = document.querySelectorAll('.is-invalid');
-  var validate = new _node_modules_just_validate_dist_just_validate_es__WEBPACK_IMPORTED_MODULE_0__["default"](form, {
+  var validate = new just_validate__WEBPACK_IMPORTED_MODULE_0__["default"](form, {
     errorFieldCssClass: 'is-invalid',
     errorLabelStyle: {
       color: 'red',
@@ -146,27 +299,6 @@ var validador = function validador(form) {
   // );                 
 
   return validate;
-};
-
-/***/ }),
-
-/***/ "./resources/js/front/mobile/menu.js":
-/*!*******************************************!*\
-  !*** ./resources/js/front/mobile/menu.js ***!
-  \*******************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "renderMenu": () => (/* binding */ renderMenu)
-/* harmony export */ });
-var renderMenu = function renderMenu() {
-  var hamburger = document.getElementById("collapse-button");
-  var overlay = document.getElementById("overlay");
-  hamburger.addEventListener("click", function () {
-    hamburger.classList.toggle("active");
-    overlay.classList.toggle("active");
-  });
 };
 
 /***/ }),
@@ -1374,12 +1506,15 @@ var __webpack_exports__ = {};
   \******************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mobile_menu_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mobile/menu.js */ "./resources/js/front/mobile/menu.js");
-/* harmony import */ var _desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./desktop/renderForm.js */ "./resources/js/front/desktop/renderForm.js");
+/* harmony import */ var _mobile_renderForm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mobile/renderForm.js */ "./resources/js/front/mobile/renderForm.js");
+/* harmony import */ var _mobile_carrousel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mobile/carrousel.js */ "./resources/js/front/mobile/carrousel.js");
  // import './desktop/header.js'
 
 
-(0,_desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_1__.renderForm)();
+
+(0,_mobile_renderForm_js__WEBPACK_IMPORTED_MODULE_1__.renderForm)();
 (0,_mobile_menu_js__WEBPACK_IMPORTED_MODULE_0__.renderMenu)();
+(0,_mobile_carrousel_js__WEBPACK_IMPORTED_MODULE_2__.renderCarrousel)();
 })();
 
 /******/ })()

@@ -1,50 +1,44 @@
-.admin-table-element{
-    border: 1px solid $secondary-color;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+.admin-table{
+    margin-top: 1rem;
 
-    .admin-table-element-img{
-        svg{
-            height: 5rem;
-            width: 5rem;
-
-            path{
-                fill: $secondary-color;
+    .admin-table-elements{
+        border: 1px solid $secondary-color;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        margin: .5rem auto;
+    
+        .admin-table-element-info{
+            display: flex;
+            flex-direction: column;
+            margin: auto;
+    
+            .info-element{
+                line-height: 1rem;
+                width: 100%;
             }
         }
-    }
-
-    .admin-table-info{
-        display: flex;
-        flex-wrap: wrap;
-
-        span{
-            color: black;
-            font-size: 1rem;
-            width: 100%;
-        }
-    }
-
-    .admin-table-element-button{
-        button{
-            background: transparent;
-            border: 0;
-
-            svg{
-                height: 2rem;
-                width: 2rem;
-
-                path{
-                    fill: $secondary-color;
+    
+        .admin-table-element-button{
+            button{
+                background: transparent;
+                border: 0;
+    
+                svg{
+                    height: 2rem;
+                    width: 2rem;
+    
+                    path{
+                        fill: $secondary-color;
+                    }
                 }
             }
-        }
-
-        button:hover{
-            svg{
-                path{
-                    fill: $primary-color-light;
+    
+            button:hover{
+                svg{
+                    path{
+                        fill: $primary-color-light;
+                    }
                 }
             }
         }
