@@ -23,6 +23,9 @@
 
     <body>   
         <div class="wrapper" id="app">
+            
+            @include('admin.layout.partials.topbar')
+
             <div class="main-content">
                 @yield('content')
             </div>

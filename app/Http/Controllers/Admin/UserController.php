@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $view = View::make('admin.users.index')
+        $view = View::make('admin.pages.users.index')
                 ->with('user', $this->user)
                 ->with('users', $this->user->where('active', 1)->get());
 
@@ -42,7 +42,7 @@ class UserController extends Controller
     public function create()
     {
 
-        $view = View::make('admin.users.index')
+        $view = View::make('admin.pages.users.index')
         ->with('user', $this->user)
         ->renderSections();
 
@@ -56,7 +56,7 @@ class UserController extends Controller
         
         if (request('password') !== null) {
 
-            $user = User::updateOrCreate([
+            $user = $this->user->updateOrCreate([
                 'id' => request('id')],[
                 'name' => request('name'),
                 'email' => request('email'),
@@ -66,7 +66,7 @@ class UserController extends Controller
             
         }else{
 
-            $user = User::updateOrCreate([
+            $user = $this->user->updateOrCreate([
                 'id' => request('id')],[
                 'name' => request('name'),
                 'email' => request('email'),
@@ -74,7 +74,7 @@ class UserController extends Controller
             ]);
         }
 
-        $view = View::make('admin.users.index')
+        $view = View::make('admin.pages.users.index')
         ->with('users', $this->user->where('active', 1)->get())
         ->with('user', $user)
         ->renderSections();        
@@ -88,7 +88,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        $view = View::make('admin.users.index')
+        $view = View::make('admin.pages.users.index')
         ->with('user', $user)
         ->with('users', $this->user->where('active', 1)->get());   
         
@@ -113,7 +113,7 @@ class UserController extends Controller
         $user->active = 0;
         $user->save();
 
-        $view = View::make('admin.users.index')
+        $view = View::make('admin.pages.users.index')
             ->with('user', $this->user)
             ->with('users', $this->user->where('active', 1)->get())
             ->renderSections();

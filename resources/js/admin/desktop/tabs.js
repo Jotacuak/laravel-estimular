@@ -5,7 +5,9 @@ export let renderTabs = () => {
     
     tabs.forEach(tab => {
     
-        tab.addEventListener("click", () => {
+        tab.addEventListener("click", (ev) => {
+
+            ev.preventDefault();
     
             tabs.forEach(tab => {
                 tab.classList.remove("active");

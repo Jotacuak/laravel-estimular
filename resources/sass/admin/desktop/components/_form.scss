@@ -1,15 +1,15 @@
-.admin-form{
+.crud-form{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     margin: auto;
     width: 90%;
 
-    .admin-form-buttons{
+    .crud-form-buttons{
         display: flex;
         justify-content: space-between;
 
-        .admin-form-button{
+        .crud-form-button{
             display: flex;
 
             button{
@@ -34,11 +34,11 @@
         }
     }
 
-    .admin-form-elements{
+    .crud-form-elements{
         padding: 0 5%;
         width: 90%;
 
-        .admin-form-element{
+        .crud-form-element{
             margin: 1rem auto;
 
             .input-bar{

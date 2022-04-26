@@ -6,6 +6,10 @@ img {
   opacity: 0;
 }
 
+.main-content {
+  padding: 0 5%;
+}
+
 .one-column .form-group {
   width: 100%;
 }
@@ -600,48 +604,48 @@ a:hover, a:focus {
   top: 8vh;
 }
 
-.admin-form {
+.crud-form {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   margin: auto;
   width: 90%;
 }
-.admin-form .admin-form-buttons {
+.crud-form .crud-form-buttons {
   display: flex;
   justify-content: space-between;
 }
-.admin-form .admin-form-buttons .admin-form-button {
+.crud-form .crud-form-buttons .crud-form-button {
   display: flex;
 }
-.admin-form .admin-form-buttons .admin-form-button button {
+.crud-form .crud-form-buttons .crud-form-button button {
   background: transparent;
   border: 0;
 }
-.admin-form .admin-form-buttons .admin-form-button button svg {
+.crud-form .crud-form-buttons .crud-form-button button svg {
   height: 2rem;
   width: 2rem;
 }
-.admin-form .admin-form-buttons .admin-form-button button svg path {
+.crud-form .crud-form-buttons .crud-form-button button svg path {
   fill: hsl(271deg, 97%, 26%);
 }
-.admin-form .admin-form-buttons .admin-form-button button:hover path {
+.crud-form .crud-form-buttons .crud-form-button button:hover path {
   fill: hsl(317deg, 100%, 32%);
 }
-.admin-form .admin-form-elements {
+.crud-form .crud-form-elements {
   padding: 0 5%;
   width: 90%;
 }
-.admin-form .admin-form-elements .admin-form-element {
+.crud-form .crud-form-elements .crud-form-element {
   margin: 1rem auto;
 }
-.admin-form .admin-form-elements .admin-form-element .input-bar {
+.crud-form .crud-form-elements .crud-form-element .input-bar {
   border: none;
   border-bottom: 2px solid hsl(271deg, 97%, 26%);
   box-sizing: border-box;
   width: 100%;
 }
-.admin-form .admin-form-elements .admin-form-element .ck-editor__editable {
+.crud-form .crud-form-elements .crud-form-element .ck-editor__editable {
   height: 40vh;
 }
 
@@ -651,31 +655,33 @@ a:hover, a:focus {
 .admin-table .admin-table-elements {
   border: 1px solid hsl(271deg, 97%, 26%);
   display: flex;
-  flex-wrap: nowrap;
   justify-content: space-between;
   margin: 0.5rem auto;
 }
 .admin-table .admin-table-elements .admin-table-element-info {
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin: auto 1rem;
 }
 .admin-table .admin-table-elements .admin-table-element-info .info-element {
   line-height: 1rem;
   width: 100%;
 }
-.admin-table .admin-table-elements .admin-table-element-button button {
+.admin-table .admin-table-elements .admin-table-element-buttons {
+  margin: auto 0;
+}
+.admin-table .admin-table-elements .admin-table-element-buttons .admin-table-element-button button {
   background: transparent;
   border: 0;
 }
-.admin-table .admin-table-elements .admin-table-element-button button svg {
+.admin-table .admin-table-elements .admin-table-element-buttons .admin-table-element-button button svg {
   height: 2rem;
   width: 2rem;
 }
-.admin-table .admin-table-elements .admin-table-element-button button svg path {
+.admin-table .admin-table-elements .admin-table-element-buttons .admin-table-element-button button svg path {
   fill: hsl(271deg, 97%, 26%);
 }
-.admin-table .admin-table-elements .admin-table-element-button button:hover svg path {
+.admin-table .admin-table-elements .admin-table-element-buttons .admin-table-element-button button:hover svg path {
   fill: hsl(317deg, 100%, 32%);
 }
 
@@ -736,7 +742,6 @@ a:hover, a:focus {
   background-color: hsl(271deg, 97%, 26%);
   height: 5vh;
   padding: 1rem 0;
-  position: fixed;
   top: 0;
   width: 100%;
   z-index: 10000;
