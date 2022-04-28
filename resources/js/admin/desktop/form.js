@@ -1,3 +1,5 @@
+import { reduce } from "lodash";
+
 export let adminForm = () => {
 
     let saveButton = document.getElementById('save-button');
@@ -107,28 +109,35 @@ export let adminForm = () => {
 
         editButtons.forEach(editButton => {
 
-            editButton.addEventListener("click", () => {
+            editButton.addEventListener("click", (ev) => {
+
+                ev.preventDefault();
     
                 let url = editButton.dataset.url;
     
                 let sendEditRequest = async () => {
 
-                    let request = await fetch(url,{
-                        method: 'GET'
+                    let request = await fetch(url, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        }
                     })
                     .then(response => {
+
+                        console.log(response.json());
                         
                         if (!response.ok) throw response;
 
                         return response.json();
                     })
-                    .then(json => {
-                        tableContainer.innerHTML = json.table;    
-                        formContainer.innerHTML = json.form;
-                    })        
-                    .catch (error => {
-                        console.error(error);
-                    })
+                    // .then(json => {
+                    //     tableContainer.innerHTML = json.table;    
+                    //     formContainer.innerHTML = json.form;
+                    // })        
+                    // .catch (error => {
+                    //     console.error(error);
+                    // })
                 };
     
                 sendEditRequest();
@@ -136,11 +145,24 @@ export let adminForm = () => {
         });
     }
 
-    refreshButton.addEventListener("click", () =>{
-        console.log("hola")
-    });
+    if(refreshButton){
+        refreshButton.addEventListener("click", () =>{
+            console.log("hola")
+        });
+    }
 
-    activeButton.addEventListener("click", () =>{
-        console.log("hola")
-    });
+    if(activeButton){
+        activeButton.addEventListener("click", () =>{
+            console.log("hola")
+        });
+    }
+
+    if(deleteButtons){
+
+        deleteButtons.forEach(deleteButton =>{
+
+        })
+    }
+
+
 };
