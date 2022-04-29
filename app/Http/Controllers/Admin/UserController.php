@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use App\Models\DB\User;
 use App\Http\Requests\Admin\UserRequest;
-use Debugbar;
 
 class UserController extends Controller
 {
@@ -96,8 +95,6 @@ class UserController extends Controller
         if(request()->ajax()) {
 
             $sections = $view->renderSections(); 
-
-            Debugbar::info("hola");
     
             return response()->json([
                 'form' => $sections['form'],

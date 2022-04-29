@@ -10,6 +10,9 @@ export let adminForm = () => {
     let forms = document.querySelectorAll('.admin-form');
     let formContainer = document.getElementById('form');
     let tableContainer = document.getElementById('table');
+    let modalDelete = document.getElementById('modal-delete');
+    let deleteConfirm = document.getElementById('delete-confirm');
+    let deleteCancel = document.getElementById('delete-cancel');
 
 
     if (saveButton) {
@@ -117,27 +120,15 @@ export let adminForm = () => {
     
                 let sendEditRequest = async () => {
 
-                    let request = await fetch(url, {
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(response => {
-
-                        console.log(response.json());
+                    try {
+                        await axios.get(url).then(response => {
+                            form.innerHTML = response.data.form;
+                            adminForm();
+                        });
                         
-                        if (!response.ok) throw response;
-
-                        return response.json();
-                    })
-                    // .then(json => {
-                    //     tableContainer.innerHTML = json.table;    
-                    //     formContainer.innerHTML = json.form;
-                    // })        
-                    // .catch (error => {
-                    //     console.error(error);
-                    // })
+                    } catch (error) {
+                        console.error(error);
+                    }
                 };
     
                 sendEditRequest();
@@ -159,10 +150,51 @@ export let adminForm = () => {
 
     if(deleteButtons){
 
-        deleteButtons.forEach(deleteButton =>{
+        deleteButtons.forEach(deleteButton => {
 
-        })
-    }
+            deleteButton.addEventListener("click", () => {
+    
+                let url = deleteButton.dataset.url;
+                deleteConfirm.dataset.url = url;
+                modalDelete.classList.add('modal-active');
+                // startOverlay();
+            });
+        });
+    
+        deleteCancel.addEventListener("click", () => {
+            modalDelete.classList.remove('modal-active');
+            stopWait();
+        });
+    
+        deleteConfirm.addEventListener("click", () => {
+    
+            let url = deleteConfirm.dataset.url;
+        
+            let sendDeleteRequest = async () => {
+    
+                try {
+                    await axios.delete(url).then(response => {
+                        
+                        if(response.data.table){
+                            table.innerHTML = response.data.table;
+                        }
 
-
+                        form.innerHTML = response.data.form;
+                        modalDelete.classList.remove('modal-active');
+                        adminForm();
+    
+                        stopWait();
+                        showMessage('success', response.data.message);
+                    });
+                    
+                } catch (error) {
+                    stopWait();
+                    console.error(error);
+                }
+            };
+    
+            sendDeleteRequest();
+        });    
+    }   
+    // renderPagination();
 };

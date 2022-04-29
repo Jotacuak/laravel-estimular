@@ -24,6 +24,8 @@
     <body>   
         <div class="wrapper" id="app">
             
+            {{-- @include('admin.components.wait') --}}
+            @include('admin.components.modal_delete')
             @include('admin.layout.partials.topbar')
 
             <div class="main-content">

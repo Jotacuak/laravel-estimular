@@ -1,4 +1,4 @@
-<div class="blog">
+<div class="blog main">
 
     @include('front.layout.partials.page_title', [
         'title' => 'Blog cognitivo',

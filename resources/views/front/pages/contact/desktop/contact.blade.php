@@ -1,4 +1,4 @@
-<div class="contact">
+<div class="contact main">
 
     @include('front.layout.partials.page_title', [
         'title' => 'Contacta con nosotros',

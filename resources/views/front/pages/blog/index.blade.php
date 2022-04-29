@@ -11,7 +11,6 @@
 
     @if($agent->isDesktop())
         <div class="page-section">
-            @include("front.components.desktop.page_header")
             @include("front.pages.blog.desktop.blog")
         </div>
     @endif

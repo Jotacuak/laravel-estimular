@@ -2261,6 +2261,9 @@ var adminForm = function adminForm() {
   var forms = document.querySelectorAll('.admin-form');
   var formContainer = document.getElementById('form');
   var tableContainer = document.getElementById('table');
+  var modalDelete = document.getElementById('modal-delete');
+  var deleteConfirm = document.getElementById('delete-confirm');
+  var deleteCancel = document.getElementById('delete-cancel');
 
   if (saveButton) {
     saveButton.addEventListener("click", function (ev) {
@@ -2368,32 +2371,32 @@ var adminForm = function adminForm() {
 
         var sendEditRequest = /*#__PURE__*/function () {
           var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-            var request;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
               while (1) {
                 switch (_context2.prev = _context2.next) {
                   case 0:
-                    _context2.next = 2;
-                    return fetch(url, {
-                      headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                      }
-                    }).then(function (response) {
-                      console.log(response.json());
-                      if (!response.ok) throw response;
-                      return response.json();
+                    _context2.prev = 0;
+                    _context2.next = 3;
+                    return axios.get(url).then(function (response) {
+                      form.innerHTML = response.data.form;
+                      adminForm();
                     });
 
-                  case 2:
-                    request = _context2.sent;
-
                   case 3:
+                    _context2.next = 8;
+                    break;
+
+                  case 5:
+                    _context2.prev = 5;
+                    _context2.t0 = _context2["catch"](0);
+                    console.error(_context2.t0);
+
+                  case 8:
                   case "end":
                     return _context2.stop();
                 }
               }
-            }, _callee2);
+            }, _callee2, null, [[0, 5]]);
           }));
 
           return function sendEditRequest() {
@@ -2419,8 +2422,67 @@ var adminForm = function adminForm() {
   }
 
   if (deleteButtons) {
-    deleteButtons.forEach(function (deleteButton) {});
-  }
+    deleteButtons.forEach(function (deleteButton) {
+      deleteButton.addEventListener("click", function () {
+        var url = deleteButton.dataset.url;
+        deleteConfirm.dataset.url = url;
+        modalDelete.classList.add('modal-active'); // startOverlay();
+      });
+    });
+    deleteCancel.addEventListener("click", function () {
+      modalDelete.classList.remove('modal-active');
+      stopWait();
+    });
+    deleteConfirm.addEventListener("click", function () {
+      var url = deleteConfirm.dataset.url;
+
+      var sendDeleteRequest = /*#__PURE__*/function () {
+        var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+            while (1) {
+              switch (_context3.prev = _context3.next) {
+                case 0:
+                  _context3.prev = 0;
+                  _context3.next = 3;
+                  return axios["delete"](url).then(function (response) {
+                    if (response.data.table) {
+                      table.innerHTML = response.data.table;
+                    }
+
+                    form.innerHTML = response.data.form;
+                    modalDelete.classList.remove('modal-active');
+                    adminForm();
+                    stopWait();
+                    showMessage('success', response.data.message);
+                  });
+
+                case 3:
+                  _context3.next = 9;
+                  break;
+
+                case 5:
+                  _context3.prev = 5;
+                  _context3.t0 = _context3["catch"](0);
+                  stopWait();
+                  console.error(_context3.t0);
+
+                case 9:
+                case "end":
+                  return _context3.stop();
+              }
+            }
+          }, _callee3, null, [[0, 5]]);
+        }));
+
+        return function sendDeleteRequest() {
+          return _ref3.apply(this, arguments);
+        };
+      }();
+
+      sendDeleteRequest();
+    });
+  } // renderPagination();
+
 };
 
 /***/ }),

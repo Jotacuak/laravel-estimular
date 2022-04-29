@@ -1,4 +1,4 @@
-<div class="personal">
+<div class="personal main">
 
     @include('front.layout.partials.page_title', [
         'title' => 'Job Plaza Riera',

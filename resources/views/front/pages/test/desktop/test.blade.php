@@ -1,4 +1,4 @@
-<div class="test">
+<div class="test main">
 
     @include('front.layout.partials.page_title',[
         'title' => 'Test',
