@@ -29,6 +29,37 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
+    Route::resource('faqs/categorias', 'App\Http\Controllers\Admin\FaqCategoryController', [
+        'parameters' => [
+            'categorias' => 'faq_category', 
+        ],
+        'names' => [
+            'index' => 'faqs_categories',
+            'create' => 'faqs_categories_create',
+            'edit' => 'faqs_categories_edit',
+            'store' => 'faqs_categories_store',
+            'destroy' => 'faqs_categories_destroy',
+            'show' => 'faqs_categories_show',
+        ]
+    ]);
+    
+
+    Route::get('/faqs/filter/{filters?}', 'App\Http\Controllers\Admin\FaqController@filter')->name('faqs_filter');
+    Route::resource('faqs', 'App\Http\Controllers\Admin\FaqController', [
+        'parameters' => [
+            'faqs' => 'faq', 
+        ],
+        'names' => [
+            'index' => 'faqs',
+            'create' => 'faqs_create',
+            'edit' => 'faqs_edit',
+            'store' => 'faqs_store',
+            'destroy' => 'faqs_destroy',
+            'show' => 'faqs_show',
+        ]
+    ]);
+
+   
 });
 
 Route::get('/', function () {
@@ -53,5 +84,9 @@ Route::get('/test', function () {
 
 Route::get('/login', function () {
     return view('front.pages.login.index');
+});
+
+Route::get('/faqs', function () {
+    return view('front.pages.faqs.index');
 });
 

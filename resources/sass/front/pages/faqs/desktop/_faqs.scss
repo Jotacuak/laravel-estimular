@@ -1,0 +1,48 @@
+.faqs-container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 1rem auto;
+    width: 80%;
+
+    .faqs-element{
+        border: 1px solid $secondary-color;
+        margin: 0.5rem auto;
+        padding: .5rem;
+        width: 100%;
+
+        .faqs-element-question{
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+
+            .faqs-element-title{
+                margin-top: .5rem;
+            }
+
+            .faqs-element-icon{
+
+                svg{
+                    height: 2rem;
+                    width: 2rem;
+
+                    path{
+                        fill: $secondary-color;
+                    }
+                }
+            }
+        }
+
+        .faqs-element-answer{
+            height: 0;
+            overflow: hidden;
+            transition: height 0.4s;
+        }
+
+        .faqs-element-answer.active{
+            height: 10vh;
+            transition: height 0.4s;
+
+        }
+    }
+}
+

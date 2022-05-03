@@ -26,6 +26,13 @@ export let adminForm = () => {
                 let url = form.action;
                 let data = new FormData(form);
 
+                if (ckeditors != 'null'){
+
+                    Object.entries(ckeditors).forEach(([key, value]) =>{
+                        data.append(key, value.getData());
+                    });
+                }
+
                 // En caso de REST API
                 // let url = '';
                 // let method = '';
@@ -137,14 +144,19 @@ export let adminForm = () => {
     }
 
     if(refreshButton){
+        
         refreshButton.addEventListener("click", () =>{
-            console.log("hola")
+            document.querySelector('.admin-form').reset();
         });
     }
 
     if(activeButton){
         activeButton.addEventListener("click", () =>{
-            console.log("hola")
+            if(activeButton.value == "true"){
+                activeButton.value = "false";
+            }else{
+                activeButton.value = "true";
+            }
         });
     }
 
