@@ -2239,12 +2239,12 @@ var renderCkeditor = function renderCkeditor() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "adminForm": () => (/* binding */ adminForm)
+/* harmony export */   "adminForm": () => (/* binding */ adminForm),
+/* harmony export */   "renderTable": () => (/* binding */ renderTable)
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _ckeditor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ckeditor.js */ "./resources/js/admin/desktop/ckeditor.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2268,18 +2268,14 @@ var adminForm = function adminForm() {
   var saveButton = document.getElementById('save-button');
   var refreshButton = document.getElementById('refresh-button');
   var activeButton = document.getElementById('active-button');
-  var editButtons = document.querySelectorAll('#edit-button');
-  var deleteButtons = document.querySelectorAll('#delete-button');
   var forms = document.querySelectorAll('.admin-form');
   var formContainer = document.getElementById('form');
   var tableContainer = document.getElementById('table');
-  var modalDelete = document.getElementById('modal-delete');
-  var deleteConfirm = document.getElementById('delete-confirm');
-  var deleteCancel = document.getElementById('delete-cancel');
 
   if (saveButton) {
     saveButton.addEventListener("click", function (ev) {
       ev.preventDefault();
+      console.log("hola");
       forms.forEach(function (form) {
         var url = form.action;
         var data = new FormData(form);
@@ -2324,13 +2320,12 @@ var adminForm = function adminForm() {
                       method: 'POST',
                       body: data
                     }).then(function (response) {
-                      console.log(response);
                       if (!response.ok) throw response;
                       return response.json();
                     }).then(function (json) {
                       tableContainer.innerHTML = json.table;
                       formContainer.innerHTML = json.form;
-                      console.log(json.table);
+                      (0,_ckeditor_js__WEBPACK_IMPORTED_MODULE_1__.renderCkeditor)();
 
                       if (json.message) {
                         document.dispatchEvent(new CustomEvent('message', {
@@ -2386,6 +2381,34 @@ var adminForm = function adminForm() {
 
   ;
 
+  if (refreshButton) {
+    refreshButton.addEventListener("click", function (ev) {
+      ev.preventDefault();
+      document.querySelector('.admin-form').reset();
+    });
+  }
+
+  if (activeButton) {
+    activeButton.addEventListener("click", function (ev) {
+      ev.preventDefault();
+
+      if (activeButton.value == "true") {
+        activeButton.value = "false";
+      } else {
+        activeButton.value = "true";
+      }
+    });
+  }
+
+  renderTable();
+};
+var renderTable = function renderTable() {
+  var editButtons = document.querySelectorAll('#edit-button');
+  var deleteButtons = document.querySelectorAll('#delete-button');
+  var modalDelete = document.getElementById('modal-delete');
+  var deleteConfirm = document.getElementById('delete-confirm');
+  var deleteCancel = document.getElementById('delete-cancel');
+
   if (editButtons) {
     editButtons.forEach(function (editButton) {
       editButton.addEventListener("click", function (ev) {
@@ -2403,6 +2426,7 @@ var adminForm = function adminForm() {
                     return axios.get(url).then(function (response) {
                       form.innerHTML = response.data.form;
                       adminForm();
+                      (0,_ckeditor_js__WEBPACK_IMPORTED_MODULE_1__.renderCkeditor)();
                     });
 
                   case 3:
@@ -2432,35 +2456,22 @@ var adminForm = function adminForm() {
     });
   }
 
-  if (refreshButton) {
-    refreshButton.addEventListener("click", function () {
-      document.querySelector('.admin-form').reset();
-    });
-  }
-
-  if (activeButton) {
-    activeButton.addEventListener("click", function () {
-      if (activeButton.value == "true") {
-        activeButton.value = "false";
-      } else {
-        activeButton.value = "true";
-      }
-    });
-  }
-
   if (deleteButtons) {
     deleteButtons.forEach(function (deleteButton) {
-      deleteButton.addEventListener("click", function () {
+      deleteButton.addEventListener("click", function (ev) {
+        ev.preventDefault();
         var url = deleteButton.dataset.url;
         deleteConfirm.dataset.url = url;
         modalDelete.classList.add('modal-active'); // startOverlay();
       });
     });
-    deleteCancel.addEventListener("click", function () {
+    deleteCancel.addEventListener("click", function (ev) {
+      ev.preventDefault();
       modalDelete.classList.remove('modal-active');
       stopWait();
     });
-    deleteConfirm.addEventListener("click", function () {
+    deleteConfirm.addEventListener("click", function (ev) {
+      ev.preventDefault();
       var url = deleteConfirm.dataset.url;
 
       var sendDeleteRequest = /*#__PURE__*/function () {

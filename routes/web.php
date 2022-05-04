@@ -86,7 +86,6 @@ Route::get('/login', function () {
     return view('front.pages.login.index');
 });
 
-Route::get('/faqs', function () {
-    return view('front.pages.faqs.index');
-});
+Route::get('/faqs', 'App\Http\Controllers\Front\FaqController@index')->name('front_faqs');
+
 

@@ -12,8 +12,7 @@
     <div class="toggle-button-cover">
         <div class="button-cover">
             <div class="button b2" id="button-18">
-                <input type="checkbox" class="checkbox" name="active" id="active-button" value/>
-                {{-- <input type="checkbox" name="visible" value="{{$user->visible == 1 ? 'true' : 'false'}}" {{$user->visible == 1 ? 'checked' : '' }} class="onoffswitch-checkbox" id="onoffswitch"> --}}
+                <input type="checkbox" class="checkbox" name="active" id="active-button" value="{{$visible == 1 ? 'true' : 'false'}}" {{$visible == 1 ? 'checked' : '' }} >
                     <div class="knobs">
                         <span></span>
                     </div>

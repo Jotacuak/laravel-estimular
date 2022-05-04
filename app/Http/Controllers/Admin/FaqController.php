@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use App\Http\Requests\Admin\FaqRequest;
 use App\Models\DB\Faq; 
-use Debugbar;
 
 class FaqController extends Controller
 {
@@ -38,8 +37,6 @@ class FaqController extends Controller
         $view = View::make('admin.pages.faqs.index')
         ->with('faq', $this->faq)
         ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
-
-        Debugbar::info($view);
 
     
         if(request()->ajax()) {
@@ -86,7 +83,7 @@ class FaqController extends Controller
         }
 
         $view = View::make('admin.pages.faqs.index')
-        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc'))
+        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         //  Añadir a la línea superior cuando ->paginate($this->paginate)
         ->with('faq', $this->faq)
         ->renderSections();        

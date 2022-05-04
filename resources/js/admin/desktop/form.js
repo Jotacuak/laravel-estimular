@@ -1,25 +1,21 @@
-import { reduce } from "lodash";
+import { renderCkeditor } from "./ckeditor.js";
 
 export let adminForm = () => {
 
     let saveButton = document.getElementById('save-button');
     let refreshButton = document.getElementById('refresh-button');
     let activeButton = document.getElementById('active-button');
-    let editButtons = document.querySelectorAll('#edit-button');
-    let deleteButtons = document.querySelectorAll('#delete-button');
     let forms = document.querySelectorAll('.admin-form');
     let formContainer = document.getElementById('form');
     let tableContainer = document.getElementById('table');
-    let modalDelete = document.getElementById('modal-delete');
-    let deleteConfirm = document.getElementById('delete-confirm');
-    let deleteCancel = document.getElementById('delete-cancel');
-
 
     if (saveButton) {
 
         saveButton.addEventListener("click", (ev) => {
 
             ev.preventDefault();
+
+            console.log("hola");
 
             forms.forEach(form => {
                 
@@ -60,8 +56,6 @@ export let adminForm = () => {
                         body: data
                     })
                     .then(response => {
-
-                        console.log(response);
                         
                         if (!response.ok) throw response;
 
@@ -72,7 +66,7 @@ export let adminForm = () => {
                         tableContainer.innerHTML = json.table;    
                         formContainer.innerHTML = json.form;
 
-                        console.log(json.table);
+                        renderCkeditor();
 
                         if(json.message){
                             document.dispatchEvent(new CustomEvent('message', {
@@ -81,7 +75,7 @@ export let adminForm = () => {
                                     type: 'success'
                                 }
                             }));
-                        }
+                        }                    
                     })
                     .catch(error => {
                         
@@ -108,13 +102,46 @@ export let adminForm = () => {
                             console.log(error);
                         }
                     });
-                };
-        
+                };        
                 sendPostRequest();
             });
         });
     };
     
+    if(refreshButton){
+        
+        refreshButton.addEventListener("click", (ev) =>{
+
+            ev.preventDefault();
+
+            document.querySelector('.admin-form').reset();
+        });
+    }
+
+    if(activeButton){
+        activeButton.addEventListener("click", (ev) =>{
+
+            ev.preventDefault();
+
+            if(activeButton.value == "true"){
+                activeButton.value = "false";
+            }else{
+                activeButton.value = "true";
+            }
+        });
+    }
+
+    renderTable();
+};
+
+export let renderTable = () => {
+
+    let editButtons = document.querySelectorAll('#edit-button');
+    let deleteButtons = document.querySelectorAll('#delete-button');
+    let modalDelete = document.getElementById('modal-delete');
+    let deleteConfirm = document.getElementById('delete-confirm');
+    let deleteCancel = document.getElementById('delete-cancel');
+
     if(editButtons){
 
         editButtons.forEach(editButton => {
@@ -131,6 +158,7 @@ export let adminForm = () => {
                         await axios.get(url).then(response => {
                             form.innerHTML = response.data.form;
                             adminForm();
+                            renderCkeditor();
                         });
                         
                     } catch (error) {
@@ -143,28 +171,13 @@ export let adminForm = () => {
         });
     }
 
-    if(refreshButton){
-        
-        refreshButton.addEventListener("click", () =>{
-            document.querySelector('.admin-form').reset();
-        });
-    }
-
-    if(activeButton){
-        activeButton.addEventListener("click", () =>{
-            if(activeButton.value == "true"){
-                activeButton.value = "false";
-            }else{
-                activeButton.value = "true";
-            }
-        });
-    }
-
     if(deleteButtons){
 
         deleteButtons.forEach(deleteButton => {
 
-            deleteButton.addEventListener("click", () => {
+            deleteButton.addEventListener("click", (ev) => {
+
+                ev.preventDefault();
     
                 let url = deleteButton.dataset.url;
                 deleteConfirm.dataset.url = url;
@@ -173,12 +186,16 @@ export let adminForm = () => {
             });
         });
     
-        deleteCancel.addEventListener("click", () => {
+        deleteCancel.addEventListener("click", (ev) => {
+            ev.preventDefault();
+
             modalDelete.classList.remove('modal-active');
             stopWait();
         });
     
-        deleteConfirm.addEventListener("click", () => {
+        deleteConfirm.addEventListener("click", (ev) => {
+
+            ev.preventDefault();
     
             let url = deleteConfirm.dataset.url;
         

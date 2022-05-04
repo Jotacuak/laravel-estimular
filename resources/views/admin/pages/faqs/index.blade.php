@@ -57,7 +57,7 @@
                         <button data-tab="two" class="tabslinks">Otros</button>
                     </div>
                 
-                    @include('admin.components.form_buttons')
+                    @include('admin.components.form_buttons', ['visible' => $faq->visible])
 
                 </div>
 
