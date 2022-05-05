@@ -454,10 +454,10 @@ header {
   height: 5vh;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 1rem 0;
+  padding: 1rem 2%;
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 96%;
   z-index: 2000;
 }
 header .header-top {
@@ -494,10 +494,11 @@ header .header-top .header-menu ul {
   justify-content: space-around;
 }
 header .header-top .header-menu ul li {
-  color: hsl(0deg, 0%, 100%);
+  color: hsl(0deg, 1%, 20%);
   cursor: pointer;
   font-size: 1rem;
   margin: 0 0.5rem;
+  font-weight: 600;
 }
 header .header-top .header-user {
   display: flex;

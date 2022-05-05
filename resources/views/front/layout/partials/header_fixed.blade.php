@@ -19,18 +19,12 @@
                 <nav>
                     <div class="header-menu overlay" id="menu">
                         <ul>
-                            <li><a href="main.html">Inicio</a></li>
-                            <li><a href="test.html">Test</a></li>
-                            <li class="header-menu-submenu"><a href="therapy.html">Terapias</a>
-                                <!-- <ul>
-                                    <li><a href="alzheimer.html">alzheimer</a></li>
-                                    <li><a href="parkinson.html">parkinson</a></li>
-                                </ul> -->
-                            </li>
-                            <li><a href="rate.html">Tarifas</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="job-plaza.html">Equipo</a></li>
-                            <li><a href="contact.html">Contacto</a></li>
+                            <li class="menu-item" data-url="{{route('front_home')}}" data-section="home">Inicio</li>
+                            <li class="menu-item" data-url="{{route('front_therapy')}}" data-section="therapy">Terapias</li>
+                            <li class="menu-item" data-url="{{route('front_rate')}}" data-section="rate">Tarifas</li>
+                            <li class="menu-item" data-url="{{route('front_blog')}}" data-section="blog">Blog</li>
+                            <li class="menu-item" data-url="{{route('front_team')}}" data-section="team">Equipo</li>
+                            <li class="menu-item" data-url="{{route('front_contact')}}" data-section="contact">Contacto</li>
                         </ul>
                     </div>
                 </nav>

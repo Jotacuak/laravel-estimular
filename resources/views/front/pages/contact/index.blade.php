@@ -10,14 +10,13 @@
 @section("content")
 
     @if($agent->isDesktop())
-        <div class="page-section">
-            @include("front.components.desktop.page_header")
+        <div class="page-section" id="contact">
             @include("front.pages.contact.desktop.contact")
         </div>
     @endif
 
     @if($agent->isMobile())
-        <div class="page-section">
+        <div class="page-section" id="contact">
             @include("front.pages.contact.mobile.contact")
         </div>
     @endif
