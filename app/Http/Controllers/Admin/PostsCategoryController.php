@@ -51,7 +51,7 @@ class PostsCategoryController extends Controller
         ]);
     }
 
-    public function stoPosts $request)
+    public function store(PostsCategoryRequest $request)
     {
 
         $posts_category = PostsCategory::updateOrCreate([

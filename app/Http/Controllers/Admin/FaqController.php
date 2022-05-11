@@ -170,7 +170,7 @@ class FaqController extends Controller
                     return $q;
                 }
                 else {
-                    return $q->where('t_faqs.name', 'like', "%$search%");
+                    return $q->where('faqs.name', 'like', "%$search%");
                 }   
             });
     
@@ -180,7 +180,7 @@ class FaqController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('t_faqs.created_at', '>=', $created_at_from);
+                    $q->whereDate('faqs.created_at', '>=', $created_at_from);
                 }   
             });
     
@@ -190,7 +190,7 @@ class FaqController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('t_faqs.created_at', '<=', $created_at_since);
+                    $q->whereDate('faqs.created_at', '<=', $created_at_since);
                 }   
             });
     
@@ -200,8 +200,8 @@ class FaqController extends Controller
             });
         }
     
-        $faqs = $query->where('t_faqs.active', 1)
-                ->orderBy('t_faqs.created_at', 'desc')
+        $faqs = $query->where('faqs.active', 1)
+                ->orderBy('faqs.created_at', 'desc')
                 ->paginate($this->paginate)
                 ->appends(['filters' => json_encode($filters)]);   
 

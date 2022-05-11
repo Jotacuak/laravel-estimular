@@ -55,7 +55,7 @@ class PostsController extends Controller
     public function create()
     {
         $view = View::make('admin.pages.posts.index')
-        ->with('posts', $this->posts)
+        ->with('post', $this->post)
         ->renderSections();
 
         return response()->json([
@@ -66,7 +66,7 @@ class PostsController extends Controller
     public function store(PostsRequest $request)
     {            
                 
-        $posts = $this->posts->updateOrCreate([
+        $post = $this->post->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
             'title' => request('title'),
@@ -83,9 +83,9 @@ class PostsController extends Controller
         }
 
         $view = View::make('admin.pages.posts.index')
-        ->with('posts', $this->posts->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('posts', $this->post->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         //  Añadir a la línea superior cuando ->paginate($this->paginate)
-        ->with('posts', $this->posts)
+        ->with('post', $this->post)
         ->renderSections();        
 
         return response()->json([
@@ -95,10 +95,10 @@ class PostsController extends Controller
         ]);
     }
 
-    public function edit(Posts $posts)
+    public function edit(Post $post)
     {
         $view = View::make('admin.pages.posts.index')
-        ->with('posts', $posts)
+        ->with('post', $post)
         ->with('posts', $this->posts->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
         if(request()->ajax()) {
@@ -114,11 +114,11 @@ class PostsController extends Controller
         return $view;
     }
 
-    public function show(Posts $posts){
+    public function show(Post $post){
 
         $view = View::make('admin.pages.posts.index')
-        ->with('posts', $posts)
-        ->with('posts', $this->posts->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('post', $post)
+        ->with('posts', $this->post->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -127,15 +127,15 @@ class PostsController extends Controller
         ]);
     }
 
-    public function destroy(Posts $posts)
+    public function destroy(Post $post)
     {
         $posts->active = 0;
         $posts->save();
 
-        $message = \Lang::get('admin/posts.posts-delete');
+        $message = \Lang::get('admin/posts.post-delete');
 
         $view = View::make('admin.pages.posts.index')
-        ->with('posts', $this->posts)
+        ->with('post', $this->post)
         ->with('posts', $this->posts->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 

@@ -48,8 +48,6 @@
         </div>
     @endif
 
-    @endif
-
 @endsection
 
 @section('form')

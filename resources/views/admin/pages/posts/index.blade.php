@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="form-group">                       
                                     <div class="crud-form-element">
-                                        <label for="categories">Categoría:</label>
+                                        <label for="category">Categoría:</label>
                                     </div>
                                     <div class="crud-form-element">
                                         <select name="category_id" data-placeholder="Seleccione una categoría">
