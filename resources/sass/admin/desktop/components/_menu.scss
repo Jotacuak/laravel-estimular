@@ -2,28 +2,32 @@
     margin: 5rem auto;
     width: 75%;
 
-    .menu-element{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    .menu-elements{
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        grid-template-rows: 1fr;
 
-        button{
-            background-color: transparent;
-            border: 0;
-    
-            svg{
-                height: 4rem;
-                width: 4rem;
+        .menu-element{
+
+            button{
+                background-color: transparent;
+                border: 0;
         
-                path{
-                    fill: white;
+                svg{
+                    height: 4rem;
+                    width: 4rem;
+            
+                    path{
+                        fill: white;
+                    }
                 }
             }
+        
+            h2{
+                color: white;
+                text-align: center;
+            }
         }
-    
-        h2{
-            color: white;
-            text-align: center;
-        }
+
     }
 }

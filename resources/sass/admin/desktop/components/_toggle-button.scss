@@ -61,7 +61,7 @@
 /* Button 18 */
 #button-18 .knobs:before,
 #button-18 .knobs span {
-  content: "YES";
+  content: "NO";
   position: absolute;
   top: 4px;
   left: 4px;
@@ -118,7 +118,7 @@
 }
 
 #button-18 .checkbox:checked + .knobs:before {
-  content: "NO";
+  content: "YES";
   left: 47px;
 }
 

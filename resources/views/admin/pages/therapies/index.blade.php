@@ -6,9 +6,10 @@
 
 @section('table')
 
-    @if(!$therapies->isEmpty())
+    <div class="admin-table" id="therapies">
 
-        <div class="admin-table">
+        @if(!$therapies->isEmpty())
+
             @foreach ($therapies as $therapies_element)
                 <div class="admin-table-elements">
                     <div class="admin-table-element-info">
@@ -35,16 +36,17 @@
                     </div>
                 </div>            
             @endforeach
-        </div>
         
-    @else
-        <div class="admin-table-elements">
-            <div class="admin-table-info">
-                <h3>NO HAY NINGÚN ELEMENTO</h3>
+        @else
+            <div class="admin-table-elements">
+                <div class="admin-table-info">
+                    <h3>NO HAY NINGÚN ELEMENTO</h3>
+                </div>
             </div>
-        </div>
 
-    @endif
+        @endif
+
+    </div>
 
 @endsection
 

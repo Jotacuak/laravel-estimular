@@ -2,6 +2,55 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./resources/js/front/desktop/cardFlip.js":
+/*!************************************************!*\
+  !*** ./resources/js/front/desktop/cardFlip.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderCard": () => (/* binding */ renderCard)
+/* harmony export */ });
+var renderCard = function renderCard() {
+  var swichBtn = document.getElementById("swich-btn");
+  var cards = document.querySelectorAll(".card-container");
+  document.addEventListener("loadSection", function (event) {
+    if (event.detail.section.includes('home')) {
+      renderCard();
+    }
+  });
+  cards.forEach(function (card) {
+    swichBtn.addEventListener("click", function () {
+      card.classList.toggle("flip");
+    });
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/front/mobile/accordion.js":
+/*!************************************************!*\
+  !*** ./resources/js/front/mobile/accordion.js ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderAccordion": () => (/* binding */ renderAccordion)
+/* harmony export */ });
+var renderAccordion = function renderAccordion() {
+  var accordionBtns = document.querySelectorAll('.faqs-element-question');
+  accordionBtns.forEach(function (accordionBtn) {
+    accordionBtn.addEventListener("click", function () {
+      var answer = accordionBtn.closest('.faqs-element').querySelector('.faqs-element-answer');
+      answer.classList.toggle("active");
+    });
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/front/mobile/carrousel.js":
 /*!************************************************!*\
   !*** ./resources/js/front/mobile/carrousel.js ***!
@@ -1508,13 +1557,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mobile_menu_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mobile/menu.js */ "./resources/js/front/mobile/menu.js");
 /* harmony import */ var _mobile_renderForm_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mobile/renderForm.js */ "./resources/js/front/mobile/renderForm.js");
 /* harmony import */ var _mobile_carrousel_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mobile/carrousel.js */ "./resources/js/front/mobile/carrousel.js");
+/* harmony import */ var _mobile_accordion_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mobile/accordion.js */ "./resources/js/front/mobile/accordion.js");
+/* harmony import */ var _desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./desktop/cardFlip.js */ "./resources/js/front/desktop/cardFlip.js");
  // import './desktop/header.js'
+
+
 
 
 
 (0,_mobile_renderForm_js__WEBPACK_IMPORTED_MODULE_1__.renderForm)();
 (0,_mobile_menu_js__WEBPACK_IMPORTED_MODULE_0__.renderMenu)();
 (0,_mobile_carrousel_js__WEBPACK_IMPORTED_MODULE_2__.renderCarrousel)();
+(0,_mobile_accordion_js__WEBPACK_IMPORTED_MODULE_3__.renderAccordion)();
+(0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_4__.renderCard)();
 })();
 
 /******/ })()

@@ -568,23 +568,23 @@ a:hover, a:focus {
   margin: 5rem auto;
   width: 75%;
 }
-.menu .menu-element {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.menu .menu-elements {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr;
 }
-.menu .menu-element button {
+.menu .menu-elements .menu-element button {
   background-color: transparent;
   border: 0;
 }
-.menu .menu-element button svg {
+.menu .menu-elements .menu-element button svg {
   height: 4rem;
   width: 4rem;
 }
-.menu .menu-element button svg path {
+.menu .menu-elements .menu-element button svg path {
   fill: white;
 }
-.menu .menu-element h2 {
+.menu .menu-elements .menu-element h2 {
   color: white;
   text-align: center;
 }
@@ -872,7 +872,7 @@ a:hover, a:focus {
 /* Button 18 */
 #button-18 .knobs:before,
 #button-18 .knobs span {
-  content: "YES";
+  content: "NO";
   position: absolute;
   top: 4px;
   left: 4px;
@@ -929,7 +929,7 @@ a:hover, a:focus {
 }
 
 #button-18 .checkbox:checked + .knobs:before {
-  content: "NO";
+  content: "YES";
   left: 47px;
 }
 

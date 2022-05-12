@@ -27,7 +27,7 @@ Route::group(['prefix' => 'admin'], function () {
             'destroy' => 'users_destroy',
             'show' => 'users_show',
         ]
-    ])->name('admin_users');
+    ]);
 
     Route::resource('tarifas', 'App\Http\Controllers\Admin\RatesController', [
         'parameters' => [
@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin'], function () {
             'destroy' => 'rates_destroy',
             'show' => 'rates_show',
         ]
-    ])->name('admin_rates');
+    ]);
 
     Route::resource('terapias', 'App\Http\Controllers\Admin\TherapiesController', [
         'parameters' => [
@@ -55,7 +55,7 @@ Route::group(['prefix' => 'admin'], function () {
             'destroy' => 'therapies_destroy',
             'show' => 'therapies_show',
         ]
-    ])->name('admin_therapies');
+    ]);
 
     Route::resource('equipo', 'App\Http\Controllers\Admin\WorkersController', [
         'parameters' => [
@@ -69,7 +69,7 @@ Route::group(['prefix' => 'admin'], function () {
             'destroy' => 'workers_destroy',
             'show' => 'workers_show',
         ]
-    ])->name('admin_team');
+    ]);
 
     Route::resource('faqs/categorias', 'App\Http\Controllers\Admin\FaqCategoryController', [
         'parameters' => [
@@ -83,7 +83,7 @@ Route::group(['prefix' => 'admin'], function () {
             'destroy' => 'faqs_categories_destroy',
             'show' => 'faqs_categories_show',
         ]
-    ])->name('admin_faqs_categories');    
+    ]);    
 
     Route::get('/faqs/filter/{filters?}', 'App\Http\Controllers\Admin\FaqController@filter')->name('faqs_filter');
     Route::resource('faqs', 'App\Http\Controllers\Admin\FaqController', [
@@ -98,7 +98,7 @@ Route::group(['prefix' => 'admin'], function () {
             'destroy' => 'faqs_destroy',
             'show' => 'faqs_show',
         ]
-    ])->name('admin_faqs');
+    ]);
 
     Route::resource('blog/categorias', 'App\Http\Controllers\Admin\PostsCategoryController', [
         'parameters' => [
@@ -112,7 +112,7 @@ Route::group(['prefix' => 'admin'], function () {
             'destroy' => 'posts_categories_destroy',
             'show' => 'posts_categories_show',
         ]
-    ])->name('admin_blog_categories');
+    ]);
 
     Route::get('/blog/filter/{filters?}', 'App\Http\Controllers\Admin\PostsController@filter')->name('posts_filter');
     Route::resource('blog', 'App\Http\Controllers\Admin\PostsController', [
@@ -127,13 +127,13 @@ Route::group(['prefix' => 'admin'], function () {
             'destroy' => 'posts_destroy',
             'show' => 'posts_show',
         ]
-    ])->name('admin_blog');
+    ]);
    
 });
 
 Route::get('/', 'App\Http\Controllers\Front\HomeController@index')->name('front_home');
 Route::get('/preguntas-frecuentes', 'App\Http\Controllers\Front\FaqController@index')->name('front_faqs');
-Route::get('/equipo', 'App\Http\Controllers\Front\workersController@index')->name('front_workers');
+Route::get('/equipo', 'App\Http\Controllers\Front\TeamController@index')->name('front_team');
 Route::get('/contacto', 'App\Http\Controllers\Front\ContactController@index')->name('front_contact');
 Route::get('/terapias', 'App\Http\Controllers\Front\TherapyController@index')->name('front_therapy');
 Route::get('/posts', 'App\Http\Controllers\Front\BlogController@index')->name('front_blog');

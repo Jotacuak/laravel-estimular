@@ -2218,8 +2218,8 @@ __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
  // import { memoryGame } from './desktop/renderMemory.js';
 
 (0,_desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_0__.renderForm)();
-(0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__.flipCard)();
-(0,_desktop_accordion_js__WEBPACK_IMPORTED_MODULE_2__.accordionRender)();
+(0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__.renderCard)();
+(0,_desktop_accordion_js__WEBPACK_IMPORTED_MODULE_2__.renderAccordion)();
 (0,_desktop_menu_js__WEBPACK_IMPORTED_MODULE_3__.renderMenu)(); // memoryGame ();
 
 /***/ }),
@@ -2233,9 +2233,9 @@ __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "accordionRender": () => (/* binding */ accordionRender)
+/* harmony export */   "renderAccordion": () => (/* binding */ renderAccordion)
 /* harmony export */ });
-var accordionRender = function accordionRender() {
+var renderAccordion = function renderAccordion() {
   var accordionBtns = document.querySelectorAll('.faqs-element-question');
   accordionBtns.forEach(function (accordionBtn) {
     accordionBtn.addEventListener("click", function () {
@@ -2256,14 +2256,14 @@ var accordionRender = function accordionRender() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "flipCard": () => (/* binding */ flipCard)
+/* harmony export */   "renderCard": () => (/* binding */ renderCard)
 /* harmony export */ });
-var flipCard = function flipCard() {
+var renderCard = function renderCard() {
   var swichBtn = document.getElementById("swich-btn");
   var cards = document.querySelectorAll(".card-container");
   document.addEventListener("loadSection", function (event) {
     if (event.detail.section.includes('home')) {
-      flipCard();
+      renderCard();
     }
   });
   cards.forEach(function (card) {

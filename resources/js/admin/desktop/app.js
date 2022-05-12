@@ -1,11 +1,19 @@
 require('../../bootstrap');
 
-import {renderMenu} from './menu.js';
+import {renderActiveButton} from './activeButton.js'
 import {renderCkeditor} from './ckeditor.js';
+import {renderForm} from './form.js';
+import {renderMenu} from './menu.js';
+// import {renderMessages} from './messages.js';
+import {renderTable} from './table.js';
 import {renderTabs} from './tabs.js';
-import {adminForm} from './form.js';
+// import {renderWait} from './wait.js';
 
-renderTabs();
+renderActiveButton();
 renderCkeditor();
+renderForm();
 renderMenu();
-adminForm();
+// renderMessages();
+renderTable();
+renderTabs();
+// renderWait();

@@ -1,21 +1,67 @@
-import { renderCkeditor } from "./ckeditor.js";
+export let renderForm = () => {
 
-export let adminForm = () => {
-
-    let saveButton = document.getElementById('save-button');
-    let refreshButton = document.getElementById('refresh-button');
-    let activeButton = document.getElementById('active-button');
+    let storeButton = document.getElementById('store-button');
+    let createButton = document.getElementById('create-button');
     let forms = document.querySelectorAll('.admin-form');
     let formContainer = document.getElementById('form');
-    let tableContainer = document.getElementById('table');
 
-    if (saveButton) {
+    document.addEventListener("loadForm",( event =>{
+        formContainer.innerHTML = event.detail.form;
+    }),{once: true});
 
-        saveButton.addEventListener("click", (ev) => {
+    document.addEventListener("renderFormModules",( event =>{
+        renderForm();
+    }),{once: true});
+
+    if(createButton){
+        
+        createButton.addEventListener("click", (ev) =>{
 
             ev.preventDefault();
 
-            console.log("hola");
+            let url = createButton.dataset.url;
+    
+            let sendCreateRequest = async () => {
+
+                // document.dispatchEvent(new CustomEvent('startWait'));
+
+                let response = await fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    method: 'GET', 
+                })
+                .then(response => {
+                              
+                    if (!response.ok) throw response;
+
+                    return response.json();
+                })
+                .then(json => {
+
+                    formContainer.innerHTML = json.form;
+                    document.dispatchEvent(new CustomEvent('renderFormModules'));
+                    // document.dispatchEvent(new CustomEvent('stopWait'));
+                })
+                .catch(error =>  {
+
+                    // document.dispatchEvent(new CustomEvent('stopWait'));
+
+                    if(error.status == '500'){
+                        console.log(error);
+                    };
+                });
+            };
+    
+            sendCreateRequest();
+        });
+    }
+
+    if (storeButton) {
+
+        storeButton.addEventListener("click", (ev) => {
+
+            ev.preventDefault();
 
             forms.forEach(form => {
                 
@@ -62,39 +108,47 @@ export let adminForm = () => {
                         return response.json();
                     })
                     .then(json => {
-
-                        tableContainer.innerHTML = json.table;    
+ 
                         formContainer.innerHTML = json.form;
 
-                        renderCkeditor();
+                        document.dispatchEvent(new CustomEvent('loadTable', {
+                            detail: {
+                                table: json.table,
+                            }
+                        }));
 
-                        if(json.message){
-                            document.dispatchEvent(new CustomEvent('message', {
-                                detail: {
-                                    message: json.message,
-                                    type: 'success'
-                                }
-                            }));
-                        }                    
+                        document.dispatchEvent(new CustomEvent('renderFormModules'));
+                        document.dispatchEvent(new CustomEvent('renderTableModules'));
+                        // document.dispatchEvent(new CustomEvent('stopWait'));
+
+                        // document.dispatchEvent(new CustomEvent('message', {
+                        //     detail: {
+                        //         message: json.message,
+                        //         type: 'success'
+                        //     }
+                        // }));                   
                     })
                     .catch(error => {
+
+                        // document.dispatchEvent(new CustomEvent('stopWait'));
                         
                         if(error.status == '422'){
 
                             error.json().then(jsonError => {
 
-                                console.log(jsonError);
-                                let errors = jsonError.errors;  
-                                // let errorsContainer = document.getElementById('crud__form-errors');      
-                                // errorsContainer.classList.add('active');
+                                let errors = jsonError.errors;      
+                                let errorMessage = '';
 
-                                Object.keys(errors).forEach( (key) => {
-                                    console.log(errors[key]);
-                                    // let errorMessage = document.createElement('li');
-                                    // errorMessage.textContent = errors[key];
-                                    // errorsContainer.insertAdjacentElement('beforeend',errorMessage);
-                                    // document.querySelector(`[name=${key}]`).classList.add('error');
+                                Object.keys(errors).forEach(function(key) {
+                                    errorMessage += '<li>' + errors[key] + '</li>';
                                 })
+
+                                // document.dispatchEvent(new CustomEvent('message', {
+                                //     detail: {
+                                //         message: errorMessage,
+                                //         type: 'success'
+                                //     }
+                                // }));
                             })   
                         }
 
@@ -107,123 +161,4 @@ export let adminForm = () => {
             });
         });
     };
-    
-    if(refreshButton){
-        
-        refreshButton.addEventListener("click", (ev) =>{
-
-            ev.preventDefault();
-
-            document.querySelector('.admin-form').reset();
-        });
-    }
-
-    if(activeButton){
-        activeButton.addEventListener("click", (ev) =>{
-
-            ev.preventDefault();
-
-            if(activeButton.value == "true"){
-                activeButton.value = "false";
-            }else{
-                activeButton.value = "true";
-            }
-        });
-    }
-
-    renderTable();
-};
-
-export let renderTable = () => {
-
-    let editButtons = document.querySelectorAll('#edit-button');
-    let deleteButtons = document.querySelectorAll('#delete-button');
-    let modalDelete = document.getElementById('modal-delete');
-    let deleteConfirm = document.getElementById('delete-confirm');
-    let deleteCancel = document.getElementById('delete-cancel');
-
-    if(editButtons){
-
-        editButtons.forEach(editButton => {
-
-            editButton.addEventListener("click", (ev) => {
-
-                ev.preventDefault();
-    
-                let url = editButton.dataset.url;
-    
-                let sendEditRequest = async () => {
-
-                    try {
-                        await axios.get(url).then(response => {
-                            form.innerHTML = response.data.form;
-                            adminForm();
-                            renderCkeditor();
-                        });
-                        
-                    } catch (error) {
-                        console.error(error);
-                    }
-                };
-    
-                sendEditRequest();
-            });
-        });
-    }
-
-    if(deleteButtons){
-
-        deleteButtons.forEach(deleteButton => {
-
-            deleteButton.addEventListener("click", (ev) => {
-
-                ev.preventDefault();
-    
-                let url = deleteButton.dataset.url;
-                deleteConfirm.dataset.url = url;
-                modalDelete.classList.add('modal-active');
-                // startOverlay();
-            });
-        });
-    
-        deleteCancel.addEventListener("click", (ev) => {
-            ev.preventDefault();
-
-            modalDelete.classList.remove('modal-active');
-            stopWait();
-        });
-    
-        deleteConfirm.addEventListener("click", (ev) => {
-
-            ev.preventDefault();
-    
-            let url = deleteConfirm.dataset.url;
-        
-            let sendDeleteRequest = async () => {
-    
-                try {
-                    await axios.delete(url).then(response => {
-                        
-                        if(response.data.table){
-                            table.innerHTML = response.data.table;
-                        }
-
-                        form.innerHTML = response.data.form;
-                        modalDelete.classList.remove('modal-active');
-                        adminForm();
-    
-                        stopWait();
-                        showMessage('success', response.data.message);
-                    });
-                    
-                } catch (error) {
-                    stopWait();
-                    console.error(error);
-                }
-            };
-    
-            sendDeleteRequest();
-        });    
-    }   
-    // renderPagination();
 };
