@@ -11,7 +11,7 @@
     <div class="admin-table" id="faqs">
 
         @if(!$faqs->isEmpty())
-
+            
             @foreach ($faqs as $faq_element)
                 <div class="admin-table-elements">
                     <div class="admin-table-element-info">
@@ -41,10 +41,8 @@
             @endforeach
 
         @else
-            <div class="admin-table-elements">
-                <div class="admin-table-info">
-                    <h3>NO HAY NINGÚN ELEMENTO</h3>
-                </div>
+            <div class="admin-table-null">
+                <h3>NO HAY NINGÚN ELEMENTO</h3>
             </div>
         @endif
 
@@ -65,7 +63,7 @@
                         <button data-tab="two" class="tabslinks">Otros</button>
                     </div>
                 
-                    @include('admin.components.form_buttons', ['visible' => $faq->visible])
+                    @include('admin.components.form_buttons', ['route' => $route, 'visible' => $faq->visible, 'create' => 'create'])
 
                 </div>
 
@@ -109,7 +107,7 @@
                                 <label for="comment">Descripción:</label>
                             </div>
                             <div class="crud-form-element">
-                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($faq->description) ? $faq->description : ''}}"></textarea>
+                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($faq->description) ? $faq->description : ''}}">{{isset($faq["description"]) ? $faq["description"] : ''}}</textarea>
                             </div>
                         </div>        
                     </div>

@@ -16,14 +16,14 @@ export let renderMenu = () => {
     menuItems.forEach( menuItem => {
     
         menuItem.addEventListener("click", () => {
-    
+
             let url = menuItem.dataset.url;
     
             let sendEditRequest = async () => {
     
                 let response = await fetch(url, {
                     headers: {
-                        'Accept': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
                     },
                     method: 'GET',
                 })
@@ -35,7 +35,6 @@ export let renderMenu = () => {
                 })
                 .then(json => {
     
-                    sectionTitle.textContent = menuItem.textContent;
                     hamburger.classList.remove("active");
                     overlay.classList.remove("active");
     

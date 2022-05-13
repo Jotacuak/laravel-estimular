@@ -56,6 +56,7 @@ class FaqController extends Controller
     {
         $view = View::make('admin.pages.faqs.index')
         ->with('faq', $this->faq)
+        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
 
         return response()->json([
@@ -84,7 +85,6 @@ class FaqController extends Controller
 
         $view = View::make('admin.pages.faqs.index')
         ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        //  Añadir a la línea superior cuando ->paginate($this->paginate)
         ->with('faq', $this->faq)
         ->renderSections();        
 

@@ -38,10 +38,8 @@
             @endforeach
         
         @else
-            <div class="admin-table-elements">
-                <div class="admin-table-info">
-                    <h3>NO HAY NINGÚN ELEMENTO</h3>
-                </div>
+            <div class="admin-table-null">
+                <h3>NO HAY NINGÚN ELEMENTO</h3>
             </div>
         @endif
 
@@ -93,7 +91,7 @@
                                 <label for="comment">Descripción:</label>
                             </div>
                             <div class="crud-form-element">
-                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($workers->description) ? $workers->description : ''}}"></textarea>
+                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($workers->description) ? $workers->description : ''}}">{{isset($worker["description"]) ? $worker["description"] : ''}}</textarea>
                             </div>
                         </div>        
                     </div>

@@ -38,10 +38,8 @@
             @endforeach
         
         @else
-            <div class="admin-table-elements">
-                <div class="admin-table-info">
-                    <h3>NO HAY NINGÚN ELEMENTO</h3>
-                </div>
+            <div class="admin-table-null">
+                <h3>NO HAY NINGÚN ELEMENTO</h3>
             </div>
         @endif
 

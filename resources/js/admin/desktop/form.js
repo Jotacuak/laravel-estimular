@@ -32,7 +32,7 @@ export let renderForm = () => {
                     method: 'GET', 
                 })
                 .then(response => {
-                              
+                    
                     if (!response.ok) throw response;
 
                     return response.json();

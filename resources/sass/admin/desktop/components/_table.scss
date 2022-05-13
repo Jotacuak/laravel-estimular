@@ -47,4 +47,14 @@
             }
         }
     }
+
+    .admin-table-null{
+        background-color: $secondary-color;
+        padding: 1rem 0;
+
+        h3{
+            color: white;
+            text-align: center;
+        }
+    }
 }

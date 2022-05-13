@@ -2211,16 +2211,19 @@ var renderActiveButton = function renderActiveButton() {
   }, {
     once: true
   });
-  var activeButton = document.getElementById('active-button');
+  var onOffSwitch = document.querySelector('.onoffswitch');
+  var activeButton = document.getElementById('activebutton');
 
-  if (activeButton) {
-    activeButton.addEventListener("click", function (ev) {
+  if (onOffSwitch) {
+    onOffSwitch.addEventListener("click", function (ev) {
       ev.preventDefault();
 
       if (activeButton.value == "true") {
         activeButton.value = "false";
+        activeButton.checked = false;
       } else {
         activeButton.value = "true";
+        activeButton.checked = true;
       }
     });
   }
@@ -2526,14 +2529,13 @@ var renderMenu = function renderMenu() {
                   _context.next = 2;
                   return fetch(url, {
                     headers: {
-                      'Accept': 'application/json'
+                      'X-Requested-With': 'XMLHttpRequest'
                     },
                     method: 'GET'
                   }).then(function (response) {
                     if (!response.ok) throw response;
                     return response.json();
                   }).then(function (json) {
-                    sectionTitle.textContent = menuItem.textContent;
                     hamburger.classList.remove("active");
                     overlay.classList.remove("active");
                     window.history.pushState('', '', url);

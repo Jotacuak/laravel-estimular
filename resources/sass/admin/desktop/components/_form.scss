@@ -31,6 +31,92 @@
                     fill: $primary-color-light;
                 }
             }
+
+            .switch-container{
+
+                margin: .8em .5em;
+                position: relative;
+                    
+                .onoffswitch {
+                    width: 4.6em;
+                    user-select: none;
+                }
+        
+                .onoffswitch-checkbox {
+                    display: none;
+                }
+        
+                .onoffswitch-label {
+                    display: block;
+                    overflow: hidden;
+                    cursor: pointer;
+                    border-radius: 0.4em;
+                }
+        
+                .onoffswitch-inner {
+                    display: block;
+                    width: 200%;
+                    margin-left: -100%;
+                    transition: margin 0.3s ease-in 0s;
+                }
+        
+                .onoffswitch-inner:before,
+                .onoffswitch-inner:after {
+                    box-sizing: border-box;
+                    color: white;
+                    display: block;
+                    float: left;
+                    font-family: $font-stack;
+                    font-size: 14px;
+                    font-weight: 600;
+                    height: 2.2em;
+                    line-height: 2em;
+                    padding: 0;
+                    width: 50%;
+                }
+        
+                .onoffswitch-inner:before {
+                    background-color: white;
+                    color: $secondary-color;
+                    content: "ON";
+                    padding-left: 10px;
+        
+                }
+        
+                .onoffswitch-inner:after {
+                    background-color: white;
+                    color: hsl(0, 0%, 50%);
+                    content: "OFF";
+                    padding-right: 10px;
+                    text-align: right;
+                }
+        
+                .onoffswitch-switch {
+                    background: hsl(0, 0%, 50%);
+                    border: 2px solid white;
+                    border-radius: 0.4em;
+                    bottom: 0;
+                    display: block;
+                    height: 1.6em;
+                    position: absolute;
+                    top: 1px;
+                    transition: all 0.3s ease-in 0s;
+                    right: 40px;
+                    width: 1.6em;
+                }
+        
+                .onoffswitch-switch:hover {
+                    background: $primary-color-light;
+                }
+                
+                .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+                    margin-left: 0;
+                }
+                .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+                    right: 0px;
+                    background-color: $secondary-color;
+                }
+            }
         }
     }
 

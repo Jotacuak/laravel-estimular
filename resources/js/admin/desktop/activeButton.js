@@ -4,17 +4,20 @@ export let renderActiveButton = () => {
         renderActiveButton();
     }),{once: true});
 
-    let activeButton = document.getElementById('active-button');
+    let onOffSwitch = document.querySelector('.onoffswitch');
+    let activeButton = document.getElementById('activebutton');
 
-    if(activeButton){
-        activeButton.addEventListener("click", (ev) =>{
+    if(onOffSwitch ){
+        onOffSwitch.addEventListener("click", (ev) =>{
 
             ev.preventDefault();
 
             if(activeButton.value == "true"){
                 activeButton.value = "false";
+                activeButton.checked = false;
             }else{
                 activeButton.value = "true";
+                activeButton.checked = true;
             }
         });
     }

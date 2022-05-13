@@ -677,6 +677,82 @@ a:hover, a:focus {
 .crud-form .crud-form-buttons .crud-form-button button:hover path {
   fill: hsl(317deg, 100%, 32%);
 }
+.crud-form .crud-form-buttons .crud-form-button .switch-container {
+  margin: 0.8em 0.5em;
+  position: relative;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch {
+  width: 4.6em;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-checkbox {
+  display: none;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-label {
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 0.4em;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-inner {
+  display: block;
+  width: 200%;
+  margin-left: -100%;
+  transition: margin 0.3s ease-in 0s;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-inner:before,
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-inner:after {
+  box-sizing: border-box;
+  color: white;
+  display: block;
+  float: left;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  height: 2.2em;
+  line-height: 2em;
+  padding: 0;
+  width: 50%;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-inner:before {
+  background-color: white;
+  color: hsl(271deg, 97%, 26%);
+  content: "ON";
+  padding-left: 10px;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-inner:after {
+  background-color: white;
+  color: hsl(0deg, 0%, 50%);
+  content: "OFF";
+  padding-right: 10px;
+  text-align: right;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-switch {
+  background: hsl(0deg, 0%, 50%);
+  border: 2px solid white;
+  border-radius: 0.4em;
+  bottom: 0;
+  display: block;
+  height: 1.6em;
+  position: absolute;
+  top: 1px;
+  transition: all 0.3s ease-in 0s;
+  right: 40px;
+  width: 1.6em;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-switch:hover {
+  background: hsl(317deg, 100%, 32%);
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+  margin-left: 0;
+}
+.crud-form .crud-form-buttons .crud-form-button .switch-container .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+  right: 0px;
+  background-color: hsl(271deg, 97%, 26%);
+}
 .crud-form .crud-form-elements {
   padding: 0 5%;
   width: 90%;
@@ -728,6 +804,14 @@ a:hover, a:focus {
 }
 .admin-table .admin-table-elements .admin-table-element-buttons .admin-table-element-button button:hover svg path {
   fill: hsl(317deg, 100%, 32%);
+}
+.admin-table .admin-table-null {
+  background-color: hsl(271deg, 97%, 26%);
+  padding: 1rem 0;
+}
+.admin-table .admin-table-null h3 {
+  color: white;
+  text-align: center;
 }
 
 .tabs {
@@ -810,136 +894,6 @@ a:hover, a:focus {
 }
 .topbar .topbar-element button svg path {
   fill: white;
-}
-
-.toggle-button-cover {
-  margin-top: 0.7rem;
-  position: relative;
-}
-
-.button-cover {
-  border: 1px solid hsl(271deg, 97%, 26%);
-}
-
-.button-cover,
-.knobs,
-.layer {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-
-.button {
-  position: relative;
-  top: 50%;
-  width: 74px;
-  height: 36px;
-  overflow: hidden;
-}
-
-.button.r,
-.button.r .layer {
-  border-radius: 100px;
-}
-
-.button.b2 {
-  border-radius: 2px;
-}
-
-.checkbox {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-  opacity: 0;
-  cursor: pointer;
-  z-index: 3;
-}
-
-.knobs {
-  z-index: 2;
-}
-
-.layer {
-  width: 100%;
-  background-color: #ebf7fc;
-  transition: 0.3s ease all;
-  z-index: 1;
-}
-
-/* Button 18 */
-#button-18 .knobs:before,
-#button-18 .knobs span {
-  content: "NO";
-  position: absolute;
-  top: 4px;
-  left: 4px;
-  color: #fff;
-  font-size: 10px;
-  font-weight: bold;
-  text-align: center;
-  line-height: 1;
-  background-color: hsl(271deg, 97%, 26%);
-  border-radius: 2px;
-}
-
-#button-18 .knobs:before {
-  top: 50%;
-  left: 8px;
-  width: 20px;
-  height: 10px;
-  margin-top: -5px;
-  background-color: transparent;
-  z-index: 2;
-}
-
-#button-18 .knobs span {
-  width: 20px;
-  height: 10px;
-  padding: 9px 4px;
-  transition: 0.3s ease all, left 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15);
-  z-index: 1;
-}
-
-#button-18 .checkbox:active + .knobs:before {
-  left: 10px;
-  width: 46px;
-  height: 4px;
-  color: transparent;
-  margin-top: -2px;
-  background-color: hsl(271deg, 97%, 26%);
-  transition: 0.3s ease all;
-  overflow: hidden;
-}
-
-#button-18 .checkbox:active + .knobs span {
-  width: 58px;
-}
-
-#button-18 .checkbox:checked:active + .knobs:before {
-  left: auto;
-  right: 10px;
-  background-color: hsl(317deg, 100%, 32%);
-}
-
-#button-18 .checkbox:checked:active + .knobs span {
-  margin-left: -38px;
-}
-
-#button-18 .checkbox:checked + .knobs:before {
-  content: "YES";
-  left: 47px;
-}
-
-#button-18 .checkbox:checked + .knobs span {
-  left: 42px;
-  background-color: hsl(317deg, 100%, 32%);
-}
-
-#button-18 .checkbox:checked ~ .layer {
-  background-color: #fcebeb;
 }
 
 .admin-users {
