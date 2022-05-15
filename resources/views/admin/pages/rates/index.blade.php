@@ -15,7 +15,6 @@
                     <div class="admin-table-element-info">
                         <ul>
                             <li class="info-element">Nombre:{{$rates_element->name}}</li>
-                            <li class="info-element">Categoría:{{$rates_element->category->name}}</li>
                             <li class="info-element">Creado el:{{ Carbon\Carbon::parse($rates_element->created_at)->format('d-m-Y') }}</li>
                         </ul>
                     </div>
@@ -58,7 +57,7 @@
                     <div class="tabs">
                         <button data-tab="zero" class="tabslinks active">Contenido</button>
                         <button data-tab="one" class="tabslinks">Imagenes</button>
-                        <button data-tab="two" class="tabslinks">Otros</button>
+                        <button data-tab="two" class="tabslinks">Seo</button>
                     </div>
                 
                     @include('admin.components.form_buttons', ['visible' => $rate->visible])
@@ -81,13 +80,6 @@
                                 </div>
                             </div>
 
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="input-bar" type="text" name="title" value="{{isset($rates->title) ? $rates->title : ''}}">
-                            </div>
-                        
                             <div class="crud-form-element">
                                 <label for="comment">Descripción:</label>
                             </div>

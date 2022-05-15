@@ -1,9 +1,15 @@
+@php
+    $route = 'rates';
+@endphp
+
 <div class="personal main">
 
     @include('front.layout.partials.page_title', [
-        'title' => 'Job Plaza Riera',
-        'subtitle' => 'Director ejecutivo y coach'
+        'title' => 'Tarifas',
+        'subtitle' => ''
     ])
+
+    @isset($rates)
 
     <div class="personal-element">
         <div class="desktop-two-columns">
@@ -14,7 +20,8 @@
             </div>
             <div class="column">
                 <div class="personal-element-txt profile-txt">
-                    <div class="personal-element-txt-studies">
+                    <p>{!!isset($rate_element->content) ? $rate_element->content : "" !!}</p>
+                    {{-- <div class="personal-element-txt-studies">
                         <p>Licenciatura en psicología con la especialización de psicología clínica</p>
                         <p>Máster en Dirección de Recursos Humanos.</p>
                         <p>Máster en Práctica Clínica.</p>
@@ -30,9 +37,11 @@
                     <div class="personal-element-txt-about">
                         <p>Sobre mi... </p>
                         <p>Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders </p>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
     </div>
+
+    @endisset
 </div>
