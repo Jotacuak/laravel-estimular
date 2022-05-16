@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use App\Http\Requests\Admin\RatesRequest;
 use App\Models\DB\Rates; 
-use Debugbar;
 
 class RatesController extends Controller
 {
