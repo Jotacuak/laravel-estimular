@@ -84,7 +84,7 @@
                                 <label for="comment">Descripción:</label>
                             </div>
                             <div class="crud-form-element">
-                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($rates->description) ? $rates->description : ''}}">{{isset($rate["description"]) ? $rate["description"] : ''}}</textarea>
+                                <textarea class="ckeditor" name="content" id="ckeditor" value="{{isset($rates->content) ? $rates->content : ''}}">{{isset($rate["content"]) ? $rate["content"] : ''}}</textarea>
                             </div>
                         </div>        
                     </div>
