@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
+            $table->string('title', 255);
             $table->text('content');
             $table->boolean('visible');
             $table->boolean('active');

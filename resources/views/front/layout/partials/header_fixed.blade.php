@@ -21,7 +21,7 @@
                         <ul>
                             <li class="menu-item" data-url="{{route('front_home')}}" data-section="home">Inicio</li>
                             <li class="menu-item" data-url="{{route('front_therapy')}}" data-section="therapy">Terapias</li>
-                            <li class="menu-item" data-url="{{route('front_rate')}}" data-section="rate">Tarifas</li>
+                            <li class="menu-item" data-url="{{route('front_rates')}}" data-section="rate">Tarifas</li>
                             <li class="menu-item" data-url="{{route('front_blog')}}" data-section="blog">Blog</li>
                             <li class="menu-item" data-url="{{route('front_team')}}" data-section="team">Equipo</li>
                             <li class="menu-item" data-url="{{route('front_contact')}}" data-section="contact">Contacto</li>

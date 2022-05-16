@@ -14,14 +14,14 @@ class RatesController extends Controller
 {
     protected $agent;
     protected $paginate;
-    protected $rates;
+    protected $rate;
 
-    function __construct(Rates $rates, Agent $agent)
+    function __construct(Rates $rate, Agent $agent)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
-        $this->rates = $rates;
-        $this->rates->visible = 1;
+        $this->rate = $rate;
+        $this->rate->visible = 1;
 
         if ($this->agent->isMobile()) {
             $this->paginate = 10;
@@ -35,8 +35,8 @@ class RatesController extends Controller
     public function index()
     {
         $view = View::make('admin.pages.rates.index')
-        ->with('rate', $this->rates)
-        ->with('rates', $this->rates->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
+        ->with('rate', $this->rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
     
         if(request()->ajax()) {
@@ -55,8 +55,10 @@ class RatesController extends Controller
     public function create()
     {
         $view = View::make('admin.pages.rates.index')
-        ->with('rates', $this->rates)
+        ->with('rate', $this->rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
+
 
         return response()->json([
             'form' => $view['form']
@@ -66,14 +68,13 @@ class RatesController extends Controller
     public function store(RatesRequest $request)
     {            
                 
-        $rates = $this->rates->updateOrCreate([
+        $rate = $this->rate->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
             'title' => request('title'),
             'content' => request('content'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
-            'category_id' => request('category_id'),
         ]);
 
         if (request('id')){
@@ -83,9 +84,9 @@ class RatesController extends Controller
         }
 
         $view = View::make('admin.pages.rates.index')
-        ->with('rates', $this->rates->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         //  Añadir a la línea superior cuando ->paginate($this->paginate)
-        ->with('rates', $this->rates)
+        ->with('rate', $this->rate)
         ->renderSections();        
 
         return response()->json([
@@ -95,11 +96,11 @@ class RatesController extends Controller
         ]);
     }
 
-    public function edit(Rates $rates)
+    public function edit(Rates $rate)
     {
         $view = View::make('admin.pages.rates.index')
-        ->with('rates', $rates)
-        ->with('rates', $this->rates->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
+        ->with('rate', $rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
         if(request()->ajax()) {
 
@@ -114,11 +115,11 @@ class RatesController extends Controller
         return $view;
     }
 
-    public function show(Rates $rates){
+    public function show(Rates $rate){
 
         $view = View::make('admin.pages.rates.index')
-        ->with('rates', $rates)
-        ->with('rates', $this->rates->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('rate', $rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -127,7 +128,7 @@ class RatesController extends Controller
         ]);
     }
 
-    public function destroy(Rates $rates)
+    public function destroy(Rates $rate)
     {
         $rates->active = 0;
         $rates->save();
@@ -135,8 +136,8 @@ class RatesController extends Controller
         $message = \Lang::get('admin/rates.rates-delete');
 
         $view = View::make('admin.pages.rates.index')
-        ->with('rates', $this->rates)
-        ->with('rates', $this->rates->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('rate', $this->rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -150,19 +151,9 @@ class RatesController extends Controller
 
         $filters = json_decode($request->input('filters'));
         
-        $query = $this->rates->query();
+        $query = $this->rate->query();
 
         if($filters != null){
-
-            $query->when($filters->category_id, function ($q, $category_id) {
-
-                if($category_id == 'all'){
-                    return $q;
-                }
-                else{
-                    return $q->where('category_id', $category_id);
-                }
-            });
     
             $query->when($filters->search, function ($q, $search) {
     

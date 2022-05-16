@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('tarifas', 'App\Http\Controllers\Admin\RatesController', [
         'parameters' => [
-            'tarifas' => 'rates', 
+            'tarifas' => 'rate', 
         ],
         'names' => [
             'index' => 'rates',
@@ -137,5 +137,5 @@ Route::get('/equipo', 'App\Http\Controllers\Front\TeamController@index')->name('
 Route::get('/contacto', 'App\Http\Controllers\Front\ContactController@index')->name('front_contact');
 Route::get('/terapias', 'App\Http\Controllers\Front\TherapyController@index')->name('front_therapy');
 Route::get('/posts', 'App\Http\Controllers\Front\BlogController@index')->name('front_blog');
-Route::get('/tarifas', 'App\Http\Controllers\Front\RateController@index')->name('front_rate');
+Route::get('/tarifas', 'App\Http\Controllers\Front\RatesController@index')->name('front_rates');
 Route::get('/faqs', 'App\Http\Controllers\Front\FaqController@index')->name('front_faq');

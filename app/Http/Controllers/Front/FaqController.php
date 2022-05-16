@@ -10,7 +10,6 @@ use App\Models\DB\Faq;
 
 class FaqController extends Controller
 {
-
     protected $faq;
 
     function __construct(Faq $faq)
