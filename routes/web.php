@@ -29,6 +29,20 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
+    Route::resource('precios', 'App\Http\Controllers\Admin\PricesController', [
+        'parameters' => [
+            'precios' => 'prices', 
+        ],
+        'names' => [
+            'index' => 'prices',
+            'create' => 'prices_create',
+            'edit' => 'prices_edit',
+            'store' => 'prices_store',
+            'destroy' => 'prices_destroy',
+            'show' => 'prices_show',
+        ]
+    ]);
+
     Route::resource('tarifas', 'App\Http\Controllers\Admin\RatesController', [
         'parameters' => [
             'tarifas' => 'rate', 

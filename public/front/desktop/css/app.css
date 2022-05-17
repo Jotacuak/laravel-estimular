@@ -910,6 +910,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 .swich-button {
+  display: flex;
   margin: auto;
   margin-bottom: 3rem;
 }
@@ -937,6 +938,7 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 .xl {
+  margin: auto 1rem;
   width: 7.5rem;
 }
 

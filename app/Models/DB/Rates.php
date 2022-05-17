@@ -14,6 +14,12 @@ class Rates extends DBModel
     // protected $with = ['category'];
     // protected $with = ['category','seo'];
 
+    public function prices(){
+
+        return $this->hasMany(Price::class, 'rate_id'); 
+        
+    }
+
     // public function category()
     // {
     //     return $this->belongsTo(BlogCategory::class);

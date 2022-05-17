@@ -7,21 +7,21 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
-use App\Http\Requests\Admin\FaqRequest;
-use App\Models\DB\Faq; 
+use App\Http\Requests\Admin\PricesRequest;
+use App\Models\DB\Prices; 
 
-class FaqController extends Controller
+class PricesController extends Controller
 {
     protected $agent;
     protected $paginate;
-    protected $faq;
+    protected $price;
 
-    function __construct(Faq $faq, Agent $agent)
+    function __construct(Prices $price, Agent $agent)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
-        $this->faq = $faq;
-        $this->faq->visible = 1;
+        $this->price = $price;
+        $this->price->visible = 1;
 
         if ($this->agent->isMobile()) {
             $this->paginate = 10;
@@ -34,9 +34,9 @@ class FaqController extends Controller
 
     public function index()
     {
-        $view = View::make('admin.pages.faqs.index')
-        ->with('faq', $this->faq)
-        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
+        $view = View::make('admin.pages.prices.index')
+        ->with('price', $this->price)
+        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
     
         if(request()->ajax()) {
@@ -54,39 +54,39 @@ class FaqController extends Controller
 
     public function create()
     {
-        $view = View::make('admin.pages.faqs.index')
-        ->with('faq', $this->faq)
-        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.prices.index')
+        ->with('price', $this->price)
+        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
+
 
         return response()->json([
             'form' => $view['form']
         ]);
     }
 
-    public function store(FaqRequest $request)
+    public function store(PricesRequest $request)
     {            
                 
-        $faq = $this->faq->updateOrCreate([
+        $price = $this->price->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'title' => request('title'),
-            'description' => request('description'),
-            'category_id' => request('category_id'),
+            'type' => request('type'),
+            'subtotal' => request('subtotal'),
+            'sumary' => request('sumary'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
-            'category_id' => request('category_id'),
         ]);
 
         if (request('id')){
-            $message = \Lang::get('admin/faqs.faq-update');
+            $message = \Lang::get('admin/prices.prices-update');
         }else{
-            $message = \Lang::get('admin/faqs.faq-create');
+            $message = \Lang::get('admin/prices.prices-create');
         }
 
-        $view = View::make('admin.pages.faqs.index')
-        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        ->with('faq', $this->faq)
+        $view = View::make('admin.pages.prices.index')
+        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('price', $this->price)
         ->renderSections();        
 
         return response()->json([
@@ -96,11 +96,11 @@ class FaqController extends Controller
         ]);
     }
 
-    public function edit(Faq $faq)
+    public function edit(Prices $price)
     {
-        $view = View::make('admin.pages.faqs.index')
-        ->with('faq', $faq)
-        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
+        $view = View::make('admin.pages.prices.index')
+        ->with('price', $price)
+        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
         if(request()->ajax()) {
 
@@ -115,11 +115,11 @@ class FaqController extends Controller
         return $view;
     }
 
-    public function show(Faq $faq){
+    public function show(Prices $price){
 
-        $view = View::make('admin.pages.faqs.index')
-        ->with('faq', $faq)
-        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.prices.index')
+        ->with('price', $price)
+        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -128,16 +128,16 @@ class FaqController extends Controller
         ]);
     }
 
-    public function destroy(Faq $faq)
+    public function destroy(Prices $price)
     {
-        $faq->active = 0;
-        $faq->save();
+        $prices->active = 0;
+        $prices->save();
 
-        $message = \Lang::get('admin/faqs.faq-delete');
+        $message = \Lang::get('admin/prices.prices-delete');
 
-        $view = View::make('admin.pages.faqs.index')
-        ->with('faq', $this->faq)
-        ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.prices.index')
+        ->with('price', $this->price)
+        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -151,19 +151,9 @@ class FaqController extends Controller
 
         $filters = json_decode($request->input('filters'));
         
-        $query = $this->faq->query();
+        $query = $this->price->query();
 
         if($filters != null){
-
-            $query->when($filters->category_id, function ($q, $category_id) {
-
-                if($category_id == 'all'){
-                    return $q;
-                }
-                else{
-                    return $q->where('category_id', $category_id);
-                }
-            });
     
             $query->when($filters->search, function ($q, $search) {
     
@@ -171,7 +161,7 @@ class FaqController extends Controller
                     return $q;
                 }
                 else {
-                    return $q->where('faqs.name', 'like', "%$search%");
+                    return $q->where('prices.name', 'like', "%$search%");
                 }   
             });
     
@@ -181,7 +171,7 @@ class FaqController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('faqs.created_at', '>=', $created_at_from);
+                    $q->whereDate('prices.created_at', '>=', $created_at_from);
                 }   
             });
     
@@ -191,7 +181,7 @@ class FaqController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('faqs.created_at', '<=', $created_at_since);
+                    $q->whereDate('prices.created_at', '<=', $created_at_since);
                 }   
             });
     
@@ -201,13 +191,13 @@ class FaqController extends Controller
             });
         }
     
-        $faqs = $query->where('faqs.active', 1)
-                ->orderBy('faqs.created_at', 'desc')
+        $prices = $query->where('prices.active', 1)
+                ->orderBy('prices.created_at', 'desc')
                 ->paginate($this->paginate)
                 ->appends(['filters' => json_encode($filters)]);   
 
-        $view = View::make('admin.pages.faqs.index')
-            ->with('faqs', $faqs)
+        $view = View::make('admin.pages.prices.index')
+            ->with('prices', $prices)
             ->renderSections();
 
         return response()->json([

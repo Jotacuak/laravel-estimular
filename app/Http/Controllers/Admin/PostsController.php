@@ -71,6 +71,7 @@ class PostsController extends Controller
             'name' => request('name'),
             'title' => request('title'),
             'description' => request('description'),
+            'category_id' => request('category_id'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
             'category_id' => request('category_id'),
