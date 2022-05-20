@@ -5,23 +5,23 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\DB\Rates;
+use App\Models\DB\Prices;
 
 class HomeController extends Controller
 {
 
-    protected $rates;
+    protected $prices;
 
-    public function __construct(Rates $rates){
-        $this->rates = $rates;
+    public function __construct(Prices $prices){
+        $this->prices = $prices;
     }
 
     public function index()
     {
 
-        $rates = $this->rates->get();
+        $prices = $this->prices->get();
 
-        $view = View::make('front.pages.home.index')->with('rates', $rates);
+        $view = View::make('front.pages.home.index')->with('prices', $prices);
     
         if(request()->ajax()) {
             

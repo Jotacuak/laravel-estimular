@@ -91,7 +91,15 @@ class PostsCategoryController extends Controller
 
     public function show(PostsCategory $posts_category)
     {
+        $view = View::make('admin.pages.posts_categories.index')
+        ->with('posts_category', $posts_category)
+        ->with('posts_categories', $this->posts_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->renderSections();        
 
+        return response()->json([
+            'table' => $view['table'],
+            'form' => $view['form'],
+        ]);
     }
 
     public function destroy(PostsCategory $posts_category)

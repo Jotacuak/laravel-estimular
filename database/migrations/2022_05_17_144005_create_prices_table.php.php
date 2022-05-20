@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('type', 255);
             $table->string('subtotal');
             $table->text('sumary');
-            $table->integer('rates_id');
+            $table->unsignedInteger('rates_id');
             $table->boolean('visible');
             $table->boolean('active');
             $table->timestamps();

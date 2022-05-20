@@ -14,14 +14,14 @@ class TherapiesController extends Controller
 {
     protected $agent;
     protected $paginate;
-    protected $therapies;
+    protected $therapy;
 
-    function __construct(Therapies $therapies, Agent $agent)
+    function __construct(Therapies $therapy, Agent $agent)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
-        $this->therapies = $therapies;
-        $this->therapies->visible = 1;
+        $this->therapy = $therapy;
+        $this->therapy->visible = 1;
 
         if ($this->agent->isMobile()) {
             $this->paginate = 10;
@@ -35,8 +35,8 @@ class TherapiesController extends Controller
     public function index()
     {
         $view = View::make('admin.pages.therapies.index')
-        ->with('therapy', $this->therapies)
-        ->with('therapies', $this->therapies->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
+        ->with('therapy', $this->therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
     
         if(request()->ajax()) {
@@ -55,7 +55,8 @@ class TherapiesController extends Controller
     public function create()
     {
         $view = View::make('admin.pages.therapies.index')
-        ->with('therapies', $this->therapies)
+        ->with('therapy', $this->therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
 
         return response()->json([
@@ -66,14 +67,13 @@ class TherapiesController extends Controller
     public function store(TherapiesRequest $request)
     {            
                 
-        $therapies = $this->therapies->updateOrCreate([
+        $therapy = $this->therapy->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
             'title' => request('title'),
             'description' => request('description'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
-            'category_id' => request('category_id'),
         ]);
 
         if (request('id')){
@@ -83,9 +83,8 @@ class TherapiesController extends Controller
         }
 
         $view = View::make('admin.pages.therapies.index')
-        ->with('therapies', $this->therapies->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        //  Añadir a la línea superior cuando ->paginate($this->paginate)
-        ->with('therapies', $this->therapies)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('therapy', $this->therapy)
         ->renderSections();        
 
         return response()->json([
@@ -95,18 +94,17 @@ class TherapiesController extends Controller
         ]);
     }
 
-    public function edit(Therapies $therapies)
+    public function edit(Therapies $therapy)
     {
         $view = View::make('admin.pages.therapies.index')
-        ->with('therapies', $therapies)
-        ->with('therapies', $this->therapies->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
+        ->with('therapy', $therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));       
         
         if(request()->ajax()) {
 
             $sections = $view->renderSections(); 
     
             return response()->json([
-                'table' => $sections['table'],
                 'form' => $sections['form'],
             ]); 
         }
@@ -114,11 +112,11 @@ class TherapiesController extends Controller
         return $view;
     }
 
-    public function show(Therapies $therapies){
+    public function show(Therapies $therapy){
 
         $view = View::make('admin.pages.therapies.index')
-        ->with('therapies', $therapies)
-        ->with('therapies', $this->therapies->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('therapy', $therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -127,7 +125,7 @@ class TherapiesController extends Controller
         ]);
     }
 
-    public function destroy(Therapies $therapies)
+    public function destroy(Therapies $therapy)
     {
         $therapies->active = 0;
         $therapies->save();
@@ -135,8 +133,8 @@ class TherapiesController extends Controller
         $message = \Lang::get('admin/therapies.therapies-delete');
 
         $view = View::make('admin.pages.therapies.index')
-        ->with('therapies', $this->therapies)
-        ->with('therapies', $this->therapies->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('therapy', $this->therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -150,7 +148,7 @@ class TherapiesController extends Controller
 
         $filters = json_decode($request->input('filters'));
         
-        $query = $this->therapies->query();
+        $query = $this->therapy->query();
 
         if($filters != null){
 

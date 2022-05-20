@@ -85,7 +85,6 @@ class RatesController extends Controller
 
         $view = View::make('admin.pages.rates.index')
         ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        //  Añadir a la línea superior cuando ->paginate($this->paginate)
         ->with('rate', $this->rate)
         ->renderSections();        
 

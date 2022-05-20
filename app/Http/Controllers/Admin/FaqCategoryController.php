@@ -91,7 +91,15 @@ class FaqCategoryController extends Controller
 
     public function show(FaqCategory $faq_category)
     {
+        $view = View::make('admin.pages.faqs_categories.index')
+        ->with('faq_category', $faq_category)
+        ->with('faqs_categories', $this->faq_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->renderSections();        
 
+        return response()->json([
+            'table' => $view['table'],
+            'form' => $view['form'],
+        ]);
     }
 
     public function destroy(FaqCategory $faq_category)

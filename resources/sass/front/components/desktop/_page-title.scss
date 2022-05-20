@@ -1,6 +1,6 @@
 .page-title{
     background: $primary-color-light;
-    background: radial-gradient(circle, $secondary-color 0%, $secondary-color 30%, $primary-color-light 50%,white 90%, white 100%);
+    background: radial-gradient(circle, $secondary-color 0%, $secondary-color 45%, $primary-color-light 80%,white 98%, white 100%);
     padding: 4rem 0;
     text-align: center;
     width: 100%;
@@ -12,5 +12,6 @@
     h2{
         color: white;
         font-size: 1.5rem;
+        margin-top: 1rem;
     }
 }

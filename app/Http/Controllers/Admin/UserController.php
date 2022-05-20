@@ -41,7 +41,6 @@ class UserController extends Controller
 
     public function create()
     {
-
         $view = View::make('admin.pages.users.index')
         ->with('user', $this->user)
         ->renderSections();
@@ -105,7 +104,21 @@ class UserController extends Controller
     }
 
     public function show(User $user){
+        $view = View::make('admin.pages.users.index')
+        ->with('user', $user)
+        ->with('users', $this->user->where('active', 1)->get());   
+        
+        if(request()->ajax()) {
 
+            $sections = $view->renderSections(); 
+    
+            return response()->json([
+                'table' => $view['table'],
+                'form' => $sections['form'],
+            ]); 
+        }
+                
+        return $view;
     }
 
     public function destroy(User $user)

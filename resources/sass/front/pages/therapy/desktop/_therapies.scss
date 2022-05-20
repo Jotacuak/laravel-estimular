@@ -1,0 +1,19 @@
+.therapies-container{
+    margin: 2rem auto;
+    width: 90%;
+
+    .therapies-element-image{
+        margin: auto;
+        width: 60%;
+
+        img{
+            border: 1px transparent;
+            border-radius: 50% 50% 50% 50%;
+        }
+    }
+
+    .therapies-element-description{
+        padding: 5%;
+        width: 90%;
+    }
+}

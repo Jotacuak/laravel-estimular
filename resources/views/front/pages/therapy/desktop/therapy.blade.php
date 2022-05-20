@@ -1,38 +1,28 @@
-<div class="personal main">
+<div class="therapies main">
 
-    @include('front.layout.partials.page_title', [
-        'title' => 'Job Plaza Riera',
-        'subtitle' => 'Director ejecutivo y coach'
-    ])
+    @isset($therapy) 
 
-    <div class="personal-element">
-        <div class="desktop-two-columns">
-            <div class="column">
-                <div class="personal-element-photo profile-photo">
-                    <img src="{{Storage::url('job-plaza.webp')}}" alt="Job Plaza">
+        @include('front.layout.partials.page_title', [
+            'title' => ($therapy->name),
+            'subtitle' => ($therapy->title)
+        ])
+
+        <div class="therapies-container">
+            <div class="therapies-elements">
+
+                <div class="therapies-element-image">
+                    <img src="{{Storage::url('alzheimer.webp')}}" alt="alzheimer">
                 </div>
-            </div>
-            <div class="column">
-                <div class="personal-element-txt profile-txt">
-                    <div class="personal-element-txt-studies">
-                        <p>Licenciatura en psicología con la especialización de psicología clínica</p>
-                        <p>Máster en Dirección de Recursos Humanos.</p>
-                        <p>Máster en Práctica Clínica.</p>
-                        <p>Título especialista universitario en Dirección de Centros de Servicios Sociales.</p>
-                        <p>Curso Oficial Intervención Psicológica en Centros de Mayores.</p>
-                    </div>
-                    <div class="personal-element-txt-exp">
-                        <h4>Experiencia laboral</h4>
-                        <p>Psicólogo en Centro de Día reconocido especializado en enfermedades neurodegenerativas.</p>
-                        <p>2 años de experiencia como psicólogo en AFAPAM (Asociación de enfermos de Alzheimer de las Islas Baleares).</p>
-                        <p>7 años de experiencia en psicogerontología y en evaluación e intervención en enfermedades neurodegenerativas.</p>
-                    </div>
-                    <div class="personal-element-txt-about">
-                        <p>Sobre mi... </p>
-                        <p>Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders </p>
-                    </div>
+
+                <div class="therapies-element-description">
+                    <p>{!!isset($therapy->description) ? $therapy->description : "" !!}</p>
                 </div>
+
             </div>
         </div>
-    </div>
+
+    @endisset
+
+    {{-- @include('front.components.desktop.contact_button') --}}
+
 </div>

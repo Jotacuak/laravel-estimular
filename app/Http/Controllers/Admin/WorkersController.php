@@ -69,11 +69,9 @@ class WorkersController extends Controller
         $workers = $this->workers->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'title' => request('title'),
-            'description' => request('description'),
+            'content' => request('content'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
-            'category_id' => request('category_id'),
         ]);
 
         if (request('id')){
@@ -83,8 +81,7 @@ class WorkersController extends Controller
         }
 
         $view = View::make('admin.pages.workers.index')
-        ->with('workers', $this->workers->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        //  Añadir a la línea superior cuando ->paginate($this->paginate)
+        ->with('worker', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->with('workers', $this->workers)
         ->renderSections();        
 
@@ -98,7 +95,7 @@ class WorkersController extends Controller
     public function edit(Workers $workers)
     {
         $view = View::make('admin.pages.workers.index')
-        ->with('workers', $workers)
+        ->with('worker', $worker)
         ->with('workers', $this->workers->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
         if(request()->ajax()) {
@@ -117,7 +114,7 @@ class WorkersController extends Controller
     public function show(Workers $workers){
 
         $view = View::make('admin.pages.workers.index')
-        ->with('workers', $workers)
+        ->with('worker', $worker)
         ->with('workers', $this->workers->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
@@ -135,7 +132,7 @@ class WorkersController extends Controller
         $message = \Lang::get('admin/workers.workers-delete');
 
         $view = View::make('admin.pages.workers.index')
-        ->with('workers', $this->workers)
+        ->with('worker', $this->worker)
         ->with('workers', $this->workers->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 

@@ -31,7 +31,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('precios', 'App\Http\Controllers\Admin\PricesController', [
         'parameters' => [
-            'precios' => 'prices', 
+            'precios' => 'price', 
         ],
         'names' => [
             'index' => 'prices',
@@ -59,7 +59,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('terapias', 'App\Http\Controllers\Admin\TherapiesController', [
         'parameters' => [
-            'terapias' => 'therapies', 
+            'terapias' => 'therapy', 
         ],
         'names' => [
             'index' => 'therapies',
@@ -73,7 +73,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('equipo', 'App\Http\Controllers\Admin\WorkersController', [
         'parameters' => [
-            'equipo' => 'workers', 
+            'equipo' => 'worker', 
         ],
         'names' => [
             'index' => 'workers',
@@ -131,7 +131,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/blog/filter/{filters?}', 'App\Http\Controllers\Admin\PostsController@filter')->name('posts_filter');
     Route::resource('blog', 'App\Http\Controllers\Admin\PostsController', [
         'parameters' => [
-            'blog' => 'posts', 
+            'blog' => 'post', 
         ],
         'names' => [
             'index' => 'posts',
@@ -149,7 +149,8 @@ Route::get('/', 'App\Http\Controllers\Front\HomeController@index')->name('front_
 Route::get('/preguntas-frecuentes', 'App\Http\Controllers\Front\FaqController@index')->name('front_faqs');
 Route::get('/equipo', 'App\Http\Controllers\Front\TeamController@index')->name('front_team');
 Route::get('/contacto', 'App\Http\Controllers\Front\ContactController@index')->name('front_contact');
-Route::get('/terapias', 'App\Http\Controllers\Front\TherapyController@index')->name('front_therapy');
-Route::get('/posts', 'App\Http\Controllers\Front\BlogController@index')->name('front_blog');
+Route::get('/terapias', 'App\Http\Controllers\Front\TherapyController@show')->name('front_therapies');
+Route::get('/terapias/{name}', 'App\Http\Controllers\Front\TherapyController@show')->name('front_therapy');
+Route::get('/blog', 'App\Http\Controllers\Front\BlogController@index')->name('front_blog');
 Route::get('/tarifas', 'App\Http\Controllers\Front\RatesController@index')->name('front_rates');
 Route::get('/faqs', 'App\Http\Controllers\Front\FaqController@index')->name('front_faq');

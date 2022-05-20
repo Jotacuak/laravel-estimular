@@ -18,9 +18,16 @@
             <div class="column desktop-only">
                 <nav>
                     <div class="header-menu overlay" id="menu">
-                        <ul>
+                        <ul class="header-menu-list">
                             <li class="menu-item" data-url="{{route('front_home')}}" data-section="home">Inicio</li>
-                            <li class="menu-item" data-url="{{route('front_therapy')}}" data-section="therapy">Terapias</li>
+                            <li class="menu-item" data-url="{{route('front_therapies')}}" data-section="therapy"> Terapias
+                                <ul class="header-menu-innerlist">
+                                    <li>Alzheimer</li>
+                                    <li>Alzheimer</li>
+                                    <li>Alzheimer</li>
+                                    <li>Alzheimer</li>
+                                </ul>
+                            </li>
                             <li class="menu-item" data-url="{{route('front_rates')}}" data-section="rate">Tarifas</li>
                             <li class="menu-item" data-url="{{route('front_blog')}}" data-section="blog">Blog</li>
                             <li class="menu-item" data-url="{{route('front_team')}}" data-section="team">Equipo</li>

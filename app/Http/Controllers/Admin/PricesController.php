@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use App\Http\Requests\Admin\PricesRequest;
-use App\Models\DB\Prices; 
+use App\Models\DB\Prices;
 
 class PricesController extends Controller
 {
@@ -74,6 +74,7 @@ class PricesController extends Controller
             'type' => request('type'),
             'subtotal' => request('subtotal'),
             'sumary' => request('sumary'),
+            'rates_id' => request('rates_id'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
@@ -98,6 +99,7 @@ class PricesController extends Controller
 
     public function edit(Prices $price)
     {
+
         $view = View::make('admin.pages.prices.index')
         ->with('price', $price)
         ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
