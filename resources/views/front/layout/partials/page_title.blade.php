@@ -1,5 +1,5 @@
 <div class="page-title">
-    <div class="desktop-one-column">
+    <div class="one-column">
         <div class="column">
             <div class="contact-title">
                 <h1>{{$title}}</h1>

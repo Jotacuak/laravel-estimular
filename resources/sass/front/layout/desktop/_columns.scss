@@ -1,4 +1,4 @@
-.desktop-five-columns{
+.five-columns{
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -8,7 +8,7 @@
     }    
 }
 
-.desktop-four-columns{
+.four-columns{
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -18,7 +18,7 @@
     }
 }
 
-.desktop-three-columns{
+.three-columns{
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -28,7 +28,8 @@
     }
 }
 
-.desktop-two-columns{
+
+.two-columns{
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -38,7 +39,8 @@
     }
 }
 
-.desktop-two-columns-aside{
+
+.two-columns-aside{
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -52,7 +54,8 @@
     }
 }
 
-.desktop-one-column{
+
+.one-column{
     width: 100%;
 
     .column{

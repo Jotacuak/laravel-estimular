@@ -2,7 +2,7 @@
     <div class="column">
         <form enctype="multipart/form-data" class="front-form" id="contact-form" name="sql_file">
             <div id="errors-container"></div>
-            <div class="desktop-two-columns">   
+            <div class="two-columns">   
                 <div class="column">
                     <div class="contact-form-element">
                         <div class="contact-form-element-label">

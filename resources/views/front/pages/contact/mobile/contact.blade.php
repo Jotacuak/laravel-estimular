@@ -1,5 +1,5 @@
 <div class="contact">
-    <div class="mobile-one-column">
+    <div class="one-column">
         <div class="column">
             <div class="page-title">
                 <div class="contact-title">
@@ -9,8 +9,8 @@
         </div>
     </div>
     <div class="contact">
-        <div class="mobile-one-column">
-            <div class="mobile-one-column">
+        <div class="one-column">
+            <div class="one-column">
                 <div class="column">
                     <div class="contact-info">
                         <div class="contact-info-option">
@@ -49,7 +49,7 @@
                 <div class="column">
                     <form enctype="multipart/form-data" class="front-form" id="contact-form" name="sql_file">
                         <div id="errors-container"></div>
-                        <div class="mobile-one-column">   
+                        <div class="one-column">   
                             <div class="column">
                                 <div class="contact-form-element">
                                     <div class="contact-form-element-label">

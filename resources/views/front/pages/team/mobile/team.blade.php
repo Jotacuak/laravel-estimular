@@ -1,16 +1,10 @@
-<div class="personal">
-    <div class="desktop-one-column">
-        <div class="column">
-            <div class="page-title">
-                <div class="personal-title">
-                    <h1>Job Plaza Riera</h1>
-                </div>
-                <div class="personal-subtitle">
-                    <h2>Director ejecutivo y coach</h2>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="personal main">
+
+    @include('front.layout.partials.page_title', [
+        'title' => 'Job Plaza Riera',
+        'subtitle' => 'Director ejecutivo y coach'
+    ])
+
     <div class="personal-element">
         <div class="desktop-two-columns">
             <div class="column">

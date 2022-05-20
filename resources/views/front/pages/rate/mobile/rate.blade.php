@@ -1,44 +1,32 @@
-<div class="personal">
-    <div class="desktop-one-column">
-        <div class="column">
-            <div class="page-title">
-                <div class="personal-title">
-                    <h1>Job Plaza Riera</h1>
-                </div>
-                <div class="personal-subtitle">
-                    <h2>Director ejecutivo y coach</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="personal-element">
-        <div class="desktop-two-columns">
-            <div class="column">
-                <div class="personal-element-photo profile-photo">
-                    <img src="{{Storage::url('job-plaza.webp')}}" alt="Job Plaza">
-                </div>
-            </div>
-            <div class="column">
-                <div class="personal-element-txt profile-txt">
-                    <div class="personal-element-txt-studies">
-                        <p>Licenciatura en psicología con la especialización de psicología clínica</p>
-                        <p>Máster en Dirección de Recursos Humanos.</p>
-                        <p>Máster en Práctica Clínica.</p>
-                        <p>Título especialista universitario en Dirección de Centros de Servicios Sociales.</p>
-                        <p>Curso Oficial Intervención Psicológica en Centros de Mayores.</p>
+@php
+    $route = 'rates';
+@endphp
+
+<div class="rates main">
+
+    @include('front.layout.partials.page_title', [
+        'title' => 'Tarifas',
+        'subtitle' => ''
+    ])
+
+    @isset($rates)
+
+        @foreach ($rates as $rate_element)
+
+            <div class="rates-elements">
+                <div class="rates-element">
+                    <div class="rates-element-title">
+                        <h2>{!!isset($rate_element->title) ? $rate_element->title : "" !!}</h2>
                     </div>
-                    <div class="personal-element-txt-exp">
-                        <h4>Experiencia laboral</h4>
-                        <p>Psicólogo en Centro de Día reconocido especializado en enfermedades neurodegenerativas.</p>
-                        <p>2 años de experiencia como psicólogo en AFAPAM (Asociación de enfermos de Alzheimer de las Islas Baleares).</p>
-                        <p>7 años de experiencia en psicogerontología y en evaluación e intervención en enfermedades neurodegenerativas.</p>
-                    </div>
-                    <div class="personal-element-txt-about">
-                        <p>Sobre mi... </p>
-                        <p>Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders Jodete Flanders </p>
+                </div>
+                <div class="rates-element">
+                    <div class="rates-element-content">
+                        <p>{!!isset($rate_element->content) ? $rate_element->content : "" !!}</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+        @endforeach
+
+    @endisset
 </div>

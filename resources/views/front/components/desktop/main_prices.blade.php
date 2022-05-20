@@ -1,7 +1,7 @@
 <div class="price-cards">
     <div class="price-container">
 
-        <div class="desktop-one-column">
+        <div class="one-column">
             <div class="column">
 
                 <div class="swich-button">
@@ -21,7 +21,7 @@
         </div>
     
         <div class="cards-elements">
-            <div class="desktop-two-columns">                
+            <div class="two-columns">                
 
                 @isset($prices)
 

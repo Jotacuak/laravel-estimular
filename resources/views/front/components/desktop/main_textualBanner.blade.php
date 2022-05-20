@@ -1,5 +1,5 @@
 <div class="textual-banner">
-    <div class="desktop-two-columns mobile-one-column">
+    <div class="two-columns">
         <div class="column">
             <div class="textual-banner-description">
                 <p>

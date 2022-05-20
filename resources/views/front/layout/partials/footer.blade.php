@@ -1,6 +1,6 @@
 <footer>
     <div class="footer-top">
-        <div class="desktop-four-columns mobile-two-columns">
+        <div class="four-columns">
             <div class="column desktop-only">
                 <div class="footer-element">
                     <ul>
@@ -55,7 +55,7 @@
     </div>
 
     <div class="footer-bottom">
-        <div class="desktop-two-columns">
+        <div class="two-columns">
             <div class="column">
                 <div class="footer-element copyright">
                     <p>Si te encuentras en una situación de emergencia llama al 112 para ayuda inmediata.</p>

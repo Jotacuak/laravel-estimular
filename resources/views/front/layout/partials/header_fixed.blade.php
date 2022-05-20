@@ -1,6 +1,6 @@
 <header class="partial header-fixed fixed">
     <div class="header-top">
-        <div class="desktop-three-columns mobile-two-columns">
+        <div class="three-columns">
             <div class="column">    
                 <div class="header-logo">
                     <div class="header-logo-image">
@@ -46,52 +46,6 @@
                         <button class="header-button">Registrarse</button>
                     </div>
                 </div>
-            </div>
-
-            <div class="column mobile-only">
-                <div class="header-menu-hamburger">
-                    <button type="button" id="collapse-button" class="collapse-button">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div> 
-            </div>
-        </div>
-    </div>
-    <!-- MENU OVERLAY -->
-    <div class="overlay overlay-slide-left mobile-only" id="overlay">
-        <nav>
-            <ul>
-                <li id="nav-1" class="slide-out-1 center">
-                    <a href="#home" class="center">Inicio</a>
-                </li>
-                <li id="nav-2" class="slide-out-2 center">
-                    <a href="#test" class="center">Test</a>
-                </li>
-                <li id="nav-3" class="slide-out-3 center">
-                    <a href="#therapy" class="center">Terapias</a>
-                </li>
-                <li id="nav-4" class="slide-out-4 center">
-                    <a href="#projects" class="center">Tarifas</a>
-                </li>
-                <li id="nav-5" class="slide-out-5 center">
-                    <a href="#contact" class="center">Blog</a>
-                </li>
-                <li id="nav-5" class="slide-out-5 center">
-                    <a href="#contact" class="center">Equipo</a>
-                </li>
-                <li id="nav-5" class="slide-out-5 center">
-                    <a href="#contact" class="center">Contacto</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="header-user burguer-open">                                
-            <div class="header-user-button">
-                <button>Entrar</button>
-            </div>
-            <div class="header-user-button">
-                <button class="header-button">Registrarse</button>
             </div>
         </div>
     </div>

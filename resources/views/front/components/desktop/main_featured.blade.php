@@ -1,5 +1,5 @@
 <div class="featured">
-    <div class="desktop-one-column mobile-one-column">
+    <div class="one-column">
         <div class="column">
             <div class="featured-title">
                 <h3>Disfruta de nuestras terapias</h3>
@@ -8,7 +8,7 @@
     </div>
     
     <div class="featured-elements">
-        <div class="desktop-four-columns mobile-one-column">
+        <div class="four-columns">
             <div class="column">
                 <div class="featured-element">
                     <div class="featured-element-image-price">

@@ -1,5 +1,5 @@
 <div class="slider">
-    <div class="desktop-one-column">
+    <div class="one-column">
         <div class="column">
             <div class="slider-image">
                 <img src="{{Storage::url('slider-1.webp')}}" alt="estimulacion cognitiva" >

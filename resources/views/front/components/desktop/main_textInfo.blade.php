@@ -1,5 +1,5 @@
 <div class="text-info">
-    <div class="desktop-one-column">
+    <div class="one-column">
         <div class="column">
             <div class="text-info-content">
                 <h3>

@@ -5,8 +5,8 @@
         'subtitle' => ''
     ])
     
-    <div class="desktop-one-column">
-        <div class="desktop-two-columns">
+    <div class="one-column">
+        <div class="two-columns">
             <div class="column">
                 <div class="contact-info">
                     <div class="contact-info-option">
