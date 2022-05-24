@@ -14,14 +14,14 @@ class PostsController extends Controller
 {
     protected $agent;
     protected $paginate;
-    protected $posts;
+    protected $post;
 
-    function __construct(Posts $posts, Agent $agent)
+    function __construct(Posts $post, Agent $agent)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
-        $this->posts = $posts;
-        $this->posts->visible = 1;
+        $this->post = $post;
+        $this->post->visible = 1;
 
         if ($this->agent->isMobile()) {
             $this->paginate = 10;
@@ -35,8 +35,8 @@ class PostsController extends Controller
     public function index()
     {
         $view = View::make('admin.pages.posts.index')
-        ->with('post', $this->posts)
-        ->with('posts', $this->posts->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
+        ->with('post', $this->post)
+        ->with('posts', $this->post->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
     
         if(request()->ajax()) {
@@ -56,6 +56,7 @@ class PostsController extends Controller
     {
         $view = View::make('admin.pages.posts.index')
         ->with('post', $this->post)
+        ->with('posts', $this->post->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
 
         return response()->json([
@@ -70,6 +71,8 @@ class PostsController extends Controller
             'id' => request('id')],[
             'name' => request('name'),
             'title' => request('title'),
+            'author' => request('author'),
+            'sumary' => request('sumary'),
             'description' => request('description'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
@@ -84,7 +87,6 @@ class PostsController extends Controller
 
         $view = View::make('admin.pages.posts.index')
         ->with('posts', $this->post->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        //  Añadir a la línea superior cuando ->paginate($this->paginate)
         ->with('post', $this->post)
         ->renderSections();        
 
@@ -95,7 +97,7 @@ class PostsController extends Controller
         ]);
     }
 
-    public function edit(Post $post)
+    public function edit(Posts $post)
     {
         $view = View::make('admin.pages.posts.index')
         ->with('post', $post)
@@ -114,7 +116,7 @@ class PostsController extends Controller
         return $view;
     }
 
-    public function show(Post $post){
+    public function show(Posts $post){
 
         $view = View::make('admin.pages.posts.index')
         ->with('post', $post)
@@ -127,7 +129,7 @@ class PostsController extends Controller
         ]);
     }
 
-    public function destroy(Post $post)
+    public function destroy(Posts $post)
     {
         $posts->active = 0;
         $posts->save();
@@ -136,7 +138,7 @@ class PostsController extends Controller
 
         $view = View::make('admin.pages.posts.index')
         ->with('post', $this->post)
-        ->with('posts', $this->posts->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('posts', $this->post->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([

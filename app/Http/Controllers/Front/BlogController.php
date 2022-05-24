@@ -6,23 +6,25 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DB\Posts;
-// use App\Models\DB\PostsCategory;
+use App\Models\DB\PostsCategory;
 
 class BlogController extends Controller
 {
 
     protected $posts;
-    // protected $posts_categories;
+    protected $posts_categories;
 
-    public function __construct(Posts $posts){
+    public function __construct(Posts $posts, PostsCategory $posts_categories){
+        
         $this->posts = $posts;
-        // $this->posts_categories = $posts_categories;
+        $this->posts_categories = $posts_categories;
     }
 
     public function index()
     {
-
-        $view = View::make('front.pages.blog.index');
+        $view = View::make('front.pages.blog.index')
+        ->with('posts_categories',  $this->posts_categories->get())
+        ->with('posts', $this->posts->get());
     
         if(request()->ajax()) {
             

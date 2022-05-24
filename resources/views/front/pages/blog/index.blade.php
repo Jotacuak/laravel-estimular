@@ -11,13 +11,13 @@
 
     @if($agent->isDesktop())
         <div class="page-section" id="blog">
-            @include("front.pages.blog.desktop.blog")
+            @include("front.pages.blog.desktop.blog", ['posts_categories' => $posts_categories])
         </div>
     @endif
 
     @if($agent->isMobile())
         <div class="page-section" id="blog">
-            @include("front.pages.blog.mobile.blog")
+            @include("front.pages.blog.mobile.blog", ['posts_categories' => $posts_categories])
         </div>
     @endif
 @endsection

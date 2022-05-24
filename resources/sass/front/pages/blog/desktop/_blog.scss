@@ -46,6 +46,15 @@
             border: 1px solid $secondary-color;
             margin: 1rem auto;
             padding: .3rem;
-        }      
+        } 
+        
+        .blog-nav-category:hover{
+            background-color: $primary-color-light;
+            border: 1px solid $primary-color-light;
+
+            h3{
+                color: white;
+            }            
+        }
     }
 }

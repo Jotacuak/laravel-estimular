@@ -10,7 +10,7 @@
             @include('front.components.desktop.main_blog_element')
         </div>
         <div class="column-aside">
-            @include('front.components.desktop.main_blog_nav')
+            @include('front.components.desktop.main_blog_nav', ['posts_categories' => $posts_categories])
         </div>
     </div>
 </div>

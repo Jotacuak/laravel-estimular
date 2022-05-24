@@ -56,7 +56,7 @@
                     <button data-tab="zero" class="tabslinks active">Contenido</button>
                 </div>
             
-                @include('admin.components.form_buttons', ['visible' => $faq_category_element->visible])
+                @include('admin.components.form_buttons', ['visible' => $faqs_category->visible, 'create' => 'create'])
 
             </div>
 

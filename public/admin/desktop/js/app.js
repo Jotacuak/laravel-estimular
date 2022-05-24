@@ -2484,6 +2484,38 @@ var renderForm = function renderForm() {
 
 /***/ }),
 
+/***/ "./resources/js/admin/desktop/inputCounter.js":
+/*!****************************************************!*\
+  !*** ./resources/js/admin/desktop/inputCounter.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderInputCounter": () => (/* binding */ renderInputCounter)
+/* harmony export */ });
+var renderInputCounter = function renderInputCounter() {
+  document.addEventListener("renderFormModules", function (event) {
+    renderInputCounter();
+  }, {
+    once: true
+  });
+  var inputCounters = document.querySelectorAll('.input-counter');
+  inputCounters.forEach(function (inputCounter) {
+    inputCounter.addEventListener('input', function (event) {
+      var counterCharacter = inputCounter.parentElement.querySelector('span');
+      var limitCharacter = event.currentTarget.getAttribute("maxlength");
+
+      if (event.currentTarget.value.length <= limitCharacter) {
+        counterCharacter.textContent = event.currentTarget.value.length;
+      }
+    });
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/admin/desktop/menu.js":
 /*!********************************************!*\
   !*** ./resources/js/admin/desktop/menu.js ***!
@@ -21141,10 +21173,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _activeButton_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./activeButton.js */ "./resources/js/admin/desktop/activeButton.js");
 /* harmony import */ var _ckeditor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ckeditor.js */ "./resources/js/admin/desktop/ckeditor.js");
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form.js */ "./resources/js/admin/desktop/form.js");
-/* harmony import */ var _menu_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./menu.js */ "./resources/js/admin/desktop/menu.js");
-/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
-/* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
+/* harmony import */ var _inputCounter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inputCounter.js */ "./resources/js/admin/desktop/inputCounter.js");
+/* harmony import */ var _menu_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu.js */ "./resources/js/admin/desktop/menu.js");
+/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
+/* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
 __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -21157,10 +21191,11 @@ __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 (0,_activeButton_js__WEBPACK_IMPORTED_MODULE_0__.renderActiveButton)();
 (0,_ckeditor_js__WEBPACK_IMPORTED_MODULE_1__.renderCkeditor)();
 (0,_form_js__WEBPACK_IMPORTED_MODULE_2__.renderForm)();
-(0,_menu_js__WEBPACK_IMPORTED_MODULE_3__.renderMenu)(); // renderMessages();
+(0,_inputCounter_js__WEBPACK_IMPORTED_MODULE_3__.renderInputCounter)();
+(0,_menu_js__WEBPACK_IMPORTED_MODULE_4__.renderMenu)(); // renderMessages();
 
-(0,_table_js__WEBPACK_IMPORTED_MODULE_4__.renderTable)();
-(0,_tabs_js__WEBPACK_IMPORTED_MODULE_5__.renderTabs)(); // renderWait();
+(0,_table_js__WEBPACK_IMPORTED_MODULE_5__.renderTable)();
+(0,_tabs_js__WEBPACK_IMPORTED_MODULE_6__.renderTabs)(); // renderWait();
 })();
 
 /******/ })()

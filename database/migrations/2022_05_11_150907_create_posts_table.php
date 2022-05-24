@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
+            $table->string('author', 255);
             $table->string('title');
             $table->text('description');
+            $table->text('sumary');
             $table->unsignedInteger('category_id');
             $table->integer('order')->default(0);
             $table->boolean('visible');

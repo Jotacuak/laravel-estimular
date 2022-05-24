@@ -769,6 +769,9 @@ a:hover, a:focus {
 .crud-form .crud-form-elements .crud-form-element .ck-editor__editable {
   height: 40vh;
 }
+.crud-form .crud-form-elements .sumary .ck-editor__editable {
+  height: 20vh;
+}
 
 .admin-table {
   margin-top: 1rem;

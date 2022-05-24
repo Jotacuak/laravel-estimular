@@ -12,19 +12,24 @@ use App\Models\DB\PostsCategory;
 class PostsCategoryController extends Controller
 {
 
+    protected $paginate;
+    protected $posts_category;
+
     function __construct(PostsCategory $posts_category)
     {        
         // $this->middleware('auth');
         
         $this->posts_category = $posts_category;
+        $this->posts_category->visible = 1;
+
     }
 
     public function index()
     {
 
         $view = View::make('admin.pages.posts_categories.index')
-                ->with('posts_categories', $this->posts_category->where('active', 1)->get())
-                ->with('posts_category', $this->posts_category);
+            ->with('posts_category', $this->posts_category)
+            ->with('posts_categories', $this->posts_category->where('active', 1)->get());
 
         if(request()->ajax()) {
 
@@ -44,6 +49,7 @@ class PostsCategoryController extends Controller
 
         $view = View::make('admin.pages.posts_categories.index')
         ->with('posts_category', $this->posts_category)
+        ->with('posts_categories', $this->posts_category->where('active', 1)->get())
         ->renderSections();
 
         return response()->json([
@@ -58,11 +64,12 @@ class PostsCategoryController extends Controller
             'id' => request('id')],[
             'name' => request('name'),
             'active' => 1,
+            'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
 
         $view = View::make('admin.pages.posts_categories.index')
         ->with('posts_categories', $this->posts_category->where('active', 1)->get())
-        ->with('posts_category', $posts_category)
+        ->with('posts_category', $this->posts_category)
         ->renderSections();
 
         return response()->json([
@@ -76,6 +83,7 @@ class PostsCategoryController extends Controller
     {
                 
         $view = View::make('admin.pages.posts_categories.index')
+        ->with('posts_categories', $this->posts_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->with('posts_category', $posts_category);
         
         if(request()->ajax()) {

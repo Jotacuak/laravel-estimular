@@ -18,6 +18,7 @@
                         <ul>
                             <li class="info-element">Nombre:{{$posts_element->name}}</li>
                             <li class="info-element">Categoría:{{$posts_element->category->name}}</li>
+                            <li class="info-element">Autor:{{$posts_element->author}}</li>
                             <li class="info-element">Creado el:{{ Carbon\Carbon::parse($posts_element->created_at)->format('d-m-Y') }}</li>
                         </ul>
                     </div>
@@ -52,7 +53,7 @@
 
 @section('form')
 
-    @isset($posts)
+    @isset($post)
 
         <div class="crud-form">
             <form action="{{route("posts_store")}}" class="admin-form" id="posts-form" autocomplete="off">
@@ -63,14 +64,14 @@
                         <button data-tab="two" class="tabslinks">Otros</button>
                     </div>
                 
-                    @include('admin.components.form_buttons', ['visible' => $post->visible])
+                    @include('admin.components.form_buttons', ['visible' => $post->visible, 'create' => 'create'])
 
                 </div>
 
                 <div class="content">
                     <div data-content="zero" class="tabcontent active">
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($posts->id) ? $posts->id : ''}}">
+                        <input type="hidden" name="id" value="{{isset($post->id) ? $post->id : ''}}">
                         <div class="crud-form-elements">
                             <div class="two-columns">
                                 <div class="form-group">                                
@@ -78,7 +79,7 @@
                                         <label for="title">Nombre:</label>
                                     </div>
                                     <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="name" value="{{isset($posts->name) ? $posts->name : ''}}">
+                                        <input class="input-bar" type="text" name="name" value="{{isset($post->name) ? $post->name : ''}}">
                                     </div>                                
                                 </div>
                                 <div class="form-group">                       
@@ -86,10 +87,10 @@
                                         <label for="category">Categoría:</label>
                                     </div>
                                     <div class="crud-form-element">
-                                        <select name="category_id" data-placeholder="Seleccione una categoría">
+                                        <select name="category_id" data-placeholder="Seleccione una categoría" class="input-bar">
                                             <option></option>
                                             @foreach($posts_categories as $posts_category)
-                                                <option value="{{$posts_category->id}}" {{$posts->category_id == $posts_category->id ? 'selected':''}} class="category_id">{{ $posts_category->name }}</option>
+                                                <option value="{{$posts_category->id}}" {{$post->category_id == $posts_category->id ? 'selected':''}} class="category_id">{{ $posts_category->name }}</option>
                                             @endforeach
                                         </select>           
                                     </div>                         
@@ -97,64 +98,37 @@
                             </div>
 
                             <div class="crud-form-element">
+                                <label for="title">Autor:</label>
+                            </div>
+                            <div class="crud-form-element">
+                                <input class="input-bar" type="text" name="author" value="{{isset($post->author) ? $post->author : ''}}">
+                            </div>
+
+                            <div class="crud-form-element">
                                 <label for="title">Título:</label>
                             </div>
                             <div class="crud-form-element">
-                                <input class="input-bar" type="text" name="title" value="{{isset($posts->title) ? $posts->title : ''}}">
+                                <input class="input-bar" type="text" name="title" value="{{isset($post->title) ? $post->title : ''}}">
+                            </div>
+
+                            <div class="crud-form-element">
+                                <label for="comment">Resumen:</label>
+                            </div>
+                            <div class="crud-form-element sumary">
+                                <textarea class="ckeditor input-counter" maxlength='160' name="sumary" id="ckeditor" value="{{isset($post->sumary) ? $post->sumary : ''}}">{{isset($post["sumary"]) ? $post["sumary"] : ''}}</textarea>
+                                <p><span>0</span>/160</p>
                             </div>
                         
                             <div class="crud-form-element">
                                 <label for="comment">Descripción:</label>
                             </div>
                             <div class="crud-form-element">
-                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($posts->description) ? $posts->description : ''}}">{{isset($post["description"]) ? $post["description"] : ''}}</textarea>
+                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($post->description) ? $post->description : ''}}">{{isset($post["description"]) ? $post["description"] : ''}}</textarea>
                             </div>
+
                         </div>        
                     </div>
 
-                    {{-- <div  data-content="one" class="tabcontent">
-                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($posts->id) ? $posts->id : ''}}">
-
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="title">
-                            </div>
-                        </div>
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                            </div>
-                        </div>   
-                    </div>
-
-                    <div  data-content="two" class="tabcontent">
-                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($posts->id) ? $posts->id : ''}}">
-
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="title">
-                            </div>
-                        </div>
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                            </div>
-                        </div>   
-                    </div> --}}
                 </div>
             </form>
         </div>

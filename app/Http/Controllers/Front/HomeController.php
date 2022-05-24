@@ -13,6 +13,7 @@ class HomeController extends Controller
     protected $prices;
 
     public function __construct(Prices $prices){
+        
         $this->prices = $prices;
     }
 
