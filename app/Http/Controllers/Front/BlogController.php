@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\DB\Posts;
 use App\Models\DB\PostsCategory;
+use Debugbar;
 
 class BlogController extends Controller
 {
@@ -57,4 +58,26 @@ class BlogController extends Controller
         return $view;
     }
 
+    public function categoryFilter($name)
+    {
+        $post_category = $this->posts_categories->where('name', $name)->first();
+        $posts = $post_category->posts()->get();
+        
+        $view = View::make('front.pages.blog.index')
+        ->with('posts', $posts);
+    
+        if(request()->ajax()) {
+            
+            $sections = $view->renderSections(); 
+
+            Debugbar::info($sections['content']);
+
+    
+            return response()->json([
+                'content' => $sections['content'],
+            ]); 
+        }
+
+        return $view;
+    }
 }

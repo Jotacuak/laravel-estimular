@@ -101,7 +101,7 @@ class PostsController extends Controller
     {
         $view = View::make('admin.pages.posts.index')
         ->with('post', $post)
-        ->with('posts', $this->posts->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
+        ->with('posts', $this->post->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
         if(request()->ajax()) {
 

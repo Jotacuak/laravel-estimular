@@ -39,6 +39,16 @@ class ViewComposerServiceProvider extends ServiceProvider
             'admin.pages.prices.index'],
             'App\Http\ViewComposers\Admin\RatesComposers'
         );
+
+        view()->composer([
+            'front.comnponents.desktop.main_blog_nav'],
+            'App\Http\ViewComposers\Front\PostsCategories'
+        );
+
+        view()->composer([
+            'front.comnponents.mobile.main_blog_nav'],
+            'App\Http\ViewComposers\Front\PostsCategories'
+        );
     }
 
     public function register()

@@ -4,6 +4,7 @@
     .blog-elements{
         border: 1px solid $secondary-color;
         border-radius: .5rem;
+        cursor: pointer;
         display: flex;
         margin: 4rem auto;
         width: 90%;
@@ -44,6 +45,7 @@
 
         .blog-nav-category{
             border: 1px solid $secondary-color;
+            cursor: pointer;
             margin: 1rem auto;
             padding: .3rem;
         } 

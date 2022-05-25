@@ -152,5 +152,6 @@ Route::get('/contacto', 'App\Http\Controllers\Front\ContactController@index')->n
 Route::get('/terapias', 'App\Http\Controllers\Front\TherapyController@show')->name('front_therapies');
 Route::get('/terapias/{name}', 'App\Http\Controllers\Front\TherapyController@show')->name('front_therapy');
 Route::get('/blog', 'App\Http\Controllers\Front\BlogController@index')->name('front_blog');
+Route::get('/blog/categoria/{name}', 'App\Http\Controllers\Front\BlogController@categoryFilter')->name('post_category_filter');
 Route::get('/tarifas', 'App\Http\Controllers\Front\RatesController@index')->name('front_rates');
 Route::get('/faqs', 'App\Http\Controllers\Front\FaqController@index')->name('front_faq');

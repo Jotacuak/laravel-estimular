@@ -28,7 +28,7 @@
                                     <li>Alzheimer</li>
                                 </ul>
                             </li>
-                            <li class="menu-item" data-url="{{route('front_rates')}}" data-section="rate">Tarifas</li>
+                            <li class="menu-item" data-url="{{route('front_rates')}}" data-section="rates">Tarifas</li>
                             <li class="menu-item" data-url="{{route('front_blog')}}" data-section="blog">Blog</li>
                             <li class="menu-item" data-url="{{route('front_team')}}" data-section="team">Equipo</li>
                             <li class="menu-item" data-url="{{route('front_contact')}}" data-section="contact">Contacto</li>

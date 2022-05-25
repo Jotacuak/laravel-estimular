@@ -5,7 +5,7 @@
 
             @foreach ($posts_categories as $posts_category)
 
-                <div class="blog-nav-category">
+                <div class="blog-nav-category category-button" data-url="{{route('post_category_filter', ['name' => $posts_category->name])}}">
                     <h3>{{$posts_category->name}}</h3>
                 </div>
 

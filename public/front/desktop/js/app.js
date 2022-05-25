@@ -2210,7 +2210,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./desktop/cardFlip.js */ "./resources/js/front/desktop/cardFlip.js");
 /* harmony import */ var _desktop_accordion_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./desktop/accordion.js */ "./resources/js/front/desktop/accordion.js");
 /* harmony import */ var _desktop_menu_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./desktop/menu.js */ "./resources/js/front/desktop/menu.js");
+/* harmony import */ var _desktop_categoryFilter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./desktop/categoryFilter.js */ "./resources/js/front/desktop/categoryFilter.js");
 __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -2220,7 +2222,8 @@ __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 (0,_desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_0__.renderForm)();
 (0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__.renderCard)();
 (0,_desktop_accordion_js__WEBPACK_IMPORTED_MODULE_2__.renderAccordion)();
-(0,_desktop_menu_js__WEBPACK_IMPORTED_MODULE_3__.renderMenu)(); // memoryGame ();
+(0,_desktop_menu_js__WEBPACK_IMPORTED_MODULE_3__.renderMenu)();
+(0,_desktop_categoryFilter_js__WEBPACK_IMPORTED_MODULE_4__.renderCategoryFilter)(); // memoryGame ();
 
 /***/ }),
 
@@ -2269,6 +2272,81 @@ var renderCard = function renderCard() {
   cards.forEach(function (card) {
     swichBtn.addEventListener("click", function () {
       card.classList.toggle("flip");
+    });
+  });
+};
+
+/***/ }),
+
+/***/ "./resources/js/front/desktop/categoryFilter.js":
+/*!******************************************************!*\
+  !*** ./resources/js/front/desktop/categoryFilter.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderCategoryFilter": () => (/* binding */ renderCategoryFilter)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var renderCategoryFilter = function renderCategoryFilter() {
+  var categoryButtons = document.querySelectorAll('.category-button');
+  var blogContainer = document.querySelector('.blog-container');
+  categoryButtons.forEach(function (categoryButton) {
+    categoryButton.addEventListener("click", function () {
+      var url = categoryButton.dataset.url;
+
+      var sendCreateRequest = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+          var response;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return fetch(url, {
+                    headers: {
+                      'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    method: 'GET'
+                  }).then(function (response) {
+                    if (!response.ok) throw response;
+                    return response.json();
+                  }).then(function (json) {
+                    blogContainer.innerHTML = json.content;
+                  })["catch"](function (error) {
+                    if (error.status == '500') {
+                      console.log(error);
+                    }
+
+                    ;
+                  });
+
+                case 2:
+                  response = _context.sent;
+
+                case 3:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee);
+        }));
+
+        return function sendCreateRequest() {
+          return _ref.apply(this, arguments);
+        };
+      }();
+
+      sendCreateRequest();
     });
   });
 };

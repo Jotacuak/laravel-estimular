@@ -1,4 +1,4 @@
-@extends('front.layout.master')
+@extends('front.layout.master_with_header')
 
 {{-- @section('title')@lang('front/seo.web-name') | {{$seo->title}} @stop
 @section('description'){{$seo->description}} @stop
@@ -7,17 +7,19 @@
 @section('facebook-title'){{$seo->title}} @stop
 @section('facebook-description'){{$seo->description}} @stop --}}
 
+@section('header_title') <h1>Blog cognitivo</h1> @endsection
+
 @section("content")
 
     @if($agent->isDesktop())
         <div class="page-section" id="blog">
-            @include("front.pages.blog.desktop.blog", ['posts_categories' => $posts_categories])
+            @include("front.pages.blog.desktop.blog")
         </div>
     @endif
 
     @if($agent->isMobile())
         <div class="page-section" id="blog">
-            @include("front.pages.blog.mobile.blog", ['posts_categories' => $posts_categories])
+            @include("front.pages.blog.mobile.blog")
         </div>
     @endif
 @endsection

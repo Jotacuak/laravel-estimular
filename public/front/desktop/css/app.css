@@ -1049,6 +1049,7 @@ input:checked + .slider-bar:before {
 .blog-container .blog-elements {
   border: 1px solid hsl(271deg, 97%, 26%);
   border-radius: 0.5rem;
+  cursor: pointer;
   display: flex;
   margin: 4rem auto;
   width: 90%;
@@ -1083,6 +1084,7 @@ input:checked + .slider-bar:before {
 }
 .blog-nav-container .blog-nav-categories .blog-nav-category {
   border: 1px solid hsl(271deg, 97%, 26%);
+  cursor: pointer;
   margin: 1rem auto;
   padding: 0.3rem;
 }
