@@ -1,12 +1,7 @@
-<div class="personal main">
-
-    @include('front.layout.partials.page_title', [
-        'title' => 'Job Plaza Riera',
-        'subtitle' => 'Director ejecutivo y coach'
-    ])
+<div class="personal">
 
     <div class="personal-element">
-        <div class="desktop-two-columns">
+        <div class="two-columns">
             <div class="column">
                 <div class="personal-element-photo profile-photo">
                     <img src="{{Storage::url('job-plaza.webp')}}" alt="Job Plaza">
@@ -35,4 +30,5 @@
             </div>
         </div>
     </div>
+    
 </div>

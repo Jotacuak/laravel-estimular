@@ -1,9 +1,4 @@
-<div class="contact main">
-
-    @include('front.layout.partials.page_title', [
-        'title' => 'Contacta con nosotros',
-        'subtitle' => ''
-    ])
+<div class="contact">
     
     <div class="one-column">
         <div class="two-columns">

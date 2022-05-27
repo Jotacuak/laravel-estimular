@@ -146,7 +146,6 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 Route::get('/', 'App\Http\Controllers\Front\HomeController@index')->name('front_home');
-Route::get('/preguntas-frecuentes', 'App\Http\Controllers\Front\FaqController@index')->name('front_faqs');
 Route::get('/equipo', 'App\Http\Controllers\Front\TeamController@index')->name('front_team');
 Route::get('/contacto', 'App\Http\Controllers\Front\ContactController@index')->name('front_contact');
 Route::get('/terapias', 'App\Http\Controllers\Front\TherapyController@show')->name('front_therapies');

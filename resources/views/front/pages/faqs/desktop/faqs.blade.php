@@ -2,12 +2,7 @@
     $route = 'faqs';
 @endphp
 
-<div class="faqs main">
-
-    @include('front.layout.partials.page_title', [
-        'title' => 'Preguntas frecuentes',
-        'subtitle' => ''
-    ])
+<div class="faqs">
 
     @isset($faqs) 
 

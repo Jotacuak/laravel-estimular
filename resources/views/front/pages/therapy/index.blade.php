@@ -1,4 +1,4 @@
-@extends('front.layout.master')
+@extends('front.layout.master_with_header')
 
 {{-- @section('title')@lang('front/seo.web-name') | {{$seo->title}} @stop
 @section('description'){{$seo->description}} @stop

@@ -7,7 +7,7 @@
 @section('facebook-title'){{$seo->title}} @stop
 @section('facebook-description'){{$seo->description}} @stop --}}
 
-@section('header_title') <h1>Blog cognitivo</h1> @endsection
+@section('header_title') <h1>@lang('front/headers.posts-title')</h1> @endsection
 
 @section("content")
 

@@ -2,11 +2,6 @@
 
     @isset($therapy) 
 
-        @include('front.layout.partials.page_title', [
-            'title' => ($therapy->name),
-            'subtitle' => ($therapy->title)
-        ])
-
         <div class="therapies-container">
             <div class="therapies-elements">
 

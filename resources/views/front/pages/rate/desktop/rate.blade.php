@@ -2,12 +2,7 @@
     $route = 'rates';
 @endphp
 
-<div class="rates main">
-
-    @include('front.layout.partials.page_title', [
-        'title' => 'Tarifas',
-        'subtitle' => ''
-    ])
+<div class="rates">
 
     @isset($rates)
 
