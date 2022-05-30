@@ -46,13 +46,13 @@
                         <label for="comment">¿Por qué lloras?</label>
                     </div>
                     <div class="contact-form-element-input">
-                        <textarea class="required ckeditor" name="content" id="editor"></textarea>
+                        <textarea class="required" name="content" id="editor"></textarea>
                     </div>                           
                 </div>                                                                                             
             </div>
             <div class="column">
                 <div class="contact-form-element-button">
-                    <button  class="submit-button" type="submit">Enviar</button>
+                    <button  class="submit-button" type="submit" id="submit-button">Enviar</button>
                 </div>                                    
             </div>
         </form>

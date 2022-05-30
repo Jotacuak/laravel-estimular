@@ -12,19 +12,20 @@ use App\Models\DB\FaqCategory;
 class FaqCategoryController extends Controller
 {
 
-    function __construct(FaqCategory $faq_category)
+    function __construct(FaqCategory $faqs_category)
     {        
-        // $this->middleware('auth');
-        
-        $this->faq_category = $faq_category;
+        // $this->middleware('auth');        
+        $this->faqs_category = $faqs_category;
+        $this->faqs_category->visible = 1;
+
     }
 
     public function index()
     {
 
         $view = View::make('admin.pages.faqs_categories.index')
-                ->with('faqs_categories', $this->faq_category->where('active', 1)->get())
-                ->with('faq_category', $this->faq_category);
+                ->with('faqs_categories', $this->faqs_category->where('active', 1)->get())
+                ->with('faqs_category', $this->faqs_category);
 
         if(request()->ajax()) {
 
@@ -43,7 +44,7 @@ class FaqCategoryController extends Controller
     {
 
         $view = View::make('admin.pages.faqs_categories.index')
-        ->with('faq_category', $this->faq_category)
+        ->with('faqs_category', $this->faqs_category)
         ->renderSections();
 
         return response()->json([
@@ -54,29 +55,30 @@ class FaqCategoryController extends Controller
     public function store(FaqCategoryRequest $request)
     {
 
-        $faq_category = FaqCategory::updateOrCreate([
+        $faqs_category = FaqCategory::updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
+            'visible' => request('visible') == "true" ? 1 : 0 ,
             'active' => 1,
         ]);
 
         $view = View::make('admin.pages.faqs_categories.index')
-        ->with('faqs_categories', $this->faq_category->where('active', 1)->get())
-        ->with('faq_category', $faq_category)
+        ->with('faqs_categories', $this->faqs_category->where('active', 1)->get())
+        ->with('faqs_category', $faqs_category)
         ->renderSections();
 
         return response()->json([
             'table' => $view['table'],
             'form' => $view['form'],
-            'id' => $faq_category->id        
+            'id' => $faqs_category->id        
         ]);
     }
 
-    public function edit(FaqCategory $faq_category)
+    public function edit(FaqCategory $faqs_category)
     {
                 
         $view = View::make('admin.pages.faqs_categories.index')
-        ->with('faq_category', $faq_category);
+        ->with('faqs_category', $faqs_category);
         
         if(request()->ajax()) {
             $sections = $view->renderSections(); 
@@ -89,11 +91,11 @@ class FaqCategoryController extends Controller
         return $view;
     }
 
-    public function show(FaqCategory $faq_category)
+    public function show(FaqCategory $faqs_category)
     {
         $view = View::make('admin.pages.faqs_categories.index')
-        ->with('faq_category', $faq_category)
-        ->with('faqs_categories', $this->faq_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('faqs_category', $faqs_category)
+        ->with('faqs_categories', $this->faqs_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -102,14 +104,14 @@ class FaqCategoryController extends Controller
         ]);
     }
 
-    public function destroy(FaqCategory $faq_category)
+    public function destroy(FaqCategory $faqs_category)
     {   
-        $faq_category->active = 0;
-        $faq_category->save();
+        $faqs_category->active = 0;
+        $faqs_category->save();
 
         $view = View::make('admin.pages.faqs_categories.index')
-        ->with('faqs_categories', $this->faq_category->where('active', 1)->get())
-        ->with('faq_category', $this->faq_category)
+        ->with('faqs_categories', $this->faqs_category->where('active', 1)->get())
+        ->with('faqs_category', $this->faqs_category)
         ->with('locale', $this->locale->create())
         ->with('crud_permissions', $this->crud_permissions)
         ->renderSections();

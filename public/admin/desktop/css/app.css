@@ -772,6 +772,17 @@ a:hover, a:focus {
 .crud-form .crud-form-elements .sumary .ck-editor__editable {
   height: 20vh;
 }
+.crud-form .image-form {
+  display: flex;
+  place-items: center;
+}
+.crud-form .image-form svg {
+  height: 4rem;
+  width: 4rem;
+}
+.crud-form .image-form svg path {
+  fill: hsl(271deg, 97%, 26%);
+}
 
 .admin-table {
   margin-top: 1rem;

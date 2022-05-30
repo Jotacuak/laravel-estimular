@@ -1163,13 +1163,14 @@ input:checked + .slider-bar:before {
 }
 
 .contact {
-  margin-top: 5rem;
+  margin: 5rem 0;
   padding: 0 10%;
   width: 80%;
 }
 .contact .contact-info {
   display: flex;
   flex-wrap: wrap;
+  padding: 20% 0;
 }
 .contact .contact-info .contact-info-option-text {
   font-weight: 600;

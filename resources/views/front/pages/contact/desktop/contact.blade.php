@@ -37,8 +37,10 @@
                     </div>
                 </div>
             </div>
-            
-            @include('front.components.desktop.main_form')
+
+            <div class="column">
+                @include('front.components.desktop.main_form')
+            </div>
             
         </div>
     </div>

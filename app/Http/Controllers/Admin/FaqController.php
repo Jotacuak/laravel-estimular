@@ -8,18 +8,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use App\Http\Requests\Admin\FaqRequest;
+use App\Vendor\Image\Image;
 use App\Models\DB\Faq; 
 
 class FaqController extends Controller
 {
     protected $agent;
+    protected $image;
     protected $paginate;
     protected $faq;
 
-    function __construct(Faq $faq, Agent $agent)
+    function __construct(Faq $faq, Agent $agent, Image $image)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
+        $this->image = $image;
         $this->faq = $faq;
         $this->faq->visible = 1;
 
@@ -30,6 +33,8 @@ class FaqController extends Controller
         if ($this->agent->isDesktop()) {
             $this->paginate = 6;
         }
+
+        $this->image->setEntity('faqs');
     }
 
     public function index()
@@ -83,6 +88,10 @@ class FaqController extends Controller
             $message = \Lang::get('admin/faqs.faq-create');
         }
 
+        if(request('images')){
+            $images = $this->image->store(request('images'), $faq->id);
+        }
+
         $view = View::make('admin.pages.faqs.index')
         ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->with('faq', $this->faq)
@@ -129,6 +138,7 @@ class FaqController extends Controller
 
     public function destroy(Faq $faq)
     {
+        $this->image->delete($faq->id);
         $faq->active = 0;
         $faq->save();
 

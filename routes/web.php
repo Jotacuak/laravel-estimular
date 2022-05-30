@@ -87,7 +87,7 @@ Route::group(['prefix' => 'admin'], function () {
 
     Route::resource('faqs/categorias', 'App\Http\Controllers\Admin\FaqCategoryController', [
         'parameters' => [
-            'categorias' => 'faq_category', 
+            'categorias' => 'faqs_category', 
         ],
         'names' => [
             'index' => 'faqs_categories',
