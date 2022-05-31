@@ -146,19 +146,4 @@
             }
         }
     }
-
-    .image-form{
-        display: flex;
-        place-items: center;
-            
-        svg{
-            height: 4rem;
-            width: 4rem;
-
-            path{
-                fill: $secondary-color;
-            }
-        }
-
-    }
 }

@@ -634,6 +634,63 @@ a:hover, a:focus {
   background-color: hsl(0deg, 65%, 55%);
 }
 
+.image-selector {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+.image-selector .image-preview {
+  border: 1px solid hsl(271deg, 97%, 26%);
+  border-radius: 0.25rem;
+  position: relative;
+}
+.image-selector .image-preview svg {
+  height: 6rem;
+  padding: 0.5rem;
+  width: 6rem;
+}
+.image-selector .image-preview svg path {
+  fill: hsl(271deg, 97%, 26%);
+}
+.image-selector .image-preview .image {
+  width: 100%;
+}
+.image-selector .image-preview .image-load {
+  display: block;
+}
+.image-selector .image-preview .image-load.hidden {
+  display: none;
+}
+.image-selector .image-preview .image-delete {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2em;
+  width: 2em;
+  color: hsl(0deg, 100%, 20%);
+  display: none;
+}
+.image-selector .image-preview .image-delete:hover {
+  cursor: pointer;
+}
+.image-selector .image-preview .image-delete:hover path {
+  fill: hsl(317deg, 100%, 32%);
+}
+.image-selector .image-preview .image-delete.active {
+  display: block;
+  z-index: 100;
+}
+.image-selector input[type=file] {
+  cursor: pointer;
+  height: 6rem;
+  left: 60%;
+  opacity: 0;
+  position: absolute;
+  top: 19vh;
+  width: 6rem;
+}
+
 .overlay {
   background-color: hsl(271deg, 97%, 26%);
   height: 100%;
@@ -771,17 +828,6 @@ a:hover, a:focus {
 }
 .crud-form .crud-form-elements .sumary .ck-editor__editable {
   height: 20vh;
-}
-.crud-form .image-form {
-  display: flex;
-  place-items: center;
-}
-.crud-form .image-form svg {
-  height: 4rem;
-  width: 4rem;
-}
-.crud-form .image-form svg path {
-  fill: hsl(271deg, 97%, 26%);
 }
 
 .admin-table {

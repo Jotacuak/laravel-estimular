@@ -2652,6 +2652,47 @@ var renderMenu = function renderMenu() {
 
 /***/ }),
 
+/***/ "./resources/js/admin/desktop/modalImage.js":
+/*!**************************************************!*\
+  !*** ./resources/js/admin/desktop/modalImage.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderModalImage": () => (/* binding */ renderModalImage)
+/* harmony export */ });
+var renderModalImage = function renderModalImage() {
+  var chooseFiles = document.querySelectorAll('.choose-file');
+  var deleteFiles = document.querySelectorAll('.image-delete');
+  chooseFiles.forEach(function (chooseFile) {
+    chooseFile.addEventListener("change", function () {
+      var files = chooseFile.files[0];
+
+      if (files) {
+        var fileReader = new FileReader();
+        fileReader.readAsDataURL(files);
+        fileReader.addEventListener("load", function () {
+          chooseFile.closest('.image-selector').querySelector('.image-load').classList.add('hidden');
+          chooseFile.closest('.image-selector').querySelector('.image-delete').classList.add('active');
+          chooseFile.closest('.image-selector').querySelector('.image').src = fileReader.result;
+        });
+      }
+    });
+  });
+  deleteFiles.forEach(function (deleteFile) {
+    deleteFile.addEventListener("click", function (event) {
+      deleteFile.closest('.image-selector').querySelector('.image-load').classList.remove('hidden');
+      deleteFile.closest('.image-selector').querySelector('.image-delete').classList.remove('active');
+      deleteFile.closest('.image-selector').querySelector('.image').src = '';
+      event.preventDefault();
+    });
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/admin/desktop/table.js":
 /*!*********************************************!*\
   !*** ./resources/js/admin/desktop/table.js ***!
@@ -21175,9 +21216,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form.js */ "./resources/js/admin/desktop/form.js");
 /* harmony import */ var _inputCounter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inputCounter.js */ "./resources/js/admin/desktop/inputCounter.js");
 /* harmony import */ var _menu_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu.js */ "./resources/js/admin/desktop/menu.js");
-/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
-/* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
+/* harmony import */ var _modalImage_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modalImage.js */ "./resources/js/admin/desktop/modalImage.js");
+/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
+/* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
 __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -21192,10 +21235,11 @@ __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 (0,_ckeditor_js__WEBPACK_IMPORTED_MODULE_1__.renderCkeditor)();
 (0,_form_js__WEBPACK_IMPORTED_MODULE_2__.renderForm)();
 (0,_inputCounter_js__WEBPACK_IMPORTED_MODULE_3__.renderInputCounter)();
-(0,_menu_js__WEBPACK_IMPORTED_MODULE_4__.renderMenu)(); // renderMessages();
+(0,_menu_js__WEBPACK_IMPORTED_MODULE_4__.renderMenu)();
+(0,_modalImage_js__WEBPACK_IMPORTED_MODULE_5__.renderModalImage)(); // renderMessages();
 
-(0,_table_js__WEBPACK_IMPORTED_MODULE_5__.renderTable)();
-(0,_tabs_js__WEBPACK_IMPORTED_MODULE_6__.renderTabs)(); // renderWait();
+(0,_table_js__WEBPACK_IMPORTED_MODULE_6__.renderTable)();
+(0,_tabs_js__WEBPACK_IMPORTED_MODULE_7__.renderTabs)(); // renderWait();
 })();
 
 /******/ })()
