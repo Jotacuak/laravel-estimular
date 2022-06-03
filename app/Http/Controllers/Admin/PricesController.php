@@ -132,8 +132,8 @@ class PricesController extends Controller
 
     public function destroy(Prices $price)
     {
-        $prices->active = 0;
-        $prices->save();
+        $price->active = 0;
+        $price->save();
 
         $message = \Lang::get('admin/prices.prices-delete');
 

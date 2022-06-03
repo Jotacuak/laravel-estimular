@@ -138,7 +138,7 @@ class FaqController extends Controller
 
     public function destroy(Faq $faq)
     {
-        $this->image->delete($faq->id);
+        // $this->image->delete($faq->id);
         $faq->active = 0;
         $faq->save();
 

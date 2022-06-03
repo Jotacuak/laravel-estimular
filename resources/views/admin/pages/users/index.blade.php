@@ -2,6 +2,8 @@
     $route = 'users';
 @endphp
 
+@section('topbar_title') <h3>@lang('admin/users.parent_section')</h3> @endsection
+
 @extends('admin.layout.table_form')
 
 @section('table')
@@ -50,109 +52,71 @@
 
 @section('form')
 
-    <div class="crud-form">
-        <form action="{{route("users_store")}}" class="admin-form" id="users-form" autocomplete="off">
-            <div class="crud-form-buttons">
-                <div class="tabs">
-                    <button data-tab="zero" class="tabslinks active">Contenido</button>
-                    <button data-tab="one" class="tabslinks">Imagenes</button>
-                    <button data-tab="two" class="tabslinks">Otros</button>
-                </div>
-               
-                @include('admin.components.form_buttons', ['visible' => $user->visible])
+    @isset($user)
 
-            </div>
-
-            <div class="content">
-                <div data-content="zero" class="tabcontent active">
-                    <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                    <input type="hidden" name="id" value="{{isset($user->id) ? $user->id : ''}}">
-
-                    <div class="crud-form-elements">
-                        <div class="two-columns">
-                            <div class="form-group">
-                                <div class="crud-form-element">
-                                    <label for="name">Nombre</label>
-                                </div>
-                                <div class="crud-form-element">
-                                    <input class="input-bar" type="text" name="name" value="{{isset($user->name) ? $user->name : ''}}">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="crud-form-element">
-                                    <label for="email">Email</label>
-                                </div>
-                                <div class="crud-form-element">
-                                    <input class="input-bar" type="text" name="email" value="{{isset($user->email) ? $user->email : ''}}">
-                                </div>
-                            </div>
-                        </div>
+        <div class="crud-form">
+            <form action="{{route("users_store")}}" class="admin-form" id="user-form" autocomplete="off">
+                <div class="crud-form-buttons">
+                    <div class="tabs">
+                        <button data-tab="zero" class="tabslinks active">Contenido</button>
+                        <button data-tab="one" class="tabslinks">Imagenes</button>
+                        <button data-tab="two" class="tabslinks">Otros</button>
                     </div>
-                    <div class="crud-form-elements">
-                        <div class="two-columns">
-                            <div class="form-group">
-                                <div class="crud-form-element">
-                                    <label for="password">Password</label>
-                                </div>
-                                <div class="crud-form-element">
-                                    <input class="input-bar" type="password" name="password">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="crud-form-element">
-                                    <label for="password_confirmation">Repite el password</label>
-                                </div>
-                                <div class="crud-form-element">
-                                    <input class="input-bar" type="password" name="password_confirmation">
-                                </div>
-                            </div>
-                        </div>
-                    </div>          
+                
+                    @include('admin.components.form_buttons', [$route => 'route', 'create' => 'create'])
+
                 </div>
 
-                {{-- <div  data-content="one" class="tabcontent">
-                    <form enctype="multipart/form-data" class="front-form" id="users-form">
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="title">
-                            </div>
-                        </div>
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                <div class="content">
+                    <div data-content="zero" class="tabcontent active">
+                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
+                        <input type="hidden" name="id" value="{{isset($user->id) ? $user->id : ''}}">
 
-                <div  data-content="two" class="tabcontent">
-                    <form enctype="multipart/form-data" class="front-form" id="users-form">
                         <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="title">
+                            <div class="two-columns">
+                                <div class="form-group">
+                                    <div class="crud-form-element">
+                                        <label for="name">Nombre</label>
+                                    </div>
+                                    <div class="crud-form-element">
+                                        <input class="input-bar" type="text" name="name" value="{{isset($user->name) ? $user->name : ''}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="crud-form-element">
+                                        <label for="email">Email</label>
+                                    </div>
+                                    <div class="crud-form-element">
+                                        <input class="input-bar" type="text" name="email" value="{{isset($user->email) ? $user->email : ''}}">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
+                            <div class="two-columns">
+                                <div class="form-group">
+                                    <div class="crud-form-element">
+                                        <label for="password">Password</label>
+                                    </div>
+                                    <div class="crud-form-element">
+                                        <input class="input-bar" type="password" name="password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="crud-form-element">
+                                        <label for="password_confirmation">Repite el password</label>
+                                    </div>
+                                    <div class="crud-form-element">
+                                        <input class="input-bar" type="password" name="password_confirmation">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="crud-form-element">
-                                <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                            </div>
-                        </div>
-                    </form>
-                </div> --}}
-            </div>
-        </form>
-    </div>
+                        </div>          
+                    </div>
+                </div>
+            </form>
+        </div>
+    
+    @endisset
 
 @endsection

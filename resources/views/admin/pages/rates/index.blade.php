@@ -58,7 +58,6 @@
                         <button data-tab="zero" class="tabslinks active">Contenido</button>
                         <button data-tab="one" class="tabslinks">Imagenes</button>
                         <button data-tab="two" class="tabslinks">Seo</button>
-                        <button data-tab="three" class="tabslinks">Precios</button>
                     </div>
                 
                     @include('admin.components.form_buttons', ['visible' => $rate->visible, 'create' => 'create'])
@@ -98,59 +97,10 @@
                         </div> 
 
                     </div>
-
+{{-- 
                     <div data-content="three" class="tabcontent" data-table="prices">
 
-                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($price->id) ? $price->id : ''}}">
-                        <div class="crud-form-elements">
-                            {{-- <div class="crud-form-element">
-                                <select name="category_id" data-placeholder="Seleccione una categoría">
-                                    <option></option>
-                                    @foreach($rate)
-                                        <option value="{{$rate->id}}" {{$rate->id ? 'selected':''}} class="rate_id">{{ $rate->name }}</option>
-                                    @endforeach
-                                </select>   
-                            </div>                             --}}
-                            <div class="three-columns">
-                                <div class="form-group">                                
-                                    <div class="crud-form-element">
-                                        <label for="title">Nombre:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="name" value="{{isset($price->name) ? $price->name : ''}}">
-                                    </div>                                
-                                </div>
-                                <div class="form-group">                                
-                                    <div class="crud-form-element">
-                                        <label for="title">Tipo:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <select class="input-bar" type="text" name="type">
-                                            <option value="{{isset($price->type) ? $price->type : ''}}">Día</option>
-                                            <option value="{{isset($price->type) ? $price->type : ''}}">Bono</option>
-                                        </select>
-                                    </div>                                
-                                </div>
-                                <div class="form-group">                                
-                                    <div class="crud-form-element">
-                                        <label for="title">Precio:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="subtotal" value="{{isset($price->subtotal) ? $price->subtotal : ''}}">
-                                    </div>                                
-                                </div>
-                            </div>                             
-
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <textarea class="ckeditor" name="sumary" id="ckeditor" value="{{isset($price->sumary) ? $price->sumary : ''}}">{{isset($price["sumary"]) ? $price["sumary"] : ''}}</textarea>
-                            </div>
-                        </div>
-
-                    </div>
+                    </div> --}}
                 </div>
             </form>
         </div>

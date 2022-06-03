@@ -2,7 +2,7 @@ export let renderTabs = () => {
 
     document.addEventListener("renderFormModules",( event =>{
         renderTabs();
-    }));
+    }),{once: true});
 
     let tabs = document.querySelectorAll(".tabslinks");
     let contents = document.querySelectorAll(".tabcontent");

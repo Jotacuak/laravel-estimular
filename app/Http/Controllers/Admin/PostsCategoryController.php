@@ -118,8 +118,8 @@ class PostsCategoryController extends Controller
         $view = View::make('admin.pages.posts_categories.index')
         ->with('posts_categories', $this->posts_category->where('active', 1)->get())
         ->with('posts_category', $this->posts_category)
-        ->with('locale', $this->locale->create())
-        ->with('crud_permissions', $this->crud_permissions)
+        // ->with('locale', $this->locale->create())
+        // ->with('crud_permissions', $this->crud_permissions)
         ->renderSections();
         
         return response()->json([

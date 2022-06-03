@@ -9,6 +9,11 @@
                 </button>
             </div>
         </div>
+        <div class="topbar-element">
+            <div class="topbar-element-title">
+                @yield('topbar_title')
+            </div>
+        </div>
     </div>
 </div>
 <div class="overlay" id="overlay">

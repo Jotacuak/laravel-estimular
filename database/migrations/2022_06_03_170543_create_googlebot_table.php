@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('workers', function (Blueprint $table) {
+        Schema::create('googlebot', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 255);  
-            $table->string('title', 255);
-            $table->text('content');
-            $table->boolean('visible');
-            $table->boolean('active');
+            $table->string('action');
+            $table->integer('sitemap_id')->unsigned()->nullable();
+            $table->integer('complete');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workers');
+        Schema::dropIfExists('googlebot');
     }
 };

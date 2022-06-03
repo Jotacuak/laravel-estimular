@@ -12,6 +12,9 @@ use App\Models\DB\FaqCategory;
 class FaqCategoryController extends Controller
 {
 
+    protected $paginate;
+    protected $faqs_category;
+
     function __construct(FaqCategory $faqs_category)
     {        
         // $this->middleware('auth');        
@@ -78,7 +81,8 @@ class FaqCategoryController extends Controller
     {
                 
         $view = View::make('admin.pages.faqs_categories.index')
-        ->with('faqs_category', $faqs_category);
+        ->with('faqs_category', $faqs_category)
+        ->with('faqs_categories', $this->faqs_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
         
         if(request()->ajax()) {
             $sections = $view->renderSections(); 
@@ -112,8 +116,8 @@ class FaqCategoryController extends Controller
         $view = View::make('admin.pages.faqs_categories.index')
         ->with('faqs_categories', $this->faqs_category->where('active', 1)->get())
         ->with('faqs_category', $this->faqs_category)
-        ->with('locale', $this->locale->create())
-        ->with('crud_permissions', $this->crud_permissions)
+        // ->with('locale', $this->locale->create())
+        // ->with('crud_permissions', $this->crud_permissions)
         ->renderSections();
         
         return response()->json([

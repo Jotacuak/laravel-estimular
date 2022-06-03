@@ -76,73 +76,16 @@ export let renderTable = () => {
         deleteButtons.forEach(deleteButton => {
 
             deleteButton.addEventListener("click", () => {
-    
-                let url = deleteButton.dataset.url;
-                deleteConfirm.dataset.url = url;
-                modalDelete.classList.add('modal-active');
+
+                document.dispatchEvent(new CustomEvent('openModalDelete', {
+                    detail: {
+                        url: deleteButton.dataset.url,
+                    }
+                }));
+
                 // document.dispatchEvent(new CustomEvent('startOverlay'));
+
             });
         });
-    
-        deleteCancel.addEventListener("click", () => {
-            modalDelete.classList.remove('modal-active');
-            // document.dispatchEvent(new CustomEvent('stopWait'));
-        });
-    
-        deleteConfirm.addEventListener("click", () => {
-    
-            let url = deleteConfirm.dataset.url;
-        
-            let sendDeleteRequest = async () => {
-    
-                let response = await fetch(url, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    method: 'GET', 
-                })
-                .then(response => {
-                              
-                    if (!response.ok) throw response;
-
-                    return response.json();
-                })
-                .then(json => {
-
-                    if(json.table){
-                        tableContainer.innerHTML = json.table;
-                    }
-
-                    document.dispatchEvent(new CustomEvent('loadForm', {
-                        detail: {
-                            form: json.form,
-                        }
-                    }));
-
-                    modalDelete.classList.remove('modal-active');
-
-                    document.dispatchEvent(new CustomEvent('renderFormModules'));
-                    document.dispatchEvent(new CustomEvent('renderTableModules'));
-
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
-                    // document.dispatchEvent(new CustomEvent('message', {
-                    //     detail: {
-                    //         message: json.message,
-                    //         type: 'success'
-                    //     }
-                    // }));
-                })
-                .catch(error =>  {
-
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
-
-                    if(error.status == '500'){
-                        console.log(error);
-                    };
-                });
-            };
-    
-            sendDeleteRequest();
-        });    
     }
 };

@@ -8,7 +8,7 @@ return [
     'rates-title' => 'Tarifas',
     'rates-subtitle' => '',
     'contact-title' => 'Contacta con nosotros',
-    'contact-subtitle' => 'keywords por defecto en español',
+    'contact-subtitle' => '',
     'therapy-title' => 'Terapias',
     'therapy-subtitle' => '',
     'workers-title' => 'Job Plaza Riera',

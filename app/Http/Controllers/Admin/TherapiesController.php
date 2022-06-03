@@ -127,8 +127,8 @@ class TherapiesController extends Controller
 
     public function destroy(Therapies $therapy)
     {
-        $therapies->active = 0;
-        $therapies->save();
+        $therapy->active = 0;
+        $therapy->save();
 
         $message = \Lang::get('admin/therapies.therapies-delete');
 

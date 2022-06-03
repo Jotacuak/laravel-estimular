@@ -2652,6 +2652,113 @@ var renderMenu = function renderMenu() {
 
 /***/ }),
 
+/***/ "./resources/js/admin/desktop/modalDelete.js":
+/*!***************************************************!*\
+  !*** ./resources/js/admin/desktop/modalDelete.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "renderModalDelete": () => (/* binding */ renderModalDelete)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var renderModalDelete = function renderModalDelete() {
+  var modalDelete = document.getElementById('modal-delete');
+  var deleteConfirm = document.getElementById('delete-confirm');
+  var deleteCancel = document.getElementById('delete-cancel');
+  document.addEventListener("openModalDelete", function (event) {
+    deleteConfirm.dataset.url = event.detail.url;
+    modalDelete.classList.add('modal-active');
+  });
+  deleteCancel.addEventListener("click", function () {
+    modalDelete.classList.remove('modal-active'); // document.dispatchEvent(new CustomEvent('stopWait'));
+  });
+  deleteConfirm.addEventListener("click", function () {
+    var url = deleteConfirm.dataset.url;
+    console.log(url);
+
+    var sendDeleteRequest = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return fetch(url, {
+                  headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                  },
+                  method: 'DELETE'
+                }).then(function (response) {
+                  if (!response.ok) throw response;
+                  return response.json();
+                }).then(function (json) {
+                  if (json.table) {
+                    document.dispatchEvent(new CustomEvent('loadTable', {
+                      detail: {
+                        table: json.table
+                      }
+                    }));
+                  }
+
+                  document.dispatchEvent(new CustomEvent('loadForm', {
+                    detail: {
+                      form: json.form
+                    }
+                  }));
+                  modalDelete.classList.remove('modal-active');
+                  document.dispatchEvent(new CustomEvent('renderFormModules'));
+                  document.dispatchEvent(new CustomEvent('renderTableModules')); // document.dispatchEvent(new CustomEvent('stopWait'));
+
+                  // document.dispatchEvent(new CustomEvent('stopWait'));
+                  document.dispatchEvent(new CustomEvent('message', {
+                    detail: {
+                      message: json.message,
+                      type: 'success'
+                    }
+                  }));
+                })["catch"](function (error) {
+                  // document.dispatchEvent(new CustomEvent('stopWait'));
+                  if (error.status == '500') {
+                    console.log(error);
+                  }
+
+                  ;
+                });
+
+              case 2:
+                response = _context.sent;
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function sendDeleteRequest() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    sendDeleteRequest();
+  });
+};
+
+/***/ }),
+
 /***/ "./resources/js/admin/desktop/modalImage.js":
 /*!**************************************************!*\
   !*** ./resources/js/admin/desktop/modalImage.js ***!
@@ -2793,78 +2900,12 @@ var renderTable = function renderTable() {
   if (deleteButtons) {
     deleteButtons.forEach(function (deleteButton) {
       deleteButton.addEventListener("click", function () {
-        var url = deleteButton.dataset.url;
-        deleteConfirm.dataset.url = url;
-        modalDelete.classList.add('modal-active'); // document.dispatchEvent(new CustomEvent('startOverlay'));
+        document.dispatchEvent(new CustomEvent('openModalDelete', {
+          detail: {
+            url: deleteButton.dataset.url
+          }
+        })); // document.dispatchEvent(new CustomEvent('startOverlay'));
       });
-    });
-    deleteCancel.addEventListener("click", function () {
-      modalDelete.classList.remove('modal-active'); // document.dispatchEvent(new CustomEvent('stopWait'));
-    });
-    deleteConfirm.addEventListener("click", function () {
-      var url = deleteConfirm.dataset.url;
-
-      var sendDeleteRequest = /*#__PURE__*/function () {
-        var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-          var response;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-            while (1) {
-              switch (_context2.prev = _context2.next) {
-                case 0:
-                  _context2.next = 2;
-                  return fetch(url, {
-                    headers: {
-                      'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    method: 'GET'
-                  }).then(function (response) {
-                    if (!response.ok) throw response;
-                    return response.json();
-                  }).then(function (json) {
-                    if (json.table) {
-                      tableContainer.innerHTML = json.table;
-                    }
-
-                    document.dispatchEvent(new CustomEvent('loadForm', {
-                      detail: {
-                        form: json.form
-                      }
-                    }));
-                    modalDelete.classList.remove('modal-active');
-                    document.dispatchEvent(new CustomEvent('renderFormModules'));
-                    document.dispatchEvent(new CustomEvent('renderTableModules')); // document.dispatchEvent(new CustomEvent('stopWait'));
-                    // document.dispatchEvent(new CustomEvent('message', {
-                    //     detail: {
-                    //         message: json.message,
-                    //         type: 'success'
-                    //     }
-                    // }));
-                  })["catch"](function (error) {
-                    // document.dispatchEvent(new CustomEvent('stopWait'));
-                    if (error.status == '500') {
-                      console.log(error);
-                    }
-
-                    ;
-                  });
-
-                case 2:
-                  response = _context2.sent;
-
-                case 3:
-                case "end":
-                  return _context2.stop();
-              }
-            }
-          }, _callee2);
-        }));
-
-        return function sendDeleteRequest() {
-          return _ref2.apply(this, arguments);
-        };
-      }();
-
-      sendDeleteRequest();
     });
   }
 };
@@ -2885,6 +2926,8 @@ __webpack_require__.r(__webpack_exports__);
 var renderTabs = function renderTabs() {
   document.addEventListener("renderFormModules", function (event) {
     renderTabs();
+  }, {
+    once: true
   });
   var tabs = document.querySelectorAll(".tabslinks");
   var contents = document.querySelectorAll(".tabcontent");
@@ -21217,9 +21260,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _inputCounter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inputCounter.js */ "./resources/js/admin/desktop/inputCounter.js");
 /* harmony import */ var _menu_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu.js */ "./resources/js/admin/desktop/menu.js");
 /* harmony import */ var _modalImage_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modalImage.js */ "./resources/js/admin/desktop/modalImage.js");
-/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
-/* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
+/* harmony import */ var _modalDelete_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modalDelete.js */ "./resources/js/admin/desktop/modalDelete.js");
+/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
+/* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
 __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
+
 
 
 
@@ -21236,10 +21281,11 @@ __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 (0,_form_js__WEBPACK_IMPORTED_MODULE_2__.renderForm)();
 (0,_inputCounter_js__WEBPACK_IMPORTED_MODULE_3__.renderInputCounter)();
 (0,_menu_js__WEBPACK_IMPORTED_MODULE_4__.renderMenu)();
-(0,_modalImage_js__WEBPACK_IMPORTED_MODULE_5__.renderModalImage)(); // renderMessages();
+(0,_modalImage_js__WEBPACK_IMPORTED_MODULE_5__.renderModalImage)();
+(0,_modalDelete_js__WEBPACK_IMPORTED_MODULE_6__.renderModalDelete)(); // renderMessages();
 
-(0,_table_js__WEBPACK_IMPORTED_MODULE_6__.renderTable)();
-(0,_tabs_js__WEBPACK_IMPORTED_MODULE_7__.renderTabs)(); // renderWait();
+(0,_table_js__WEBPACK_IMPORTED_MODULE_7__.renderTable)();
+(0,_tabs_js__WEBPACK_IMPORTED_MODULE_8__.renderTabs)(); // renderWait();
 })();
 
 /******/ })()

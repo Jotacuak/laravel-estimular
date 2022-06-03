@@ -129,8 +129,8 @@ class RatesController extends Controller
 
     public function destroy(Rates $rate)
     {
-        $rates->active = 0;
-        $rates->save();
+        $rate->active = 0;
+        $rate->save();
 
         $message = \Lang::get('admin/rates.rates-delete');
 

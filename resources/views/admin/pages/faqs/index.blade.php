@@ -4,6 +4,8 @@
     // $order = ['fecha de creación' => 'created_at', 'nombre' => 'name', 'categoría' => 'category_id'];
 @endphp
 
+@section('topbar_title') <h3>@lang('admin/faqs.parent_section')</h3> @endsection
+
 @extends('admin.layout.table_form')
 
 @section('table')
@@ -86,7 +88,7 @@
                                         <label for="categories">Categoría:</label>
                                     </div>
                                     <div class="crud-form-element">
-                                        <select name="category_id" data-placeholder="Seleccione una categoría">
+                                        <select name="category_id" data-placeholder="Seleccione una categoría" class="input-bar">
                                             <option></option>
                                             @foreach($faqs_categories as $faq_category)
                                                 <option value="{{$faq_category->id}}" {{$faq->category_id == $faq_category->id ? 'selected':''}} class="category_id">{{ $faq_category->name }}</option>

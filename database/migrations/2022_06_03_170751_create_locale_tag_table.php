@@ -13,12 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('workers', function (Blueprint $table) {
+        Schema::create('locale_tag', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 255);  
-            $table->string('title', 255);
-            $table->text('content');
-            $table->boolean('visible');
+            $table->string('language',64);
+            $table->string('group', 255)->index();
+            $table->string('key', 255);
+            $table->text('value')->nullable(true);
             $table->boolean('active');
             $table->timestamps();
         });
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workers');
+        Schema::dropIfExists('locale_tag');
     }
 };

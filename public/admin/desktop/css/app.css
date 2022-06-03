@@ -955,6 +955,11 @@ a:hover, a:focus {
 .topbar .topbar-element button svg path {
   fill: white;
 }
+.topbar .topbar-element h3 {
+  color: white;
+  font-size: 3rem;
+  margin: auto 5rem;
+}
 
 .admin-users {
   margin: 5rem 1rem;

@@ -2,6 +2,8 @@
     $route = 'posts_categories';
 @endphp
 
+@section('topbar_title') <h3>@lang('admin/blogs_categories.parent_section')</h3> @endsection
+
 @extends('admin.layout.table_form')
 
 @section('table')

@@ -43,6 +43,7 @@ class UserController extends Controller
     {
         $view = View::make('admin.pages.users.index')
         ->with('user', $this->user)
+        ->with('users', $this->user->where('active', 1)->get())
         ->renderSections();
 
         return response()->json([
@@ -75,7 +76,7 @@ class UserController extends Controller
 
         $view = View::make('admin.pages.users.index')
         ->with('users', $this->user->where('active', 1)->get())
-        ->with('user', $user)
+        ->with('user', $this->user)
         ->renderSections();        
 
         return response()->json([

@@ -14,14 +14,14 @@ class WorkersController extends Controller
 {
     protected $agent;
     protected $paginate;
-    protected $workers;
+    protected $worker;
 
-    function __construct(Workers $workers, Agent $agent)
+    function __construct(Workers $worker, Agent $agent)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
-        $this->workers = $workers;
-        $this->workers->visible = 1;
+        $this->worker = $worker;
+        $this->worker->visible = 1;
 
         if ($this->agent->isMobile()) {
             $this->paginate = 10;
@@ -35,8 +35,8 @@ class WorkersController extends Controller
     public function index()
     {
         $view = View::make('admin.pages.workers.index')
-        ->with('worker', $this->workers)
-        ->with('workers', $this->workers->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
+        ->with('worker', $this->worker)
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
     
         if(request()->ajax()) {
@@ -55,7 +55,8 @@ class WorkersController extends Controller
     public function create()
     {
         $view = View::make('admin.pages.workers.index')
-        ->with('workers', $this->workers)
+        ->with('worker', $this->worker)
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
 
         return response()->json([
@@ -66,9 +67,10 @@ class WorkersController extends Controller
     public function store(WorkersRequest $request)
     {            
                 
-        $workers = $this->workers->updateOrCreate([
+        $worker = $this->worker->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
+            'title' => request('title'),
             'content' => request('content'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
@@ -81,8 +83,8 @@ class WorkersController extends Controller
         }
 
         $view = View::make('admin.pages.workers.index')
-        ->with('worker', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        ->with('workers', $this->workers)
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('worker', $this->worker)
         ->renderSections();        
 
         return response()->json([
@@ -92,18 +94,17 @@ class WorkersController extends Controller
         ]);
     }
 
-    public function edit(Workers $workers)
+    public function edit(Workers $worker)
     {
         $view = View::make('admin.pages.workers.index')
         ->with('worker', $worker)
-        ->with('workers', $this->workers->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
         if(request()->ajax()) {
 
             $sections = $view->renderSections(); 
     
             return response()->json([
-                'table' => $sections['table'],
                 'form' => $sections['form'],
             ]); 
         }
@@ -111,11 +112,11 @@ class WorkersController extends Controller
         return $view;
     }
 
-    public function show(Workers $workers){
+    public function show(Workers $worker){
 
         $view = View::make('admin.pages.workers.index')
         ->with('worker', $worker)
-        ->with('workers', $this->workers->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -124,16 +125,16 @@ class WorkersController extends Controller
         ]);
     }
 
-    public function destroy(Workers $workers)
+    public function destroy(Workers $worker)
     {
-        $workers->active = 0;
-        $workers->save();
+        $worker->active = 0;
+        $worker->save();
 
         $message = \Lang::get('admin/workers.workers-delete');
 
         $view = View::make('admin.pages.workers.index')
         ->with('worker', $this->worker)
-        ->with('workers', $this->workers->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([

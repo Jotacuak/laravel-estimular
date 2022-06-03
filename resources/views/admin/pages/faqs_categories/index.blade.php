@@ -2,6 +2,8 @@
     $route = 'faqs_categories';
 @endphp
 
+@section('topbar_title') <h3>@lang('admin/faqs_categories.parent_section')</h3> @endsection
+
 @extends('admin.layout.table_form')
 
 @section('table')
@@ -52,7 +54,7 @@
     @isset($faqs_category)
 
         <div class="crud-form">
-            <form action="{{route("faqs_categories_store")}}" class="admin-form" id="faqs_categories-form" autocomplete="off">
+            <form action="{{route("faqs_categories_store")}}" class="admin-form" id="faqs_category-form" autocomplete="off">
                 <div class="crud-form-buttons">
                     <div class="tabs">
                         <button data-tab="zero" class="tabslinks active">Contenido</button>

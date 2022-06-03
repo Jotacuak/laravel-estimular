@@ -13,13 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('workers', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 255);  
-            $table->string('title', 255);
-            $table->text('content');
-            $table->boolean('visible');
-            $table->boolean('active');
+        Schema::create('contact_log', function (Blueprint $table) {
+            $table->id();
+            $table->string('fingerprint')->nullable();
+            $table->string('name');
+            $table->string('email');
+            $table->text('message');
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workers');
+        Schema::dropIfExists('contact_log');
     }
 };

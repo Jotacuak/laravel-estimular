@@ -131,8 +131,9 @@ class PostsController extends Controller
 
     public function destroy(Posts $post)
     {
-        $posts->active = 0;
-        $posts->save();
+        $this->image->delete($faq->id);
+        $post->active = 0;
+        $post->save();
 
         $message = \Lang::get('admin/posts.post-delete');
 

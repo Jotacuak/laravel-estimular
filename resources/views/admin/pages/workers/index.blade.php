@@ -49,7 +49,7 @@
 
 @section('form')
 
-    @isset($workers)
+    @isset($worker)
 
         <div class="crud-form">
             <form action="{{route("workers_store")}}" class="admin-form" id="workers-form" autocomplete="off">
@@ -60,14 +60,14 @@
                         <button data-tab="two" class="tabslinks">Otros</button>
                     </div>
                 
-                    @include('admin.components.form_buttons', ['visible' => $worker->visible])
+                    @include('admin.components.form_buttons', ['visible' => $worker->visible, 'create' => 'create'])
 
                 </div>
 
                 <div class="content">
                     <div data-content="zero" class="tabcontent active">
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($workers->id) ? $workers->id : ''}}">
+                        <input type="hidden" name="id" value="{{isset($worker->id) ? $worker->id : ''}}">
                         <div class="crud-form-elements">
                             <div class="two-columns">
                                 <div class="form-group">                                
@@ -75,7 +75,7 @@
                                         <label for="title">Nombre:</label>
                                     </div>
                                     <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="name" value="{{isset($workers->name) ? $workers->name : ''}}">
+                                        <input class="input-bar" type="text" name="name" value="{{isset($worker->name) ? $worker->name : ''}}">
                                     </div>                                
                                 </div>
                             </div>
@@ -84,14 +84,14 @@
                                 <label for="title">Título:</label>
                             </div>
                             <div class="crud-form-element">
-                                <input class="input-bar" type="text" name="title" value="{{isset($workers->title) ? $workers->title : ''}}">
+                                <input class="input-bar" type="text" name="title" value="{{isset($worker->title) ? $worker->title : ''}}">
                             </div>
                         
                             <div class="crud-form-element">
                                 <label for="comment">Descripción:</label>
                             </div>
                             <div class="crud-form-element">
-                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($workers->description) ? $workers->description : ''}}">{{isset($worker["description"]) ? $worker["description"] : ''}}</textarea>
+                                <textarea class="ckeditor" name="content" id="ckeditor" value="{{isset($worker->content) ? $worker->content : ''}}">{{isset($worker["content"]) ? $worker["content"] : ''}}</textarea>
                             </div>
                         </div>        
                     </div>
