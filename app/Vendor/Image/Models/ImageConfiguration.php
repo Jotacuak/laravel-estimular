@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ImageConfiguration extends Model
 {
-    protected $table = 't_image_configuration';
+    protected $table = 'image_configuration';
     protected $guarded = [];
 }

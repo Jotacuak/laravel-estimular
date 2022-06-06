@@ -10,6 +10,7 @@ use Jenssegers\Agent\Agent;
 use App\Http\Requests\Admin\FaqRequest;
 use App\Vendor\Image\Image;
 use App\Models\DB\Faq; 
+use Debugbar;
 
 class FaqController extends Controller
 {
@@ -72,6 +73,8 @@ class FaqController extends Controller
     public function store(FaqRequest $request)
     {            
                 
+        Debugbar::info(request('upload-image-input'));
+
         $faq = $this->faq->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
@@ -88,8 +91,8 @@ class FaqController extends Controller
             $message = \Lang::get('admin/faqs.faq-create');
         }
 
-        if(request('images')){
-            $images = $this->image->store(request('images'), $faq->id);
+        if(request('upload-image-input')){
+            $images = $this->image->store(request('upload-image-input'), $faq->id);
         }
 
         $view = View::make('admin.pages.faqs.index')
@@ -138,7 +141,7 @@ class FaqController extends Controller
 
     public function destroy(Faq $faq)
     {
-        // $this->image->delete($faq->id);
+        $this->image->delete($faq->id);
         $faq->active = 0;
         $faq->save();
 

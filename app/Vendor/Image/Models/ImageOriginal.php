@@ -11,7 +11,7 @@ class ImageOriginal extends Model
      *
      * @var string
      */
-    protected $table = 't_image_original';
+    protected $table = 'image_original';
     protected $guarded = [];
 
     public function scopeGetImages($query, $entity, $entity_id){

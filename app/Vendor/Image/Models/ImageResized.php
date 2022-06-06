@@ -11,7 +11,7 @@ class ImageResized extends Model
      *
      * @var string
      */
-    protected $table = 't_image_resized';
+    protected $table = 'image_resized';
     protected $guarded = [];
 
     public function configuration()

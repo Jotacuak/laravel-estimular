@@ -23,11 +23,11 @@
                             <li class="menu-item" data-url="{{route('front_therapies')}}" data-section="therapy"> Terapias
                                 <ul class="header-menu-innerlist">
 
-                                    @forelse ($therapies as $therapy)
+                                    {{-- @forelse ($therapies as $therapy)
                                         <li>{{ $therapy->name }}</li>
                                     @empty
                                         <p>No hay terapias</p>
-                                    @endforelse
+                                    @endforelse --}}
 
                                 </ul>
                             </li>

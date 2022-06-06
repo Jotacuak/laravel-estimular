@@ -16,6 +16,8 @@
         
     </div>
     
-    <input type="file" name="choose-file" class="choose-file" accept="image/*">
+    {{-- <div class="upload-image-add" data-url="{{route('show_temporal_image_seo')}}" data-entity="{{$entity}}" data-content="{{$content}}" data-language="{{$alias}}"> --}}
+        <input type="file" name="upload-image-input" class="upload-image-input" accept="image/*">
+    {{-- </div> --}}
 
 </div>

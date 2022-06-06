@@ -2687,7 +2687,6 @@ var renderModalDelete = function renderModalDelete() {
   });
   deleteConfirm.addEventListener("click", function () {
     var url = deleteConfirm.dataset.url;
-    console.log(url);
 
     var sendDeleteRequest = /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {

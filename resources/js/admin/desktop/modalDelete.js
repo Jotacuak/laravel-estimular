@@ -18,8 +18,6 @@ export let renderModalDelete = () => {
     deleteConfirm.addEventListener("click", () => {
 
         let url = deleteConfirm.dataset.url;
-
-        console.log(url);
     
         let sendDeleteRequest = async () => {
 
