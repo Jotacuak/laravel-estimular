@@ -2,7 +2,7 @@
 
 return [
     'parent_section' => "Blog",
-    'faq-create' => "Entrada de Blog creada",
-    'faq-update' => "Entrada de Blog actualizada",
-    'faq-delete' => "Entrada de Blog eliminada"
+    'blog-create' => "Entrada de Blog creada",
+    'blog-update' => "Entrada de Blog actualizada",
+    'blog-delete' => "Entrada de Blog eliminada"
 ];

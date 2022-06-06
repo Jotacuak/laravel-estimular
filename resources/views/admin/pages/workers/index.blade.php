@@ -2,6 +2,8 @@
     $route = 'workers';
 @endphp
 
+@section('topbar_title') <h3>@lang('admin/workers.parent_section')</h3> @endsection
+
 @extends('admin.layout.table_form')
 
 @section('table')

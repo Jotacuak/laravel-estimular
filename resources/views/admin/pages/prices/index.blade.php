@@ -2,6 +2,8 @@
     $route = 'prices';
 @endphp
 
+@section('topbar_title') <h3>@lang('admin/prices.parent_section')</h3> @endsection
+
 @extends('admin.layout.table_form')
 
 @section('table')

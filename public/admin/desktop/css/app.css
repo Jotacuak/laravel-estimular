@@ -589,6 +589,133 @@ a:hover, a:focus {
   text-align: center;
 }
 
+.messages-container {
+  position: fixed;
+  bottom: 5vh;
+  right: 3%;
+  width: 30%;
+  z-index: 2000;
+}
+.messages-container.show {
+  -webkit-animation-name: translateXOutScreen;
+          animation-name: translateXOutScreen;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+@-webkit-keyframes translateXOutScreen {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+@keyframes translateXOutScreen {
+  0% {
+    transform: translateX(150%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+.messages-container .message {
+  display: none;
+  text-align: left;
+  padding: 2em 0;
+  background-color: hsl(0deg, 0%, 100%);
+  border-radius: 4px;
+  max-width: 100%;
+  top: 0px;
+  position: relative;
+  box-shadow: 1px 7px 14px -5px rgba(0, 0, 0, 0.2);
+}
+.messages-container .message.message.message-active {
+  display: block;
+}
+.messages-container .message:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.messages-container .message.success .message-icon {
+  background-color: hsl(108deg, 81%, 39%);
+}
+.messages-container .message.success:before {
+  background-color: hsl(108deg, 81%, 39%);
+}
+.messages-container .message.info .message-icon {
+  background-color: hsl(205deg, 84%, 40%);
+}
+.messages-container .message.info:before {
+  background-color: hsl(205deg, 84%, 40%);
+}
+.messages-container .message.reorder .message-icon {
+  background-color: hsl(205deg, 84%, 40%);
+}
+.messages-container .message.reorder:before {
+  background-color: hsl(205deg, 84%, 40%);
+}
+.messages-container .message.error .message-icon {
+  background-color: hsl(354deg, 71%, 58%);
+}
+.messages-container .message.error:before {
+  background-color: hsl(354deg, 71%, 58%);
+}
+.messages-container .message.validation .message-icon {
+  background-color: hsl(354deg, 71%, 58%);
+}
+.messages-container .message.validation:before {
+  background-color: hsl(354deg, 71%, 58%);
+}
+.messages-container .message .message-icon {
+  border-radius: 50%;
+  display: inline-block;
+  height: 1em;
+  left: 1.5em;
+  padding: 7px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1em;
+}
+.messages-container .message .message-icon svg {
+  fill: #fff;
+}
+.messages-container .message .message-content {
+  padding: 0 4em;
+}
+.messages-container .message .message-content .message-type {
+  color: hsl(0deg, 0%, 24%);
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+}
+.messages-container .message .message-content .message-description {
+  font-size: 0.9em;
+  margin-top: 0;
+  margin-bottom: 0;
+  color: hsl(0deg, 0%, 53%);
+}
+.messages-container .message .message-close {
+  cursor: pointer;
+  fill: hsl(0deg, 0%, 24%);
+  height: 1.5em;
+  position: absolute;
+  right: 1.5em;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1em;
+}
+
 .modal-delete {
   background-color: hsl(0deg, 0%, 100%);
   transform: translateY(-200%);

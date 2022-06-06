@@ -22,10 +22,13 @@
                             <li class="menu-item" data-url="{{route('front_home')}}" data-section="home">Inicio</li>
                             <li class="menu-item" data-url="{{route('front_therapies')}}" data-section="therapy"> Terapias
                                 <ul class="header-menu-innerlist">
-                                    <li>Alzheimer</li>
-                                    <li>Alzheimer</li>
-                                    <li>Alzheimer</li>
-                                    <li>Alzheimer</li>
+
+                                    @forelse ($therapies as $therapy)
+                                        <li>{{ $therapy->name }}</li>
+                                    @empty
+                                        <p>No hay terapias</p>
+                                    @endforelse
+
                                 </ul>
                             </li>
                             <li class="menu-item" data-url="{{route('front_rates')}}" data-section="rates">Tarifas</li>

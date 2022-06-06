@@ -121,12 +121,12 @@ export let renderForm = () => {
                         document.dispatchEvent(new CustomEvent('renderTableModules'));
                         // document.dispatchEvent(new CustomEvent('stopWait'));
 
-                        // document.dispatchEvent(new CustomEvent('message', {
-                        //     detail: {
-                        //         message: json.message,
-                        //         type: 'success'
-                        //     }
-                        // }));                   
+                        document.dispatchEvent(new CustomEvent('message', {
+                            detail: {
+                                message: json.message,
+                                type: 'success'
+                            }
+                        }));                   
                     })
                     .catch(error => {
 
@@ -143,12 +143,12 @@ export let renderForm = () => {
                                     errorMessage += '<li>' + errors[key] + '</li>';
                                 })
 
-                                // document.dispatchEvent(new CustomEvent('message', {
-                                //     detail: {
-                                //         message: errorMessage,
-                                //         type: 'success'
-                                //     }
-                                // }));
+                                document.dispatchEvent(new CustomEvent('message', {
+                                    detail: {
+                                        message: errorMessage,
+                                        type: 'success'
+                                    }
+                                }));
                             })   
                         }
 

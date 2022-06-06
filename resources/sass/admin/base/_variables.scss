@@ -13,12 +13,31 @@ $z-index-topbar: 10000;
 $font-stack: "Ubuntu", sans-serif;
 $font-stack-condensed: "Ubuntu Condensed", sans-serif;
 
+//colors
+
+$white: hsl(0, 0%, 100%);
+$black: hsl(0, 0%, 0%);
+$grey-highlight: hsl(0, 0%, 92%);
+$grey: hsl(0, 0%, 85%);
+$grey-solid: rgb(145, 145, 145);
+$grey-dark: hsl(0, 0%, 28%);
+$blue-dark: hsl(246, 68%, 15%);
+$blue: hsl(205, 84%, 40%);
+$blue-highlight: hsl(197, 76%, 51%);
+$red: hsl(0, 100%, 74%);
+$red-dark: hsl(354, 71%, 58%);
+$white-pearl: hsl(210, 8%, 95%);
+$green: hsl(108, 81%, 39%);
+
 //palette
 $primary-color: hsl(51, 100%, 94%);
 $primary-color-light: hsl(317, 100%, 32%);
 $secondary-color: hsl(271, 97%, 26%);
 $button-color: hsl(37, 100%, 64%);
 $border-button: hsl(14, 100%, 65%);
+$message-success: $green;
+$message-info: $blue;
+$message-error: $red-dark;
 
 //style
 $text-border: 2px 2px 4px #000000;
