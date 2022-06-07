@@ -91,8 +91,8 @@ class FaqController extends Controller
             $message = \Lang::get('admin/faqs.faq-create');
         }
 
-        if(request('upload-image-input')){
-            $images = $this->image->store(request('upload-image-input'), $faq->id);
+        if(request('images')){
+            $images = $this->image->store(request('images'), $faq->id);
         }
 
         $view = View::make('admin.pages.faqs.index')

@@ -17,7 +17,7 @@
     </div>
     
     {{-- <div class="upload-image-add" data-url="{{route('show_temporal_image_seo')}}" data-entity="{{$entity}}" data-content="{{$content}}" data-language="{{$alias}}"> --}}
-        <input type="file" name="upload-image-input" class="upload-image-input" accept="image/*">
+        <input type="file" name="images['featured-443-es']" class="upload-image-input" accept="image/*">
     {{-- </div> --}}
 
 </div>

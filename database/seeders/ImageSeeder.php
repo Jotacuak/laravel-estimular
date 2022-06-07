@@ -119,58 +119,6 @@ class ImageSeeder extends Seeder
                 'height' => '60',
                 'quality' => 100
             ),
-            array(
-                'entity' => 'posts',
-                'disk' => 'posts',
-                'directory' => '/featured/original',
-                'type' => 'single',
-                'content' => 'featured',
-                'grid' => 'original',
-                'content_accepted' => 'jpg/jpeg/png/svg/webp',
-                'extension_conversion' => 'webp',
-                'width' => null,
-                'height' => null,
-                'quality' => 100
-            ),
-            array(
-                'entity' => 'posts',
-                'disk' => 'posts',
-                'directory' => '/featured/preview',
-                'type' => 'single',
-                'content' => 'featured',
-                'grid' => 'preview',
-                'content_accepted' => 'jpg/jpeg/png/svg/webp',
-                'extension_conversion' => 'webp',
-                'width' => '180',
-                'height' => '60',
-                'quality' => 100
-            ),
-            array(
-                'entity' => 'posts',
-                'disk' => 'posts',
-                'directory' => '/featured/desktop',
-                'type' => 'single',
-                'content' => 'featured',
-                'grid' => 'desktop',
-                'content_accepted' => 'jpg/jpeg/png/svg/webp',
-                'extension_conversion' => 'webp',
-                'width' => '180',
-                'height' => '60',
-                'quality' => 100
-            ),
-            array(
-                'entity' => 'posts',
-                'disk' => 'posts',
-                'directory' => '/featured/mobile',
-                'type' => 'single',
-                'content' => 'featured',
-                'grid' => 'mobile',
-                'content_accepted' => 'jpg/jpeg/png/svg/webp',
-                'extension_conversion' => 'webp',
-                'width' => '180',
-                'height' => '60',
-                'quality' => 100
-            ),
         );
 
         foreach ($image_configurations  as $image_configuration){

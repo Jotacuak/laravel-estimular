@@ -9,3 +9,15 @@ Horizon started successfully.
 [2022-06-06 17:38:19][dbd5faaa-b53d-4a5f-b7bc-09290b04977f] Processing: App\Jobs\DeleteTemporalImage
 [2022-06-06 17:38:19][dbd5faaa-b53d-4a5f-b7bc-09290b04977f] Processing: App\Jobs\DeleteTemporalImage
 [2022-06-06 17:38:19][dbd5faaa-b53d-4a5f-b7bc-09290b04977f] Failed:     App\Jobs\DeleteTemporalImage
+[2022-06-06 18:22:34][c8656cba-0769-4ecc-b21f-a13e64dfe7b2] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:22:34][c8656cba-0769-4ecc-b21f-a13e64dfe7b2] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:22:34][c8656cba-0769-4ecc-b21f-a13e64dfe7b2] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:22:34][c8656cba-0769-4ecc-b21f-a13e64dfe7b2] Failed:     App\Jobs\DeleteTemporalImage
+[2022-06-06 18:28:11][ec837df2-3091-44e3-ae88-08a72711ead2] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:28:11][ec837df2-3091-44e3-ae88-08a72711ead2] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:28:11][ec837df2-3091-44e3-ae88-08a72711ead2] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:28:11][ec837df2-3091-44e3-ae88-08a72711ead2] Failed:     App\Jobs\DeleteTemporalImage
+[2022-06-06 18:28:32][3c3bb26a-e7f6-46e8-9354-390dd1669af0] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:28:32][3c3bb26a-e7f6-46e8-9354-390dd1669af0] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:28:32][3c3bb26a-e7f6-46e8-9354-390dd1669af0] Processing: App\Jobs\DeleteTemporalImage
+[2022-06-06 18:28:32][3c3bb26a-e7f6-46e8-9354-390dd1669af0] Failed:     App\Jobs\DeleteTemporalImage

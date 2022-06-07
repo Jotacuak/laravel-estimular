@@ -2773,7 +2773,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "renderModalImage": () => (/* binding */ renderModalImage)
 /* harmony export */ });
 var renderModalImage = function renderModalImage() {
-  var chooseFiles = document.querySelectorAll('.choose-file');
+  var chooseFiles = document.querySelectorAll('.upload-image-input');
   var deleteFiles = document.querySelectorAll('.image-delete');
   chooseFiles.forEach(function (chooseFile) {
     chooseFile.addEventListener("change", function () {

@@ -1,34 +1,153 @@
 export let renderModalImage = () => {
 
-    let chooseFiles = document.querySelectorAll('.choose-file');
-    let deleteFiles = document.querySelectorAll('.image-delete');
+    let modalImageStoreButton = document.getElementById('modal-image-store-button');
+    let modalImageDeleteButton = document.getElementById('modal-image-delete-button');
     
-    chooseFiles.forEach(chooseFile => {
-
-        chooseFile.addEventListener("change", () => {
-
-            const files = chooseFile.files[0];
+    document.addEventListener("openModal",(event =>{
     
-            if(files) {
-                const fileReader = new FileReader();
-                fileReader.readAsDataURL(files);
+        let modal = document.getElementById('upload-image-modal');
     
-                fileReader.addEventListener("load", () => {
-                    chooseFile.closest('.image-selector').querySelector('.image-load').classList.add('hidden');
-                    chooseFile.closest('.image-selector').querySelector('.image-delete').classList.add('active');
-                    chooseFile.closest('.image-selector').querySelector('.image').src = fileReader.result;
-                });    
+        modal.classList.add('modal-active');
+        // document.dispatchEvent(new CustomEvent('startOverlay'));
+    
+    }));
+    
+    document.addEventListener("updateImageModal",(image =>{
+    
+        let imageContainer = document.getElementById('modal-image-original');
+        let imageForm = document.getElementById('image-form');
+    
+        imageForm.reset();
+    
+        if(image.path){
+    
+            if(image.entity_id){
+                image.imageId = image.id; 
+                imageContainer.src = '../storage/' + image.path;
+            }else{
+                imageContainer.src = image.path;
             }
-        });
-    });
+    
+        }else{
+    
+            imageContainer.src = image.dataset.path;
+            image = image.dataset;
+        }
+     
+        for (var [key, val] of Object.entries(image)) {
+    
+            let input = imageForm.elements[key];
+            
+            if(input){
+    
+                switch(input.type) {
+                    case 'checkbox': input.checked = !!val; break;
+                    default:         input.value = val;     break;
+                }
+            }
+        }
+    
+    }));
+        
+    modalImageStoreButton.addEventListener("click", (e) => {
+             
+        let modal = document.getElementById('upload-image-modal');
+        let imageForm = document.getElementById('image-form');
+        let url = imageForm.action;
+        let data = new FormData(imageForm);
+        let temporalId = document.getElementById('modal-image-temporal-id');
+        let id = document.getElementById('modal-image-id');
+    
+        let sendImagePostRequest = async () => {
 
-    deleteFiles.forEach(deleteFile => {
+            let request = await fetch(url,data, {
+                headers: {
+                    'Accept': 'application/json',
+                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                },
+                method: 'POST',
+                body: data
+            })
+            .then(response => {
 
-        deleteFile.addEventListener("click", (event) => {       
-            deleteFile.closest('.image-selector').querySelector('.image-load').classList.remove('hidden');         
-            deleteFile.closest('.image-selector').querySelector('.image-delete').classList.remove('active');
-            deleteFile.closest('.image-selector').querySelector('.image').src = '';
-            event.preventDefault();
-        });
+                modal.classList.remove('modal-active');
+                temporalId.value = "";
+                id.value = "";
+                imageForm.reset();
+                // document.dispatchEvent(new CustomEvent('stopWait'));
+
+                document.dispatchEvent(new CustomEvent('message', {
+                    detail: {
+                        message: json.message,
+                        type: 'success'
+                    }
+                }));
+
+            })
+            .catch(error =>{
+                console.log(error);
+            })    
+        };
+    
+        sendImagePostRequest();
     });
-}
+    
+    modalImageDeleteButton.addEventListener("click", (e) => {
+             
+        let url = modalImageDeleteButton.dataset.route;
+        let modal = document.getElementById('upload-image-modal');
+        let imageForm = document.getElementById('image-form');
+        let temporalId = document.getElementById('modal-image-temporal-id');
+        let id = document.getElementById('modal-image-id');
+    
+        if(id.value){
+    
+            let sendImageDeleteRequest = async () => {
+
+                let response = await fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+                    },
+                    method: 'DELETE', 
+                    params: {
+                        'image': id.value
+                    },
+                })
+                .then(response => {
+                    deleteThumbnail(response.data.imageId);
+
+                    // document.dispatchEvent(new CustomEvent('deleteThumnail', {
+
+                    // }))
+                    
+                    document.dispatchEvent(new CustomEvent('message', {
+                        detail: {
+                            message: json.message,
+                            type: 'success'
+                        }
+                    }));
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+            };
+        
+            sendImageDeleteRequest();
+    
+        }else{
+    
+            deleteThumbnail(temporalId.value);
+
+            // document.dispatchEvent(new CustomEvent('deleteThumnail', {
+
+            // }))
+        }
+    
+        temporalId.value = "";
+        id.value = "";
+        imageForm.reset();
+        modal.classList.remove('modal-active');
+        // document.dispatchEvent(new CustomEvent('stopWait'));
+    });
+};
