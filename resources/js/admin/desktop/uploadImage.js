@@ -12,6 +12,7 @@ export let renderUploadImage = () => {
     
                     uploadImage.remove();
                 }
+
             }
     
             if(uploadImage.classList.contains('single')){
@@ -32,13 +33,17 @@ export let renderUploadImage = () => {
                 }
                 
             }
+
         });
+
     }));
     
     document.addEventListener("renderUploadImage",event =>{
     
         document.addEventListener("renderFormModules",( event =>{
+
             renderUploadImage();
+
         }));
     
         let inputElements = document.querySelectorAll(".upload-image-input");
@@ -47,6 +52,7 @@ export let renderUploadImage = () => {
         inputElements.forEach(inputElement => {
         
             uploadImage(inputElement);
+
         });
     
         uploadImages.forEach(uploadImage => {
@@ -55,7 +61,9 @@ export let renderUploadImage = () => {
     
                 openImage(uploadImage);
             });
+
         });
+
     });
     
     function uploadImage(inputElement){
@@ -71,35 +79,49 @@ export let renderUploadImage = () => {
             }else{
                 openImage(uploadElement);
             };
+
         });
       
         inputElement.addEventListener("change", (e) => {
+
             if (inputElement.files.length) {
                 updateThumbnail(uploadElement, inputElement.files[0]);
             }
+
         });
       
         uploadElement.addEventListener("dragover", (e) => {
+
             e.preventDefault();
             uploadElement.classList.add("upload-image-over");
+
         });
       
         ["dragleave", "dragend"].forEach((type) => {
+
             uploadElement.addEventListener(type, (e) => {
+
                 uploadElement.classList.remove("upload-image-over");
+
             });
+
         });
       
         uploadElement.addEventListener("drop", (e) => {
+
             e.preventDefault();
         
             if (e.dataTransfer.files.length) {
+
                 inputElement.files = e.dataTransfer.files;
                 updateThumbnail(uploadElement, e.dataTransfer.files[0]);
+
             }
         
             uploadElement.classList.remove("upload-image-over");
+
         });
+
     };
       
     function updateThumbnail(uploadElement, file) {
@@ -117,17 +139,23 @@ export let renderUploadImage = () => {
     
                     uploadImage(cloneInput);
                     uploadElement.parentElement.insertBefore(cloneUploadElement,uploadElement);
+
                 }
+
             }
         
             if (uploadElement.querySelector(".upload-image-prompt")) {
+
                 uploadElement.querySelector(".upload-image-prompt").classList.add('hidden');
+
             }
             
             if (!thumbnailElement) {
+
                 thumbnailElement = document.createElement("div");
                 thumbnailElement.classList.add("upload-image-thumb");
                 uploadElement.appendChild(thumbnailElement);
+
             }
     
             let reader = new FileReader();
@@ -151,13 +179,24 @@ export let renderUploadImage = () => {
                 uploadElement.classList.add('upload-image');
     
                 updateImageModal(uploadElement);
-                // document.dispatchEvent(new CustomEvent('updateImageModal'));
+                document.dispatchEvent(new CustomEvent('updateImageModal', {
+
+                    detail: {
+                        element: uploadElement
+                    }
+
+                }));
+
                 document.dispatchEvent(new CustomEvent('openModal'));
+
             };
             
         }else{
+
             thumbnailElement.style.backgroundImage = null;
+
         }
+
     };
     
     function openImage(image){
@@ -184,9 +223,11 @@ export let renderUploadImage = () => {
                         response.data.path = image.dataset.path;
                         updateImageModal(response.data);
                     }else{
-                        updateImageModal(image);
-
-                        // document.dispatchEvent(new CustomEvent('updateImageModal'));
+                        document.dispatchEvent(new CustomEvent('updateImageModal', {
+                            detail: {
+                                image: image
+                            }
+                        }));
                     };
     
                     document.dispatchEvent(new CustomEvent('openModal'));
@@ -199,7 +240,9 @@ export let renderUploadImage = () => {
                     if(error.status == '500'){
                         console.log(error);
                     };
+
                 });
+
             };
     
             sendImageRequest();
@@ -217,8 +260,13 @@ export let renderUploadImage = () => {
                 .then(response => {
     
                     response.data.path = response.data.original_image.path;
-                    updateImageModal(response.data);
+                    document.dispatchEvent(new CustomEvent('updateImageModal', {
+                        detail: {
+                            response: response.data
+                        }
+                    }));
                     document.dispatchEvent(new CustomEvent('openModal'));
+
                 })
                 .catch(error =>  {
     
@@ -227,10 +275,15 @@ export let renderUploadImage = () => {
                     if(error.status == '500'){
                         console.log(error);
                     };
+
                 });
+
             };
     
             sendImageRequest();
+
         }
+
     };
+
 };

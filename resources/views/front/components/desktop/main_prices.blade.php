@@ -21,7 +21,7 @@
         </div>
     
         <div class="cards-elements">
-            <div class="two-columns">                
+            <div class="three-columns">                
 
                 @isset($prices)
 

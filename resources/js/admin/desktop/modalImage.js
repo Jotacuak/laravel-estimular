@@ -22,16 +22,21 @@ export let renderModalImage = () => {
         if(image.path){
     
             if(image.entity_id){
+
                 image.imageId = image.id; 
                 imageContainer.src = '../storage/' + image.path;
+
             }else{
+
                 imageContainer.src = image.path;
+
             }
     
         }else{
     
             imageContainer.src = image.dataset.path;
             image = image.dataset;
+
         }
      
         for (var [key, val] of Object.entries(image)) {
@@ -44,7 +49,9 @@ export let renderModalImage = () => {
                     case 'checkbox': input.checked = !!val; break;
                     default:         input.value = val;     break;
                 }
+
             }
+
         }
     
     }));
@@ -61,12 +68,14 @@ export let renderModalImage = () => {
         let sendImagePostRequest = async () => {
 
             let request = await fetch(url,data, {
+
                 headers: {
                     'Accept': 'application/json',
                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
                 },
                 method: 'POST',
                 body: data
+
             })
             .then(response => {
 
@@ -77,19 +86,24 @@ export let renderModalImage = () => {
                 // document.dispatchEvent(new CustomEvent('stopWait'));
 
                 document.dispatchEvent(new CustomEvent('message', {
+
                     detail: {
                         message: json.message,
                         type: 'success'
                     }
+
                 }));
 
             })
+
             .catch(error =>{
                 console.log(error);
-            })    
+            })  
+
         };
     
         sendImagePostRequest();
+        
     });
     
     modalImageDeleteButton.addEventListener("click", (e) => {
@@ -105,6 +119,7 @@ export let renderModalImage = () => {
             let sendImageDeleteRequest = async () => {
 
                 let response = await fetch(url, {
+
                     headers: {
                         'X-Requested-With': 'XMLHttpRequest',
                         'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
@@ -113,35 +128,48 @@ export let renderModalImage = () => {
                     params: {
                         'image': id.value
                     },
+
                 })
                 .then(response => {
-                    deleteThumbnail(response.data.imageId);
 
-                    // document.dispatchEvent(new CustomEvent('deleteThumnail', {
+                    document.dispatchEvent(new CustomEvent('deleteThumnail', {
 
-                    // }))
+                        detail: {
+                            response: response.data.imageId
+                        }
+
+                    }))
                     
                     document.dispatchEvent(new CustomEvent('message', {
+
                         detail: {
                             message: json.message,
                             type: 'success'
                         }
+
                     }));
+
                 })
                 .catch(error => {
+
                     console.log(error)
+
                 });
+
             };
         
             sendImageDeleteRequest();
     
         }else{
     
-            deleteThumbnail(temporalId.value);
+            document.dispatchEvent(new CustomEvent('deleteThumnail', {
 
-            // document.dispatchEvent(new CustomEvent('deleteThumnail', {
+                detail: {
+                    temporalId: temporalId.value
+                }
 
-            // }))
+            }))
+            
         }
     
         temporalId.value = "";

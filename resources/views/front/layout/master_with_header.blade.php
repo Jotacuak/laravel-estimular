@@ -13,7 +13,7 @@
         <!-- <link rel="canonical" href="{{Request::url()}}">
 
 		<meta property="fb:app_id"        content="" /> 
-		<meta property="og:url"           content="@yield('facebook-url', 'https://dev-maquetacion.com')" />
+		<meta property="og:url"           content="@yield('facebook-url', 'https://dev-estimular.com')" />
 		<meta property="og:type"          content="website" />
 		<meta property="og:title"         content="@yield('facebook-title',  trans('front/seo.title'))"/>
 		<meta property="og:description"   content="@yield('facebook-description', trans('front/seo.description'))" /> -->
