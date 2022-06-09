@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "af889068b4e2ad215e15dfd5d21b9213",
+    "content-hash": "b767e92b7871b391c22cb6e2b6d9831f",
     "packages": [
         {
             "name": "brick/math",
@@ -944,6 +944,67 @@
                 "source": "https://github.com/JayBizzle/Crawler-Detect/tree/v1.2.111"
             },
             "time": "2022-03-15T22:19:01+00:00"
+        },
+        {
+            "name": "jcupitt/vips",
+            "version": "v2.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/libvips/php-vips.git",
+                "reference": "bc3061bee8549cf232220e251596048bb8ad87da"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/libvips/php-vips/zipball/bc3061bee8549cf232220e251596048bb8ad87da",
+                "reference": "bc3061bee8549cf232220e251596048bb8ad87da",
+                "shasum": ""
+            },
+            "require": {
+                "ext-ffi": "*",
+                "php": ">=7.4",
+                "psr/log": "^1.1.3|^2.0|^3.0"
+            },
+            "require-dev": {
+                "php-parallel-lint/php-parallel-lint": "^1.3",
+                "phpdocumentor/shim": "^3.3",
+                "phpunit/phpunit": "^9.5",
+                "squizlabs/php_codesniffer": "^3.6"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Jcupitt\\Vips\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Cupitt",
+                    "email": "jcupitt@gmail.com",
+                    "homepage": "https://github.com/jcupitt",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A high-level interface to the libvips image processing library.",
+            "homepage": "https://github.com/libvips/php-vips",
+            "keywords": [
+                "image",
+                "libvips",
+                "processing"
+            ],
+            "support": {
+                "issues": "https://github.com/libvips/php-vips/issues",
+                "source": "https://github.com/libvips/php-vips/tree/v2.0.2"
+            },
+            "time": "2022-04-14T10:19:54+00:00"
         },
         {
             "name": "jenssegers/agent",
@@ -8291,7 +8352,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^8.0.2"
+        "php": "^8.0.2",
+        "ext-vips": "^1.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

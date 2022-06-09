@@ -114,12 +114,26 @@
                         </div>        
                     </div>
 
-                    <div  data-content="one" class="tabcontent">
+                    <div class="tabcontent"  data-content="one" >
                         
-                        <div class="crud-form-element">
-
-                            @include("admin.components.upload_image")
-
+                        <div class="two-columns">
+                            <div class="form-group">                                
+                                <div class="crud-form-element">
+                                    <label for="title">Imagen destacada:</label>
+                                </div>
+                                <div class="crud-form-element">
+                                    <div class="crud-form-element">
+                                        @include('admin.components.upload_image', [
+                                            'entity' => 'faqs',
+                                            'type' => 'single', 
+                                            'content' => 'featured', 
+                                            'alias' => 'es',
+                                            'files' => $faq->images_featured_preview
+                                        ])
+                                    </div>
+                                </div>                                
+                            </div>
+                        
                         </div>
 
                     </div>

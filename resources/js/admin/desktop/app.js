@@ -5,12 +5,12 @@ import {renderCkeditor} from './ckeditor.js';
 import {renderForm} from './form.js';
 import { renderInputCounter } from './inputCounter.js';
 import {renderMenu} from './menu.js';
-// import { renderModalImage } from './modalImage.js';
+import { renderModalImage } from './modalImage.js';
 import { renderModalDelete } from './modalDelete.js';
 // import {renderMessages} from './messages.js';
 import {renderTable} from './table.js';
 import {renderTabs} from './tabs.js';
-// import {renderUploadImage} from './uploadImage';
+import {renderUploadImage} from './uploadImage';
 // import {renderWait} from './wait.js';
 
 
@@ -19,10 +19,10 @@ renderCkeditor();
 renderForm();
 renderInputCounter();
 renderMenu();
-// renderModalImage();
+renderModalImage();
 renderModalDelete();
 // renderMessages();
 renderTable();
 renderTabs();
-// renderUploadImage();
+renderUploadImage();
 // renderWait();

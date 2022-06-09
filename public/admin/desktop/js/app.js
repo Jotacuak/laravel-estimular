@@ -2772,32 +2772,145 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "renderModalImage": () => (/* binding */ renderModalImage)
 /* harmony export */ });
-var renderModalImage = function renderModalImage() {
-  var chooseFiles = document.querySelectorAll('.upload-image-input');
-  var deleteFiles = document.querySelectorAll('.image-delete');
-  chooseFiles.forEach(function (chooseFile) {
-    chooseFile.addEventListener("change", function () {
-      var files = chooseFile.files[0];
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
-      if (files) {
-        var fileReader = new FileReader();
-        fileReader.readAsDataURL(files);
-        fileReader.addEventListener("load", function () {
-          chooseFile.closest('.image-selector').querySelector('.image-load').classList.add('hidden');
-          chooseFile.closest('.image-selector').querySelector('.image-delete').classList.add('active');
-          chooseFile.closest('.image-selector').querySelector('.image').src = fileReader.result;
-        });
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var renderModalImage = function renderModalImage() {
+  var modalImageStoreButton = document.getElementById('modal-image-store-button');
+  var modalImageDeleteButton = document.getElementById('modal-image-delete-button');
+  document.addEventListener("openModal", function (event) {
+    var modal = document.getElementById('upload-image-modal');
+    modal.classList.add('modal-active'); // document.dispatchEvent(new CustomEvent('startOverlay'));
+  });
+  document.addEventListener("updateImageModal", function (image) {
+    var imageContainer = document.getElementById('modal-image-original');
+    var imageForm = document.getElementById('image-form');
+    imageForm.reset();
+
+    if (image.path) {
+      if (image.entity_id) {
+        image.imageId = image.id;
+        imageContainer.src = '../storage/' + image.path;
+      } else {
+        imageContainer.src = image.path;
       }
-    });
-  });
-  deleteFiles.forEach(function (deleteFile) {
-    deleteFile.addEventListener("click", function (event) {
-      deleteFile.closest('.image-selector').querySelector('.image-load').classList.remove('hidden');
-      deleteFile.closest('.image-selector').querySelector('.image-delete').classList.remove('active');
-      deleteFile.closest('.image-selector').querySelector('.image').src = '';
-      event.preventDefault();
-    });
-  });
+    } else {
+      imageContainer.src = image.dataset.path;
+      image = image.dataset;
+    }
+
+    for (var _i = 0, _Object$entries = Object.entries(image); _i < _Object$entries.length; _i++) {
+      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+          key = _Object$entries$_i[0],
+          val = _Object$entries$_i[1];
+
+      var input = imageForm.elements[key];
+
+      if (input) {
+        switch (input.type) {
+          case 'checkbox':
+            input.checked = !!val;
+            break;
+
+          default:
+            input.value = val;
+            break;
+        }
+      }
+    }
+  }); // modalImageStoreButton.addEventListener("click", (e) => {
+  //     let modal = document.getElementById('upload-image-modal');
+  //     let imageForm = document.getElementById('image-form');
+  //     let url = imageForm.action;
+  //     let data = new FormData(imageForm);
+  //     let temporalId = document.getElementById('modal-image-temporal-id');
+  //     let id = document.getElementById('modal-image-id');
+  //     let sendImagePostRequest = async () => {
+  //         let request = await fetch(url,data, {
+  //             headers: {
+  //                 'Accept': 'application/json',
+  //                 'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+  //             },
+  //             method: 'POST',
+  //             body: data
+  //         })
+  //         .then(response => {
+  //             modal.classList.remove('modal-active');
+  //             temporalId.value = "";
+  //             id.value = "";
+  //             imageForm.reset();
+  //             // document.dispatchEvent(new CustomEvent('stopWait'));
+  //             document.dispatchEvent(new CustomEvent('message', {
+  //                 detail: {
+  //                     message: json.message,
+  //                     type: 'success'
+  //                 }
+  //             }));
+  //         })
+  //         .catch(error =>{
+  //             console.log(error);
+  //         })  
+  //     };
+  //     sendImagePostRequest();
+  // });
+  // modalImageDeleteButton.addEventListener("click", (e) => {
+  //     let url = modalImageDeleteButton.dataset.route;
+  //     let modal = document.getElementById('upload-image-modal');
+  //     let imageForm = document.getElementById('image-form');
+  //     let temporalId = document.getElementById('modal-image-temporal-id');
+  //     let id = document.getElementById('modal-image-id');
+  //     if(id.value){
+  //         let sendImageDeleteRequest = async () => {
+  //             let response = await fetch(url, {
+  //                 headers: {
+  //                     'X-Requested-With': 'XMLHttpRequest',
+  //                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+  //                 },
+  //                 method: 'DELETE', 
+  //                 params: {
+  //                     'image': id.value
+  //                 },
+  //             })
+  //             .then(response => {
+  //                 document.dispatchEvent(new CustomEvent('deleteThumnail', {
+  //                     detail: {
+  //                         response: response.data.imageId
+  //                     }
+  //                 }))
+  //                 document.dispatchEvent(new CustomEvent('message', {
+  //                     detail: {
+  //                         message: json.message,
+  //                         type: 'success'
+  //                     }
+  //                 }));
+  //             })
+  //             .catch(error => {
+  //                 console.log(error)
+  //             });
+  //         };
+  //         sendImageDeleteRequest();
+  //     }else{
+  //         document.dispatchEvent(new CustomEvent('deleteThumnail', {
+  //             detail: {
+  //                 temporalId: temporalId.value
+  //             }
+  //         }))
+  //     }
+  //     temporalId.value = "";
+  //     id.value = "";
+  //     imageForm.reset();
+  //     modal.classList.remove('modal-active');
+  //     // document.dispatchEvent(new CustomEvent('stopWait'));
+  // });
 };
 
 /***/ }),
@@ -2952,6 +3065,232 @@ var renderTabs = function renderTabs() {
     });
   });
 };
+
+/***/ }),
+
+/***/ "./resources/js/admin/desktop/uploadImage.js":
+/*!***************************************************!*\
+  !*** ./resources/js/admin/desktop/uploadImage.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "deleteThumbnail": () => (/* binding */ deleteThumbnail),
+/* harmony export */   "renderUploadImage": () => (/* binding */ renderUploadImage)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+// import {openModal, updateImageModal} from './modalImage';
+var renderUploadImage = function renderUploadImage() {
+  document.addEventListener("renderFormModules", function (event) {
+    renderUploadImage();
+  });
+  var inputElements = document.querySelectorAll(".upload-image-input");
+  var uploadImages = document.querySelectorAll(".upload-image");
+  inputElements.forEach(function (inputElement) {
+    uploadImage(inputElement);
+  });
+  uploadImages.forEach(function (uploadImage) {
+    uploadImage.addEventListener("click", function (e) {
+      openImage(uploadImage);
+    });
+  });
+};
+
+function uploadImage(inputElement) {
+  var uploadElement = inputElement.parentElement;
+  uploadElement.addEventListener("click", function (e) {
+    var thumbnailElement = uploadElement.querySelector(".upload-image-thumb");
+
+    if (!thumbnailElement) {
+      inputElement.click();
+    } else {
+      openImage(uploadElement);
+    }
+
+    ;
+  });
+  inputElement.addEventListener("change", function (e) {
+    if (inputElement.files.length) {
+      updateThumbnail(uploadElement, inputElement.files[0]);
+    }
+  });
+  uploadElement.addEventListener("dragover", function (e) {
+    e.preventDefault();
+    uploadElement.classList.add("upload-image-over");
+  });
+  ["dragleave", "dragend"].forEach(function (type) {
+    uploadElement.addEventListener(type, function (e) {
+      uploadElement.classList.remove("upload-image-over");
+    });
+  });
+  uploadElement.addEventListener("drop", function (e) {
+    e.preventDefault();
+
+    if (e.dataTransfer.files.length) {
+      inputElement.files = e.dataTransfer.files;
+      updateThumbnail(uploadElement, e.dataTransfer.files[0]);
+    }
+
+    uploadElement.classList.remove("upload-image-over");
+  });
+}
+
+function updateThumbnail(uploadElement, file) {
+  if (file.type.startsWith("image/")) {
+    var _thumbnailElement = uploadElement.querySelector(".upload-image-thumb");
+
+    if (uploadElement.classList.contains('collection')) {
+      if (!_thumbnailElement) {
+        var cloneUploadElement = uploadElement.cloneNode(true);
+        var cloneInput = cloneUploadElement.querySelector('.upload-image-input');
+        uploadImage(cloneInput);
+        uploadElement.parentElement.insertBefore(cloneUploadElement, uploadElement);
+      }
+    }
+
+    if (uploadElement.querySelector(".upload-image-prompt")) {
+      uploadElement.querySelector(".upload-image-prompt").classList.add('hidden');
+    }
+
+    if (!_thumbnailElement) {
+      _thumbnailElement = document.createElement("div");
+
+      _thumbnailElement.classList.add("upload-image-thumb");
+
+      uploadElement.appendChild(_thumbnailElement);
+    }
+
+    var reader = new FileReader();
+    reader.readAsDataURL(file);
+
+    reader.onload = function () {
+      var temporalId = Math.floor(Math.random() * 99999 + 1);
+      var content = uploadElement.dataset.content;
+      var language = uploadElement.dataset.language;
+      var inputElement = uploadElement.getElementsByClassName("upload-image-input")[0];
+      _thumbnailElement.style.backgroundImage = "url('".concat(reader.result, "')");
+      uploadElement.dataset.temporalId = temporalId;
+      uploadElement.dataset.path = reader.result;
+      inputElement.name = "images[" + content + "-" + temporalId + "." + language + "]";
+      uploadElement.classList.remove('upload-image-add');
+      uploadElement.classList.add('upload-image');
+      updateImageModal(uploadElement);
+      openModal();
+    };
+  } else {
+    thumbnailElement.style.backgroundImage = null;
+  }
+}
+
+function openImage(image) {
+  var temporalId = image.dataset.temporalId;
+  var url = image.dataset.url;
+
+  if (temporalId) {
+    var sendImageRequest = /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                try {
+                  axios.get(url, {
+                    params: {
+                      'image': temporalId
+                    }
+                  }).then(function (response) {
+                    if (response.data) {
+                      response.data.path = image.dataset.path;
+                      updateImageModal(response.data);
+                    } else {
+                      updateImageModal(image);
+                    }
+
+                    ;
+                    openModal();
+                  });
+                } catch (error) {}
+
+              case 1:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      return function sendImageRequest() {
+        return _ref.apply(this, arguments);
+      };
+    }();
+
+    sendImageRequest();
+  } else {
+    var _sendImageRequest = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                try {
+                  axios.get(url).then(function (response) {
+                    response.data.path = response.data.original_image.path;
+                    updateImageModal(response.data);
+                    openModal();
+                  });
+                } catch (error) {}
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function _sendImageRequest() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    _sendImageRequest();
+  }
+}
+
+function deleteThumbnail(imageId) {
+  var uploadImages = document.querySelectorAll(".upload-image");
+  uploadImages.forEach(function (uploadImage) {
+    if (uploadImage.classList.contains('collection')) {
+      if (uploadImage.dataset.temporalId == imageId || uploadImage.dataset.imageId == imageId) {
+        uploadImage.remove();
+      }
+    }
+
+    if (uploadImage.classList.contains('single')) {
+      if (uploadImage.dataset.temporalId == imageId || uploadImage.dataset.imageId == imageId) {
+        uploadImage.querySelector(".upload-image-thumb").remove();
+        uploadImage.dataset.imageId = '';
+        uploadImage.dataset.url = '';
+        uploadImage.querySelector(".upload-image-prompt").classList.remove('hidden');
+        uploadImage.classList.remove('upload-image');
+        uploadImage.classList.add('upload-image-add');
+
+        if (uploadImage.querySelector(".upload-image-input")) {
+          uploadImage.querySelector(".upload-image-input").value = "";
+        }
+      }
+    }
+  });
+}
 
 /***/ }),
 
@@ -21265,6 +21604,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modalDelete_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modalDelete.js */ "./resources/js/admin/desktop/modalDelete.js");
 /* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
 /* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
+/* harmony import */ var _uploadImage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./uploadImage */ "./resources/js/admin/desktop/uploadImage.js");
 __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -21274,6 +21614,7 @@ __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 
 
  // import {renderMessages} from './messages.js';
+
 
 
  // import {renderWait} from './wait.js';
@@ -21287,7 +21628,8 @@ __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 (0,_modalDelete_js__WEBPACK_IMPORTED_MODULE_6__.renderModalDelete)(); // renderMessages();
 
 (0,_table_js__WEBPACK_IMPORTED_MODULE_7__.renderTable)();
-(0,_tabs_js__WEBPACK_IMPORTED_MODULE_8__.renderTabs)(); // renderWait();
+(0,_tabs_js__WEBPACK_IMPORTED_MODULE_8__.renderTabs)();
+(0,_uploadImage__WEBPACK_IMPORTED_MODULE_9__.renderUploadImage)(); // renderWait();
 })();
 
 /******/ })()

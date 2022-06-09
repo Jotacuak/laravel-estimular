@@ -6,13 +6,13 @@
 
     @isset($faqs) 
 
-        @foreach ($faqs as $faq_element)
+        @foreach ($faqs as $faq)
 
             <div class="faqs-container">
                 <div class="faqs-element">
                     <div class="faqs-element-question">
                         <div class="faqs-element-title">
-                            <h3>{{$faq_element->title}}</h3>
+                            <h3>{{$faq->title}}</h3>
                         </div>
                         <div class="faqs-element-icon">
                             <svg viewBox="0 0 24 24">
@@ -21,7 +21,12 @@
                         </div>
                     </div>
                     <div class="faqs-element-answer">
-                        <p>{!!isset($faq_element->description) ? $faq_element->description : "" !!}</p>
+                        @isset($faq->image_featured_desktop->path)
+                            <div class="faq-description-image">
+                                <img src="{{Storage::url($faq->image_featured_desktop->path)}}" alt="{{$faq->image_featured_desktop->alt}}" title="{{$faq->image_featured_desktop->title}}" />
+                            </div>
+                        @endif
+                        <p>{!!isset($faq->description) ? $faq->description : "" !!}</p>
                     </div>
                 </div>
             </div>

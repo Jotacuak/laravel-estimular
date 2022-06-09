@@ -8,18 +8,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use App\Http\Requests\Admin\PostsRequest;
+use App\Vendor\Image\Image;
 use App\Models\DB\Posts; 
 
 class PostsController extends Controller
 {
     protected $agent;
+    protected $image;
     protected $paginate;
     protected $post;
 
-    function __construct(Posts $post, Agent $agent)
+    function __construct(Posts $post, Agent $agent, Image $image)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
+        $this->image = $image;
         $this->post = $post;
         $this->post->visible = 1;
 
@@ -30,6 +33,8 @@ class PostsController extends Controller
         if ($this->agent->isDesktop()) {
             $this->paginate = 6;
         }
+
+        $this->image->setEntity('blog');
     }
 
     public function index()
@@ -83,6 +88,10 @@ class PostsController extends Controller
             $message = \Lang::get('admin/posts.posts-update');
         }else{
             $message = \Lang::get('admin/posts.posts-create');
+        }
+
+        if(request('images')){
+            $images = $this->image->store(request('images'), $post->id);
         }
 
         $view = View::make('admin.pages.posts.index')

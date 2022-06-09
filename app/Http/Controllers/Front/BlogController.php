@@ -5,17 +5,18 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Vendor\Image\Image;
 use App\Models\DB\Posts;
 use App\Models\DB\PostsCategory;
-use Debugbar;
 
 class BlogController extends Controller
 {
 
     protected $posts;
     protected $posts_categories;
+    protected $image;
 
-    public function __construct(Posts $posts, PostsCategory $posts_categories){
+    public function __construct(Posts $posts, PostsCategory $posts_categories, Image $image){
         
         $this->posts = $posts;
         $this->posts_categories = $posts_categories;
@@ -25,7 +26,9 @@ class BlogController extends Controller
     {
         $view = View::make('front.pages.blog.index')
         ->with('posts_categories',  $this->posts_categories->get())
-        ->with('posts', $this->posts->get());
+        ->with('posts', $this->posts->with('image_featured_desktop')->where('active', 1)->where('visible', 1)->orderBy('created_at', 'desc')->get());
+
+        $posts = $this->posts->with('image_featured_desktop')->where('active', 1)->where('visible', 1)->orderBy('created_at', 'desc')->get();
     
         if(request()->ajax()) {
             
@@ -70,7 +73,6 @@ class BlogController extends Controller
             
             $sections = $view->renderSections(); 
 
-            Debugbar::info($sections['content']);
 
     
             return response()->json([

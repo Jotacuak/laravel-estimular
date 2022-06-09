@@ -56,126 +56,126 @@ export let renderModalImage = () => {
     
     }));
         
-    modalImageStoreButton.addEventListener("click", (e) => {
+    // modalImageStoreButton.addEventListener("click", (e) => {
              
-        let modal = document.getElementById('upload-image-modal');
-        let imageForm = document.getElementById('image-form');
-        let url = imageForm.action;
-        let data = new FormData(imageForm);
-        let temporalId = document.getElementById('modal-image-temporal-id');
-        let id = document.getElementById('modal-image-id');
+    //     let modal = document.getElementById('upload-image-modal');
+    //     let imageForm = document.getElementById('image-form');
+    //     let url = imageForm.action;
+    //     let data = new FormData(imageForm);
+    //     let temporalId = document.getElementById('modal-image-temporal-id');
+    //     let id = document.getElementById('modal-image-id');
     
-        let sendImagePostRequest = async () => {
+    //     let sendImagePostRequest = async () => {
 
-            let request = await fetch(url,data, {
+    //         let request = await fetch(url,data, {
 
-                headers: {
-                    'Accept': 'application/json',
-                    'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-                },
-                method: 'POST',
-                body: data
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+    //             },
+    //             method: 'POST',
+    //             body: data
 
-            })
-            .then(response => {
+    //         })
+    //         .then(response => {
 
-                modal.classList.remove('modal-active');
-                temporalId.value = "";
-                id.value = "";
-                imageForm.reset();
-                // document.dispatchEvent(new CustomEvent('stopWait'));
+    //             modal.classList.remove('modal-active');
+    //             temporalId.value = "";
+    //             id.value = "";
+    //             imageForm.reset();
+    //             // document.dispatchEvent(new CustomEvent('stopWait'));
 
-                document.dispatchEvent(new CustomEvent('message', {
+    //             document.dispatchEvent(new CustomEvent('message', {
 
-                    detail: {
-                        message: json.message,
-                        type: 'success'
-                    }
+    //                 detail: {
+    //                     message: json.message,
+    //                     type: 'success'
+    //                 }
 
-                }));
+    //             }));
 
-            })
+    //         })
 
-            .catch(error =>{
-                console.log(error);
-            })  
+    //         .catch(error =>{
+    //             console.log(error);
+    //         })  
 
-        };
+    //     };
     
-        sendImagePostRequest();
+    //     sendImagePostRequest();
         
-    });
+    // });
     
-    modalImageDeleteButton.addEventListener("click", (e) => {
+    // modalImageDeleteButton.addEventListener("click", (e) => {
              
-        let url = modalImageDeleteButton.dataset.route;
-        let modal = document.getElementById('upload-image-modal');
-        let imageForm = document.getElementById('image-form');
-        let temporalId = document.getElementById('modal-image-temporal-id');
-        let id = document.getElementById('modal-image-id');
+    //     let url = modalImageDeleteButton.dataset.route;
+    //     let modal = document.getElementById('upload-image-modal');
+    //     let imageForm = document.getElementById('image-form');
+    //     let temporalId = document.getElementById('modal-image-temporal-id');
+    //     let id = document.getElementById('modal-image-id');
     
-        if(id.value){
+    //     if(id.value){
     
-            let sendImageDeleteRequest = async () => {
+    //         let sendImageDeleteRequest = async () => {
 
-                let response = await fetch(url, {
+    //             let response = await fetch(url, {
 
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-                    },
-                    method: 'DELETE', 
-                    params: {
-                        'image': id.value
-                    },
+    //                 headers: {
+    //                     'X-Requested-With': 'XMLHttpRequest',
+    //                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
+    //                 },
+    //                 method: 'DELETE', 
+    //                 params: {
+    //                     'image': id.value
+    //                 },
 
-                })
-                .then(response => {
+    //             })
+    //             .then(response => {
 
-                    document.dispatchEvent(new CustomEvent('deleteThumnail', {
+    //                 document.dispatchEvent(new CustomEvent('deleteThumnail', {
 
-                        detail: {
-                            response: response.data.imageId
-                        }
+    //                     detail: {
+    //                         response: response.data.imageId
+    //                     }
 
-                    }))
+    //                 }))
                     
-                    document.dispatchEvent(new CustomEvent('message', {
+    //                 document.dispatchEvent(new CustomEvent('message', {
 
-                        detail: {
-                            message: json.message,
-                            type: 'success'
-                        }
+    //                     detail: {
+    //                         message: json.message,
+    //                         type: 'success'
+    //                     }
 
-                    }));
+    //                 }));
 
-                })
-                .catch(error => {
+    //             })
+    //             .catch(error => {
 
-                    console.log(error)
+    //                 console.log(error)
 
-                });
+    //             });
 
-            };
+    //         };
         
-            sendImageDeleteRequest();
+    //         sendImageDeleteRequest();
     
-        }else{
+    //     }else{
     
-            document.dispatchEvent(new CustomEvent('deleteThumnail', {
+    //         document.dispatchEvent(new CustomEvent('deleteThumnail', {
 
-                detail: {
-                    temporalId: temporalId.value
-                }
+    //             detail: {
+    //                 temporalId: temporalId.value
+    //             }
 
-            }))
+    //         }))
             
-        }
+    //     }
     
-        temporalId.value = "";
-        id.value = "";
-        imageForm.reset();
-        modal.classList.remove('modal-active');
-        // document.dispatchEvent(new CustomEvent('stopWait'));
-    });
+    //     temporalId.value = "";
+    //     id.value = "";
+    //     imageForm.reset();
+    //     modal.classList.remove('modal-active');
+    //     // document.dispatchEvent(new CustomEvent('stopWait'));
+    // });
 };

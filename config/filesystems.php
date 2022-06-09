@@ -63,6 +63,13 @@ return [
             'visibility' => 'public',
         ],
 
+        'blog' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/blog'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
     ],
 
     /*
