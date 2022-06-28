@@ -73,26 +73,34 @@ export let renderMenu = () => {
         let url = window.location.href;
 
         let sendPageRequest = async () => {
-    
-            try {
-    
-                axios.get(url).then(response => {
 
-                    mainContent.innerHTML = response.data.content;
+            let response = await fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                method: 'GET', 
+            })
+            .then(response => {
 
-                    document.dispatchEvent(new CustomEvent('loadSection', {
-                        detail: {
-                            section: localStorage.getItem('lastSection')
-                        }
-                    }));
+                mainContent.innerHTML = response.data.content;
 
-                    let currentSection = document.querySelector('.page-section').id;
-                    localStorage.setItem('lastSection', currentSection);
-                });
-                
-            } catch (error) {
+                document.dispatchEvent(new CustomEvent('loadSection', {
+                    detail: {
+                        section: localStorage.getItem('lastSection')
+                    }
+                }));
+
+                let currentSection = document.querySelector('.page-section').id;
+                localStorage.setItem('lastSection', currentSection);                
+
+            })
+            .catch(error =>  {
+
+                if(error.status == '500'){
+                    console.log(error);
+                };
+            });
     
-            }
         };
     
         sendPageRequest();
