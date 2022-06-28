@@ -2217,13 +2217,12 @@ __webpack_require__(/*! ../bootstrap */ "./resources/js/bootstrap.js");
 
 
 
- // import { memoryGame } from './desktop/renderMemory.js';
 
 (0,_desktop_renderForm_js__WEBPACK_IMPORTED_MODULE_0__.renderForm)();
 (0,_desktop_cardFlip_js__WEBPACK_IMPORTED_MODULE_1__.renderCard)();
 (0,_desktop_accordion_js__WEBPACK_IMPORTED_MODULE_2__.renderAccordion)();
 (0,_desktop_menu_js__WEBPACK_IMPORTED_MODULE_3__.renderMenu)();
-(0,_desktop_categoryFilter_js__WEBPACK_IMPORTED_MODULE_4__.renderCategoryFilter)(); // memoryGame ();
+(0,_desktop_categoryFilter_js__WEBPACK_IMPORTED_MODULE_4__.renderCategoryFilter)();
 
 /***/ }),
 
