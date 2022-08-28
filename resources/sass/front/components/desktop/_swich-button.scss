@@ -23,7 +23,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: $button-color;
+    background-color: $primary-color;
     -webkit-transition: .4s;
     transition: .4s;
   }
@@ -47,7 +47,7 @@
 }
 
 input:checked + .slider-bar {
-  background-color: $border-button;
+  background-color: hsl(14, 100%, 65%);
 }
 
 input:checked + .slider-bar:before {

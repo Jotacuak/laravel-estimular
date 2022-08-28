@@ -114,9 +114,6 @@ function updateThumbnail(uploadElement, file) {
 
             uploadElement.classList.remove('upload-image-add');
             uploadElement.classList.add('upload-image');
-
-            updateImageModal(uploadElement);
-            openModal();
         };
         
     }else{

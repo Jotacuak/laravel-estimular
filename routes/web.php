@@ -147,6 +147,21 @@ Route::group(['prefix' => 'admin'], function () {
             'show' => 'posts_show',
         ]
     ]);
+
+    //Admin Slides
+    Route::resource('sliders', 'App\Http\Controllers\Admin\SlideController', [
+        'parameters' => [
+            'sliders' => 'slide', 
+        ],
+        'names' => [
+            'index' => 'sliders',
+            'create' => 'sliders_create',
+            'edit' => 'sliders_edit',
+            'store' => 'sliders_store',
+            'destroy' => 'sliders_destroy',
+            'show' => 'sliders_show',
+        ]
+    ]);
    
 });
 

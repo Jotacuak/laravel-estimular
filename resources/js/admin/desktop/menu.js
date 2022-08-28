@@ -1,109 +1,95 @@
 export let renderMenu = () => {
     
-    let hamburger = document.getElementById("collapse-button");
-    let overlay = document.getElementById("overlay");
-    let menuItems = document.querySelectorAll('.menu-item');
-    // let main = document.getElementById('main-content');
-    // let section = menuItem.dataset.section;
-    let currentSection = document.querySelector('.admin-table').id;
-    localStorage.setItem('lastSection', currentSection);
+    let mainContent = document.getElementById('main-content');
+    let menuButtons = document.querySelectorAll('.menu-item');
 
-    hamburger.addEventListener("click" , () => {
-        hamburger.classList.toggle("active");
-        overlay.classList.toggle("active");        
-    });
+    if(menuButtons) {
+        
+        menuButtons.forEach(menuButton => {
 
-    menuItems.forEach( menuItem => {
+            menuButton.addEventListener('click', () => {
+                    
+                let url = menuButton.dataset.url;
+                let section = menuButton.dataset.section;
+                let currentSection = document.querySelector('.page-section').id;
+                sessionStorage.setItem('lastSection', currentSection);
     
-        menuItem.addEventListener("click", () => {
+                let sendIndexRequest = async () => {
+        
+                    let response = await fetch(url, {
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                        },
+                        method: 'GET'
+                    })
+                    .then(response => {
+    
+                        if (!response.ok) throw response;
+    
+                        return response.json();
+                    })
+                    .then(json => {
 
-            let url = menuItem.dataset.url;
+                        window.history.pushState('', '', url);
+                        mainContent.innerHTML = json.content;
     
-            let sendEditRequest = async () => {
+                        document.dispatchEvent(new CustomEvent(section));
+                    
+                    })
+                    .catch ( error =>  {
     
-                let response = await fetch(url, {
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    method: 'GET',
-                })
-                .then(response => {
-                
-                    if (!response.ok) throw response;
-    
-                    return response.json();
-                })
-                .then(json => {
-    
-                    hamburger.classList.remove("active");
-                    overlay.classList.remove("active");
-    
-                    window.history.pushState('', '', url);
-    
-                    document.dispatchEvent(new CustomEvent('loadForm', {
-                        detail: {
-                            form: json.form,
+                        if(error.status == '500'){
+                            console.log(error);
                         }
-                    }));
     
-                    document.dispatchEvent(new CustomEvent('loadTable', {
-                        detail: {
-                            table: json.table,
-                        }
-                    }));
-    
-                    document.dispatchEvent(new CustomEvent('renderTableModules'));
-                    document.dispatchEvent(new CustomEvent('renderFormModules'));
-                })
-                .catch ( error =>  {
-    
-                    if(error.status == '500'){
-                        console.log(error);
-                    };
-                });
-            };
-    
-            sendEditRequest();
+                    });
+                }
+                sendIndexRequest();
+            });
         });
-    });
-
+    }
+    
     window.addEventListener('popstate', event => {
 
-        let mainContent = document.getElementById('main-content');
         let url = window.location.href;
 
-        let sendPageRequest = async () => {
+        let sendIndexRequest = async () => {
 
             let response = await fetch(url, {
                 headers: {
                     'X-Requested-With': 'XMLHttpRequest',
                 },
-                method: 'GET', 
+                method: 'GET'
             })
             .then(response => {
 
-                mainContent.innerHTML = response.data.content;
+                if (!response.ok) throw response;
+
+                return response.json();
+            })
+            .then(json => {
+
+                mainContent.innerHTML = json.content;
 
                 document.dispatchEvent(new CustomEvent('loadSection', {
                     detail: {
-                        section: localStorage.getItem('lastSection')
+                        section: sessionStorage.getItem('lastSection')
                     }
                 }));
 
                 let currentSection = document.querySelector('.page-section').id;
-                localStorage.setItem('lastSection', currentSection);                
-
+                sessionStorage.setItem('lastSection', currentSection);
             })
-            .catch(error =>  {
+            .catch ( error =>  {
 
                 if(error.status == '500'){
                     console.log(error);
-                };
+                }
+
             });
-    
-        };
-    
-        sendPageRequest();
+        }
+
+        sendIndexRequest();
         
     });
-};
+}

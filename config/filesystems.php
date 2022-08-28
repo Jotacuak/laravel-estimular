@@ -63,9 +63,23 @@ return [
             'visibility' => 'public',
         ],
 
-        'blog' => [
+        'therapy' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/blog'),
+            'root' => storage_path('app/public/therapy'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'posts' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/posts'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'slider' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/slider'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],

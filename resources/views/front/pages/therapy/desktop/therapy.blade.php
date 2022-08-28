@@ -5,8 +5,14 @@
         <div class="therapies-container">
             <div class="therapies-elements">
 
-                <div class="therapies-element-image">
-                    <img src="{{Storage::url('alzheimer.webp')}}" alt="alzheimer">
+                <div class="therapies-element-image">`
+                    @if($agent->isDesktop())
+                        <img src="{{Storage::url($therapy->image_featured_desktop->path)}}">
+                    @endif
+
+                    @if($agent->isMobile())
+                        <img src="{{Storage::url($therapy->image_featured_mobile->path)}}">
+                    @endif
                 </div>
 
                 <div class="therapies-element-description">

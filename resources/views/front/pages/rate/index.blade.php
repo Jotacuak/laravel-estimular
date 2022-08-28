@@ -11,6 +11,19 @@
 
 @section("content")
 
+    <div class="page-title">
+        <div class="one-column">
+            <div class="column">
+                <div class="contact-title">
+                    @yield('header_title')
+                </div>
+                <div class="contact-subtitle">
+                    @yield('header_subtitle')
+                </div>
+            </div>
+        </div>
+    </div>
+    
     @if($agent->isDesktop())
         <div class="page-section" id="rate">
             @include("front.pages.rate.desktop.rate")

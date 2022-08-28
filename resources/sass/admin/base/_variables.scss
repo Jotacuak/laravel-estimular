@@ -7,7 +7,7 @@ $z-index-header: 2000;
 $z-index-overlay: 5001;
 $z-index-hamburguer: 5002;
 $z-index-spinner: 5002;
-$z-index-topbar: 10000;
+$z-index-topbar: 1000;
 
 //typography
 $font-stack: "Ubuntu", sans-serif;
@@ -33,6 +33,7 @@ $green: hsl(108, 81%, 39%);
 $primary-color: hsl(51, 100%, 94%);
 $primary-color-light: hsl(317, 100%, 32%);
 $secondary-color: hsl(271, 97%, 26%);
+$secondary-color-light: hsl(287, 57%, 57%);
 $button-color: hsl(37, 100%, 64%);
 $border-button: hsl(14, 100%, 65%);
 $message-success: $green;

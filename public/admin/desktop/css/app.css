@@ -830,7 +830,7 @@ a:hover, a:focus {
 }
 
 #overlay.active {
-  top: 8vh;
+  top: 15vh;
 }
 
 .crud-form {
@@ -1056,11 +1056,11 @@ a:hover, a:focus {
 }
 .topbar {
   background-color: hsl(271deg, 97%, 26%);
-  height: 5vh;
+  height: 10vh;
   padding: 1rem 0;
   top: 0;
   width: 100%;
-  z-index: 10000;
+  z-index: 1000;
 }
 .topbar .topbar-elements {
   display: flex;

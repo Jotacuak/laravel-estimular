@@ -1,9 +1,9 @@
 <div class="home">
 
-    @include('front.components.desktop.main_slider')
-    @include('front.components.desktop.main_featured')
-    @include('front.components.desktop.main_textInfo')
-    @include('front.components.desktop.main_prices', ['prices' => $prices])
-    @include('front.components.desktop.main_textualBanner')
+    @include('front.components.mobile.main_slider', ['slider' => $slider])
+    @include('front.components.mobile.main_featured', ['therapies' => $therapies])
+    @include('front.components.mobile.main_text_info')
+    {{-- @include('front.components.mobile.main_prices', ['prices' => $prices]) --}}
+    @include('front.components.mobile.main_textual_banner', ['post' => $post])
 
 </div>

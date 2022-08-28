@@ -7,7 +7,23 @@
 @section('facebook-title'){{$seo->title}} @stop
 @section('facebook-description'){{$seo->description}} @stop --}}
 
+@section('header_title') <h1>{{$therapy->title}}</h1> @endsection
+@section('header_subtitle') <h2>{{$therapy->subtitle}}</h2> @endsection
+
 @section("content")
+
+    <div class="page-title">
+        <div class="one-column">
+            <div class="column">
+                <div class="contact-title">
+                    @yield('header_title')
+                </div>
+                <div class="contact-subtitle">
+                    @yield('header_subtitle')
+                </div>
+            </div>
+        </div>
+    </div>
 
     @if($agent->isDesktop())
         <div class="page-section" id="therapy">

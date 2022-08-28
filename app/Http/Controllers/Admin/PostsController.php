@@ -34,7 +34,7 @@ class PostsController extends Controller
             $this->paginate = 6;
         }
 
-        $this->image->setEntity('blog');
+        $this->image->setEntity('posts');
     }
 
     public function index()

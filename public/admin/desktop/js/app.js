@@ -2539,104 +2539,102 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var renderMenu = function renderMenu() {
-  var hamburger = document.getElementById("collapse-button");
-  var overlay = document.getElementById("overlay");
-  var menuItems = document.querySelectorAll('.menu-item'); // let main = document.getElementById('main-content');
-  // let section = menuItem.dataset.section;
+  var mainContent = document.getElementById('main-content');
+  var menuButtons = document.querySelectorAll('.menu-item');
 
-  var currentSection = document.querySelector('.admin-table').id;
-  localStorage.setItem('lastSection', currentSection);
-  hamburger.addEventListener("click", function () {
-    hamburger.classList.toggle("active");
-    overlay.classList.toggle("active");
-  });
-  menuItems.forEach(function (menuItem) {
-    menuItem.addEventListener("click", function () {
-      var url = menuItem.dataset.url;
+  if (menuButtons) {
+    menuButtons.forEach(function (menuButton) {
+      menuButton.addEventListener('click', function () {
+        var url = menuButton.dataset.url;
+        var section = menuButton.dataset.section;
+        var currentSection = document.querySelector('.page-section').id;
+        sessionStorage.setItem('lastSection', currentSection);
 
-      var sendEditRequest = /*#__PURE__*/function () {
-        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-          var response;
-          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  _context.next = 2;
-                  return fetch(url, {
-                    headers: {
-                      'X-Requested-With': 'XMLHttpRequest'
-                    },
-                    method: 'GET'
-                  }).then(function (response) {
-                    if (!response.ok) throw response;
-                    return response.json();
-                  }).then(function (json) {
-                    hamburger.classList.remove("active");
-                    overlay.classList.remove("active");
-                    window.history.pushState('', '', url);
-                    document.dispatchEvent(new CustomEvent('loadForm', {
-                      detail: {
-                        form: json.form
+        var sendIndexRequest = /*#__PURE__*/function () {
+          var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+            var response;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return fetch(url, {
+                      headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                      },
+                      method: 'GET'
+                    }).then(function (response) {
+                      if (!response.ok) throw response;
+                      return response.json();
+                    }).then(function (json) {
+                      window.history.pushState('', '', url);
+                      mainContent.innerHTML = json.content;
+                      document.dispatchEvent(new CustomEvent(section));
+                    })["catch"](function (error) {
+                      if (error.status == '500') {
+                        console.log(error);
                       }
-                    }));
-                    document.dispatchEvent(new CustomEvent('loadTable', {
-                      detail: {
-                        table: json.table
-                      }
-                    }));
-                    document.dispatchEvent(new CustomEvent('renderTableModules'));
-                    document.dispatchEvent(new CustomEvent('renderFormModules'));
-                  })["catch"](function (error) {
-                    if (error.status == '500') {
-                      console.log(error);
-                    }
+                    });
 
-                    ;
-                  });
+                  case 2:
+                    response = _context.sent;
 
-                case 2:
-                  response = _context.sent;
-
-                case 3:
-                case "end":
-                  return _context.stop();
+                  case 3:
+                  case "end":
+                    return _context.stop();
+                }
               }
-            }
-          }, _callee);
-        }));
+            }, _callee);
+          }));
 
-        return function sendEditRequest() {
-          return _ref.apply(this, arguments);
-        };
-      }();
+          return function sendIndexRequest() {
+            return _ref.apply(this, arguments);
+          };
+        }();
 
-      sendEditRequest();
+        sendIndexRequest();
+      });
     });
-  });
+  }
+
   window.addEventListener('popstate', function (event) {
-    var mainContent = document.getElementById('main-content');
     var url = window.location.href;
 
-    var sendPageRequest = /*#__PURE__*/function () {
+    var sendIndexRequest = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                try {
-                  axios.get(url).then(function (response) {
-                    mainContent.innerHTML = response.data.content;
-                    document.dispatchEvent(new CustomEvent('loadSection', {
-                      detail: {
-                        section: localStorage.getItem('lastSection')
-                      }
-                    }));
-                    var currentSection = document.querySelector('.page-section').id;
-                    localStorage.setItem('lastSection', currentSection);
-                  });
-                } catch (error) {}
+                _context2.next = 2;
+                return fetch(url, {
+                  headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                  },
+                  method: 'GET'
+                }).then(function (response) {
+                  if (!response.ok) throw response;
+                  return response.json();
+                }).then(function (json) {
+                  mainContent.innerHTML = json.content;
+                  document.dispatchEvent(new CustomEvent('loadSection', {
+                    detail: {
+                      section: sessionStorage.getItem('lastSection')
+                    }
+                  }));
+                  var currentSection = document.querySelector('.page-section').id;
+                  sessionStorage.setItem('lastSection', currentSection);
+                })["catch"](function (error) {
+                  if (error.status == '500') {
+                    console.log(error);
+                  }
+                });
 
-              case 1:
+              case 2:
+                response = _context2.sent;
+
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -2644,12 +2642,12 @@ var renderMenu = function renderMenu() {
         }, _callee2);
       }));
 
-      return function sendPageRequest() {
+      return function sendIndexRequest() {
         return _ref2.apply(this, arguments);
       };
     }();
 
-    sendPageRequest();
+    sendIndexRequest();
   });
 };
 
@@ -3183,8 +3181,6 @@ function updateThumbnail(uploadElement, file) {
       inputElement.name = "images[" + content + "-" + temporalId + "." + language + "]";
       uploadElement.classList.remove('upload-image-add');
       uploadElement.classList.add('upload-image');
-      updateImageModal(uploadElement);
-      openModal();
     };
   } else {
     thumbnailElement.style.backgroundImage = null;

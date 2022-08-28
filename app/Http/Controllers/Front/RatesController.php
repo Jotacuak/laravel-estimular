@@ -22,6 +22,15 @@ class RatesController extends Controller
         $view = View::make('front.pages.rate.index')
         ->with('rates', $this->rate->where('visible', 1)->get());
             
+        if(request()->ajax()) {
+            
+            $sections = $view->renderSections(); 
+    
+            return response()->json([
+                'content' => $sections['content'],
+            ]); 
+        }
+
         return $view;
     }
 }

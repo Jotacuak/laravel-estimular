@@ -10,7 +10,6 @@ use App\Vendor\Image\Models\ImageResized;
 use App\Jobs\ProcessImage;
 use App\Jobs\DeleteImage;
 use App\Jobs\DeleteTemporalImage;
-use Jcupitt\Vips;
 
 class Image
 {

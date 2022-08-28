@@ -9,17 +9,20 @@ use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use App\Http\Requests\Admin\TherapiesRequest;
 use App\Models\DB\Therapies; 
+use App\Vendor\Image\Image;
 
 class TherapiesController extends Controller
 {
     protected $agent;
+    protected $image;
     protected $paginate;
     protected $therapy;
 
-    function __construct(Therapies $therapy, Agent $agent)
+    function __construct(Therapies $therapy, Agent $agent, Image $image)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
+        $this->image = $image;
         $this->therapy = $therapy;
         $this->therapy->visible = 1;
 
@@ -30,6 +33,8 @@ class TherapiesController extends Controller
         if ($this->agent->isDesktop()) {
             $this->paginate = 6;
         }
+
+        $this->image->setEntity('therapy');
     }
 
     public function index()
@@ -71,10 +76,15 @@ class TherapiesController extends Controller
             'id' => request('id')],[
             'name' => request('name'),
             'title' => request('title'),
+            'subtitle' => request('subtitle'),
             'description' => request('description'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
+
+        if(request('images')){
+            $images = $this->image->store(request('images'), $therapy->id);
+        }
 
         if (request('id')){
             $message = \Lang::get('admin/therapies.therapies-update');
@@ -129,6 +139,7 @@ class TherapiesController extends Controller
     {
         $therapy->active = 0;
         $therapy->save();
+        $this->image->delete($therapy->id);
 
         $message = \Lang::get('admin/therapies.therapies-delete');
 

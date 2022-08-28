@@ -57,9 +57,8 @@
             <form action="{{route("therapies_store")}}" class="admin-form" id="therapies-form" autocomplete="off">
                 <div class="crud-form-buttons">
                     <div class="tabs">
-                        <button data-tab="zero" class="tabslinks active">Contenido</button>
-                        <button data-tab="one" class="tabslinks">Imagenes</button>
-                        <button data-tab="two" class="tabslinks">Otros</button>
+                        <button data-tab="content" class="tabslinks active">Contenido</button>
+                        <button data-tab="images" class="tabslinks">Imagenes</button>
                     </div>
                 
                     @include('admin.components.form_buttons', ['visible' => $therapy->visible, 'create' => 'create'])
@@ -67,7 +66,7 @@
                 </div>
 
                 <div class="content">
-                    <div data-content="zero" class="tabcontent active">
+                    <div data-content="content" class="tabcontent active">
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <input type="hidden" name="id" value="{{isset($therapy->id) ? $therapy->id : ''}}">
                         <div class="crud-form-elements">
@@ -80,67 +79,79 @@
                                         <input class="input-bar" type="text" name="name" value="{{isset($therapy->name) ? $therapy->name : ''}}">
                                     </div>                                
                                 </div>
+
+                                <div class="form-group">                                
+                                    <div class="crud-form-element">
+                                        <label for="title">Título:</label>
+                                    </div>
+                                    <div class="crud-form-element">
+                                        <input class="input-bar" type="text" name="title" value="{{isset($therapy->title) ? $therapy->title : ''}}">
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
+                            <div class="one-column">
+                                <div class="form-group">                                
+                                    <div class="crud-form-element">
+                                        <label for="comment">Subtítulo:</label>
+                                    </div>
+                                    <div class="crud-form-element">
+                                        <input class="input-bar" type="text" name="subtitle" value="{{isset($therapy->subtitle) ? $therapy->subtitle : ''}}">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="crud-form-element">
-                                <input class="input-bar" type="text" name="title" value="{{isset($therapy->title) ? $therapy->title : ''}}">
-                            </div>
-                        
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($therapy->description) ? $therapy->description : ''}}">{{isset($therapy["description"]) ? $therapy["description"] : ''}}</textarea>
+                            
+                            <div class="one-column">
+                                <div class="form-group">                                
+                                    <div class="crud-form-element">
+                                        <label for="comment">Descripción:</label>
+                                    </div>
+                                    <div class="crud-form-element">
+                                        <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($therapy->description) ? $therapy->description : ''}}">{{isset($therapy["description"]) ? $therapy["description"] : ''}}</textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>        
                     </div>
 
-                    {{-- <div  data-content="one" class="tabcontent">
-                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($therapies->id) ? $therapies->id : ''}}">
+                    <div data-content="images" class="tabcontent">
 
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
+                        <div class="two-columns">
+                            <div class="form-group">                                
+                                <div class="crud-form-element">
+                                    <label for="title">Imagen destacada:</label>
+                                </div>
+                                <div class="crud-form-element">
+                                    <div class="crud-form-element">
+                                        @include('admin.components.upload_image', [
+                                            'entity' => 'therapy',
+                                            'type' => 'single', 
+                                            'content' => 'featured', 
+                                            'alias' => 'es',
+                                            'files' => $therapy->image_featured_preview
+                                        ])
+                                    </div>
+                                </div>                                
                             </div>
-                            <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="title">
+                        
+                            <div class="form-group">                                
+                                <div class="crud-form-element">
+                                    <label for="title">Icono:</label>
+                                </div>
+                                <div class="crud-form-element">
+                                    <div class="crud-form-element">
+                                        @include('admin.components.upload_image', [
+                                            'entity' => 'therapy',
+                                            'type' => 'single', 
+                                            'content' => 'icon', 
+                                            'alias' => 'es',
+                                            'files' => $therapy->image_icon_preview
+                                        ])
+                                    </div>
+                                </div>                                
                             </div>
                         </div>
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                            </div>
-                        </div>   
                     </div>
-
-                    <div  data-content="two" class="tabcontent">
-                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($therapies->id) ? $therapies->id : ''}}">
-
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="title">
-                            </div>
-                        </div>
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                            </div>
-                        </div>   
-                    </div> --}}
                 </div>
             </form>
         </div>

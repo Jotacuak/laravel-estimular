@@ -38,7 +38,7 @@ class TherapyController extends Controller
 
     public function show($name)
     {
-        $therapy = $this->therapies->where('name', $name)->first();
+        $therapy = $this->therapies->where('name', $name)->where('active', 1)->first();
 
         $view = View::make('front.pages.therapy.index')
         ->with('therapy', $therapy);

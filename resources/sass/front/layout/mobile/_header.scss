@@ -1,8 +1,7 @@
 header{
-    background-color: hsla(0, 0%, 100%, 0.95);
+    background-color: transparent;
     height: 5vh;
-    padding: 1rem 0;
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
     z-index: $z-index-header;

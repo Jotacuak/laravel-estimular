@@ -85,10 +85,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var renderMenu = function renderMenu() {
   var hamburger = document.getElementById("collapse-button");
   var overlay = document.getElementById("overlay");
-  hamburger.addEventListener("click", function () {
-    hamburger.classList.toggle("active");
-    overlay.classList.toggle("active");
-  });
+
+  if (hamburger) {
+    hamburger.addEventListener("click", function () {
+      hamburger.classList.toggle("active");
+      overlay.classList.toggle("active");
+    });
+  }
+
   var menuItems = document.querySelectorAll('.menu-item');
   menuItems.forEach(function (menuItem) {
     menuItem.addEventListener("click", function () {
@@ -147,24 +151,47 @@ var renderMenu = function renderMenu() {
 
     var sendPageRequest = /*#__PURE__*/function () {
       var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                try {
-                  axios.get(url).then(function (response) {
-                    mainContent.innerHTML = response.data.content;
-                    document.dispatchEvent(new CustomEvent('loadSection', {
-                      detail: {
-                        section: localStorage.getItem('lastSection')
-                      }
-                    }));
-                    var currentSection = document.querySelector('.page-section').id;
-                    localStorage.setItem('lastSection', currentSection);
-                  });
-                } catch (error) {}
+                _context2.next = 2;
+                return fetch(url, {
+                  headers: {
+                    'Accept': 'application/json'
+                  },
+                  method: 'GET'
+                }).then(function (response) {
+                  if (!response.ok) throw response;
+                  return response.json();
+                }).then(function (json) {
+                  mainContent.innerHTML = json.content;
+                  document.dispatchEvent(new CustomEvent('loadSection', {
+                    detail: {
+                      section: json.section
+                    }
+                  }));
+                  var currentSection = document.querySelector('.page-section').id;
+                  localStorage.setItem('lastSection', currentSection);
+                })["catch"](function (error) {
+                  console.error(error);
+                });
 
-              case 1:
+              case 2:
+                response = _context2.sent;
+                axios.get(url).then(function (response) {
+                  mainContent.innerHTML = response.data.content;
+                  document.dispatchEvent(new CustomEvent('loadSection', {
+                    detail: {
+                      section: localStorage.getItem('lastSection')
+                    }
+                  }));
+                  var currentSection = document.querySelector('.page-section').id;
+                  localStorage.setItem('lastSection', currentSection);
+                });
+
+              case 4:
               case "end":
                 return _context2.stop();
             }

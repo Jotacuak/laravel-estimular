@@ -59,7 +59,7 @@
             <form action="{{route("prices_store")}}" class="admin-form" id="prices-form" autocomplete="off">
                 <div class="crud-form-buttons">
                     <div class="tabs">
-                        <button data-tab="zero" class="tabslinks active">Contenido</button>
+                        <button data-tab="content" class="tabslinks active">Contenido</button>
                     </div>
                 
                     @include('admin.components.form_buttons', ['visible' => $price->visible, 'create' => 'create'])
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="content">
-                    <div data-content="zero" class="tabcontent active">
+                    <div data-content="content" class="tabcontent active">
 
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <input type="hidden" name="id" value="{{isset($price->id) ? $price->id : ''}}">

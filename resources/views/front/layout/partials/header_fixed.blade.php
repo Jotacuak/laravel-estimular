@@ -19,8 +19,8 @@
                 <nav>
                     <div class="header-menu overlay" id="menu">
                         <ul class="header-menu-list">
-                            <li class="menu-item" data-url="{{route('front_home')}}" data-section="home">Inicio</li>
-                            <li class="menu-item" data-url="{{route('front_therapies')}}" data-section="therapy"> Terapias
+                            <li class="menu-item" id="home" data-url="{{route('front_home')}}" data-section="home">Inicio</li>
+                            <li class="menu-item" id="therapies" data-url="{{route('front_therapies')}}" data-section="therapy"> Terapias
                                 <ul class="header-menu-innerlist">
 
                                     {{-- @forelse ($therapies as $therapy)
@@ -31,10 +31,10 @@
 
                                 </ul>
                             </li>
-                            <li class="menu-item" data-url="{{route('front_rates')}}" data-section="rates">Tarifas</li>
-                            <li class="menu-item" data-url="{{route('front_blog')}}" data-section="blog">Blog</li>
-                            <li class="menu-item" data-url="{{route('front_team')}}" data-section="team">Equipo</li>
-                            <li class="menu-item" data-url="{{route('front_contact')}}" data-section="contact">Contacto</li>
+                            <li class="menu-item" id="rates" data-url="{{route('front_rates')}}" data-section="rates">Tarifas</li>
+                            <li class="menu-item" id="blog" data-url="{{route('front_blog')}}" data-section="blog">Blog</li>
+                            <li class="menu-item" id="team" data-url="{{route('front_team')}}" data-section="team">Equipo</li>
+                            <li class="menu-item" id="contact" data-url="{{route('front_contact')}}" data-section="contact">Contacto</li>
                         </ul>
                     </div>
                 </nav>
