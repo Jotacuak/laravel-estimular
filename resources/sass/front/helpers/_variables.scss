@@ -1,7 +1,8 @@
 //z-index
 $z-index-featured-image: 1000;
 $z-index-slider-image: 1000;
-$z-index-featured-elements: 1001;
+$z-index-featured-element-image: 1001;
+$z-index-featured-element-title: 1002;
 $z-index-slider-elements: 1001;
 $z-index-header: 2000;
 $z-index-overlay: 5001;
@@ -14,11 +15,10 @@ $font-stack: "Ubuntu", sans-serif;
 $font-stack-condensed: "Ubuntu Condensed", sans-serif;
 
 //palette
-$primary-color: hsl(51, 100%, 94%);
-$primary-color-light: hsl(317, 100%, 32%);
+$primary-color: rgb(255, 185, 71);
+$primary-color-light: hsl(37, 100%, 74%);
 $secondary-color: hsl(271, 97%, 26%);
-$button-color: hsl(37, 100%, 64%);
-$border-button: hsl(14, 100%, 65%);
+$secondary-color-light: hsl(287, 57%, 57%);
 
 //style
 $text-border: 2px 2px 4px #000000;
