@@ -5,21 +5,21 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\DB\Therapies;
+use App\Models\DB\Therapy;
 
 class TherapyController extends Controller
 {
 
-    protected $therapies;
+    protected $therapy;
 
-    public function __construct(Therapies $therapies){
+    public function __construct(Therapy $therapy){
         
-        $this->therapies = $therapies;
+        $this->therapy = $therapy;
     }
 
     public function index()
     {
-        $therapies = $this->therapies->get();
+        $therapies = $this->therapy->get();
 
         $view = View::make('front.pages.therapy.index')
         ->with('therapies', $therapies);
@@ -38,7 +38,7 @@ class TherapyController extends Controller
 
     public function show($name)
     {
-        $therapy = $this->therapies->where('name', $name)->where('active', 1)->first();
+        $therapy = $this->therapy->where('name', $name)->where('active', 1)->first();
 
         $view = View::make('front.pages.therapy.index')
         ->with('therapy', $therapy);

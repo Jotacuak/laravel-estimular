@@ -6,13 +6,13 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\DB\Rates;
+use App\Models\DB\Rate;
 
-class RatesController extends Controller
+class RateController extends Controller
 {
     protected $rate;
 
-    function __construct(Rates $rate)
+    function __construct(Rate $rate)
     {
         $this->rate = $rate;
     }

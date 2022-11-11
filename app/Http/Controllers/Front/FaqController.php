@@ -16,8 +16,7 @@ class FaqController extends Controller
 
     function __construct(Faq $faq, Image $image)
     {
-        $this->faq = $faq;
-        
+        $this->faq = $faq;   
     }
 
     public function index()

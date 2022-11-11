@@ -41,13 +41,18 @@ class ViewComposerServiceProvider extends ServiceProvider
         );
 
         view()->composer([
-            'front.comnponents.desktop.main_blog_nav'],
+            'front.components.desktop.main_blog_nav'],
             'App\Http\ViewComposers\Front\PostCategories'
         );
 
         view()->composer([
-            'front.comnponents.mobile.main_blog_nav'],
+            'front.components.mobile.main_blog_nav'],
             'App\Http\ViewComposers\Front\PostCategories'
+        );
+
+        view()->composer([
+            'front.layout.partials.header_fixed'],
+            'App\Http\ViewComposers\Front\Therapies'
         );
     }
 

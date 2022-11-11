@@ -19,7 +19,7 @@ class BlogController extends Controller
     public function __construct(Post $post, PostCategory $post_category, Image $image){
         
         $this->post = $post;
-        $this->post_category = $posts_category;
+        $this->post_category = $post_category;
     }
 
     public function index()

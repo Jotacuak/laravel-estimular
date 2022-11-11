@@ -20,15 +20,11 @@
                     <div class="header-menu overlay" id="menu">
                         <ul class="header-menu-list">
                             <li class="menu-item" id="home" data-url="{{route('front_home')}}" data-section="home">Inicio</li>
-                            <li class="menu-item" id="therapies" data-url="{{route('front_therapies')}}" data-section="therapy"> Terapias
+                            <li class="menu-item"> Terapias
                                 <ul class="header-menu-innerlist">
-
-                                    {{-- @forelse ($therapies as $therapy)
-                                        <li>{{ $therapy->name }}</li>
-                                    @empty
-                                        <p>No hay terapias</p>
-                                    @endforelse --}}
-
+                                    @foreach ($therapies as $therapy)
+                                        <li class="menu-item" id="therapies" data-url="{{route('front_therapy', ['name' => $therapy->name ])}}" data-section="therapy">{{ $therapy->name }}</li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li class="menu-item" id="rates" data-url="{{route('front_rates')}}" data-section="rates">Tarifas</li>

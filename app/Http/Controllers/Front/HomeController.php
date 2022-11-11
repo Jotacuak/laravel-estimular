@@ -5,20 +5,20 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\DB\Prices;
-use App\Models\DB\Therapies;
+use App\Models\DB\Price;
+use App\Models\DB\Therapy;
 use App\Models\DB\Slide;
-use App\Models\DB\Posts;
+use App\Models\DB\Post;
 
 class HomeController extends Controller
 {
     protected $slider;
-    protected $prices;
+    protected $price;
     protected $therapy;
 
-    public function __construct(Therapies $therapy, Prices $prices, Slide $slide, Posts $post){
+    public function __construct(Therapy $therapy, Price $price, Slide $slide, Post $post){
         
-        $this->prices = $prices;
+        $this->price = $price;
         $this->slide = $slide;
         $this->therapy = $therapy;
         $this->post = $post;
@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         $slider = $this->slide->where('active', 1)->where('visible', 1)->where('section', 'home')->orderBy('created_at', 'desc')->first();
         $therapies = $this->therapy->where('active', 1)->where('visible', 1)->orderBy('created_at', 'desc')->get();
-        $prices = $this->prices->where('active', 1)->get();
+        $prices = $this->price->where('active', 1)->get();
         $post = $this->post->where('active', 1)->where('visible', 1)->orderBy('created_at', 'desc')->first();
 
         $view = View::make('front.pages.home.index')
