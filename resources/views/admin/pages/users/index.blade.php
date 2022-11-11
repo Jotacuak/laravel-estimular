@@ -58,9 +58,7 @@
             <form action="{{route("users_store")}}" class="admin-form" id="user-form" autocomplete="off">
                 <div class="crud-form-buttons">
                     <div class="tabs">
-                        <button data-tab="zero" class="tabslinks active">Contenido</button>
-                        <button data-tab="one" class="tabslinks">Imagenes</button>
-                        <button data-tab="two" class="tabslinks">Otros</button>
+                        <button data-tab="content" class="tabslinks active">Contenido</button>
                     </div>
                 
                     @include('admin.components.form_buttons', [$route => 'route', 'create' => 'create'])

@@ -58,6 +58,7 @@
                 <div class="crud-form-buttons">
                     <div class="tabs">
                         <button data-tab="content" class="tabslinks active">Contenido</button>
+                        <button data-tab="images" class="tabslinks">Imagenes</button>
                     </div>
                 
                     @include('admin.components.form_buttons', ['visible' => $rate->visible, 'create' => 'create'])
@@ -97,6 +98,30 @@
                         </div> 
 
                     </div>
+                </div>
+
+                <div class="tabcontent"  data-content="images" >
+                        
+                    <div class="two-columns">
+                        <div class="form-group">                                
+                            <div class="crud-form-element">
+                                <label for="title">Imagen destacada:</label>
+                            </div>
+                            <div class="crud-form-element">
+                                <div class="crud-form-element">
+                                    @include('admin.components.upload_image', [
+                                        'entity' => 'rates',
+                                        'type' => 'single', 
+                                        'content' => 'featured', 
+                                        'alias' => 'es',
+                                        'files' => $rate->images_featured_preview
+                                    ])
+                                </div>
+                            </div>                                
+                        </div>
+                    
+                    </div>
+
                 </div>
             </form>
         </div>

@@ -47,6 +47,7 @@ class FaqCategoryController extends Controller
     {
 
         $view = View::make('admin.pages.faqs_categories.index')
+        ->with('faqs_categories', $this->faqs_category->where('active', 1)->get())
         ->with('faqs_category', $this->faqs_category)
         ->renderSections();
 

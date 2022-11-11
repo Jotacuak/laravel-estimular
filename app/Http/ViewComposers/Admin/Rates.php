@@ -3,15 +3,15 @@
 namespace App\Http\ViewComposers\Admin;
 
 use Illuminate\View\View;
-use App\Models\DB\Rates;
+use App\Models\DB\Rate;
 
-class RatesComposers
+class Rates
 {
     static $composed;
 
-    public function __construct(Rates $rates)
+    public function __construct(Rate $rate)
     {
-        $this->rates = $rates;
+        $this->rate = $rate;
     }
 
     public function compose(View $view)
@@ -22,7 +22,7 @@ class RatesComposers
             return $view->with('rates', static::$composed);
         }
 
-        static::$composed = $this->rates->where('active', 1)->orderBy('name', 'asc')->get();
+        static::$composed = $this->rate->where('active', 1)->orderBy('name', 'asc')->get();
 
         $view->with('rates', static::$composed);
 

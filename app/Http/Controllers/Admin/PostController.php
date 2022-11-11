@@ -7,18 +7,18 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
-use App\Http\Requests\Admin\PostsRequest;
+use App\Http\Requests\Admin\PostRequest;
 use App\Vendor\Image\Image;
-use App\Models\DB\Posts; 
+use App\Models\DB\Post; 
 
-class PostsController extends Controller
+class PostController extends Controller
 {
     protected $agent;
     protected $image;
     protected $paginate;
     protected $post;
 
-    function __construct(Posts $post, Agent $agent, Image $image)
+    function __construct(Post $post, Agent $agent, Image $image)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
@@ -69,7 +69,7 @@ class PostsController extends Controller
         ]);
     }
 
-    public function store(PostsRequest $request)
+    public function store(PostRequest $request)
     {            
                 
         $post = $this->post->updateOrCreate([
@@ -106,7 +106,7 @@ class PostsController extends Controller
         ]);
     }
 
-    public function edit(Posts $post)
+    public function edit(Post $post)
     {
         $view = View::make('admin.pages.posts.index')
         ->with('post', $post)
@@ -125,7 +125,7 @@ class PostsController extends Controller
         return $view;
     }
 
-    public function show(Posts $post){
+    public function show(Post $post){
 
         $view = View::make('admin.pages.posts.index')
         ->with('post', $post)
@@ -138,9 +138,9 @@ class PostsController extends Controller
         ]);
     }
 
-    public function destroy(Posts $post)
+    public function destroy(Post $post)
     {
-        $this->image->delete($faq->id);
+        $this->image->delete($post->id);
         $post->active = 0;
         $post->save();
 

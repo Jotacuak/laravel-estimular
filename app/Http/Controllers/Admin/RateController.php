@@ -7,21 +7,24 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
-use App\Http\Requests\Admin\WorkersRequest;
-use App\Models\DB\Workers; 
+use App\Vendor\Image\Image;
+use App\Http\Requests\Admin\RateRequest;
+use App\Models\DB\Rate; 
 
-class WorkersController extends Controller
+class RateController extends Controller
 {
     protected $agent;
+    protected $image;
     protected $paginate;
-    protected $worker;
+    protected $rate;
 
-    function __construct(Workers $worker, Agent $agent)
+    function __construct(Rate $rate, Agent $agent, Image $image)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
-        $this->worker = $worker;
-        $this->worker->visible = 1;
+        $this->rate = $rate;
+        $this->image = $image;
+        $this->rate->visible = 1;
 
         if ($this->agent->isMobile()) {
             $this->paginate = 10;
@@ -30,13 +33,15 @@ class WorkersController extends Controller
         if ($this->agent->isDesktop()) {
             $this->paginate = 6;
         }
+
+        $this->image->setEntity('rates');
     }
 
     public function index()
     {
-        $view = View::make('admin.pages.workers.index')
-        ->with('worker', $this->worker)
-        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
+        $view = View::make('admin.pages.rates.index')
+        ->with('rate', $this->rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
     
         if(request()->ajax()) {
@@ -54,20 +59,21 @@ class WorkersController extends Controller
 
     public function create()
     {
-        $view = View::make('admin.pages.workers.index')
-        ->with('worker', $this->worker)
-        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.rates.index')
+        ->with('rate', $this->rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
+
 
         return response()->json([
             'form' => $view['form']
         ]);
     }
 
-    public function store(WorkersRequest $request)
+    public function store(RateRequest $request)
     {            
                 
-        $worker = $this->worker->updateOrCreate([
+        $rate = $this->rate->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
             'title' => request('title'),
@@ -76,15 +82,19 @@ class WorkersController extends Controller
             'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
 
-        if (request('id')){
-            $message = \Lang::get('admin/workers.workers-update');
-        }else{
-            $message = \Lang::get('admin/workers.workers-create');
+        if(request('images')){
+            $images = $this->image->store(request('images'), $rate->id);
         }
 
-        $view = View::make('admin.pages.workers.index')
-        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        ->with('worker', $this->worker)
+        if (request('id')){
+            $message = \Lang::get('admin/rates.rates-update');
+        }else{
+            $message = \Lang::get('admin/rates.rates-create');
+        }
+
+        $view = View::make('admin.pages.rates.index')
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('rate', $this->rate)
         ->renderSections();        
 
         return response()->json([
@@ -94,17 +104,18 @@ class WorkersController extends Controller
         ]);
     }
 
-    public function edit(Workers $worker)
+    public function edit(Rate $rate)
     {
-        $view = View::make('admin.pages.workers.index')
-        ->with('worker', $worker)
-        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
+        $view = View::make('admin.pages.rates.index')
+        ->with('rate', $rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
         if(request()->ajax()) {
 
             $sections = $view->renderSections(); 
     
             return response()->json([
+                'table' => $sections['table'],
                 'form' => $sections['form'],
             ]); 
         }
@@ -112,11 +123,11 @@ class WorkersController extends Controller
         return $view;
     }
 
-    public function show(Workers $worker){
+    public function show(Rate $rate){
 
-        $view = View::make('admin.pages.workers.index')
-        ->with('worker', $worker)
-        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.rates.index')
+        ->with('rate', $rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -125,16 +136,17 @@ class WorkersController extends Controller
         ]);
     }
 
-    public function destroy(Workers $worker)
+    public function destroy(Rate $rate)
     {
-        $worker->active = 0;
-        $worker->save();
+        $this->image->delete($rate->id);
+        $rate->active = 0;
+        $rate->save();
 
-        $message = \Lang::get('admin/workers.workers-delete');
+        $message = \Lang::get('admin/rates.rates-delete');
 
-        $view = View::make('admin.pages.workers.index')
-        ->with('worker', $this->worker)
-        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.rates.index')
+        ->with('rate', $this->rate)
+        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -148,19 +160,9 @@ class WorkersController extends Controller
 
         $filters = json_decode($request->input('filters'));
         
-        $query = $this->workers->query();
+        $query = $this->rate->query();
 
         if($filters != null){
-
-            $query->when($filters->category_id, function ($q, $category_id) {
-
-                if($category_id == 'all'){
-                    return $q;
-                }
-                else{
-                    return $q->where('category_id', $category_id);
-                }
-            });
     
             $query->when($filters->search, function ($q, $search) {
     
@@ -168,7 +170,7 @@ class WorkersController extends Controller
                     return $q;
                 }
                 else {
-                    return $q->where('workers.name', 'like', "%$search%");
+                    return $q->where('rates.name', 'like', "%$search%");
                 }   
             });
     
@@ -178,7 +180,7 @@ class WorkersController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('workers.created_at', '>=', $created_at_from);
+                    $q->whereDate('rates.created_at', '>=', $created_at_from);
                 }   
             });
     
@@ -188,7 +190,7 @@ class WorkersController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('workers.created_at', '<=', $created_at_since);
+                    $q->whereDate('rates.created_at', '<=', $created_at_since);
                 }   
             });
     
@@ -198,13 +200,13 @@ class WorkersController extends Controller
             });
         }
     
-        $workers = $query->where('workers.active', 1)
-                ->orderBy('workers.created_at', 'desc')
+        $rates = $query->where('rates.active', 1)
+                ->orderBy('rates.created_at', 'desc')
                 ->paginate($this->paginate)
                 ->appends(['filters' => json_encode($filters)]);   
 
-        $view = View::make('admin.pages.workers.index')
-            ->with('workers', $workers)
+        $view = View::make('admin.pages.rates.index')
+            ->with('rates', $rates)
             ->renderSections();
 
         return response()->json([

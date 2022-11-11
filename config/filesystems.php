@@ -84,6 +84,20 @@ return [
             'visibility' => 'public',
         ],
 
+        'rates' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/rates'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ],
+
+        'workers' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/workers'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'public',
+        ]
+
     ],
 
     /*

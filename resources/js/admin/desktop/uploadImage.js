@@ -1,23 +1,21 @@
-// import {openModal, updateImageModal} from './modalImage';
+import {openModal, updateImageModal} from './modalImage';
 
 export let renderUploadImage = () => {
 
     document.addEventListener("renderFormModules",( event =>{
         renderUploadImage();
-    }));
+    }), {once: true});
 
     let inputElements = document.querySelectorAll(".upload-image-input");
     let uploadImages = document.querySelectorAll(".upload-image");
 
     inputElements.forEach(inputElement => {
-    
         uploadImage(inputElement);
     });
 
     uploadImages.forEach(uploadImage => {
 
         uploadImage.addEventListener("click", (e) => {
-
             openImage(uploadImage);
         });
     });
@@ -74,7 +72,7 @@ function updateThumbnail(uploadElement, file) {
         let thumbnailElement = uploadElement.querySelector(".upload-image-thumb");
 
         if(uploadElement.classList.contains('collection')){
-
+                                     
             if(!thumbnailElement){
 
                 let cloneUploadElement = uploadElement.cloneNode(true);
@@ -114,6 +112,9 @@ function updateThumbnail(uploadElement, file) {
 
             uploadElement.classList.remove('upload-image-add');
             uploadElement.classList.add('upload-image');
+
+            updateImageModal(uploadElement);
+            openModal();
         };
         
     }else{

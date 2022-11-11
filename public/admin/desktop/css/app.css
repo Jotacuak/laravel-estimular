@@ -761,61 +761,66 @@ a:hover, a:focus {
   background-color: hsl(0deg, 65%, 55%);
 }
 
-.image-selector {
+#upload-image-modal {
+  background-color: hsl(0deg, 0%, 100%);
   display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+  height: 80vh;
+  justify-content: space-between;
+  left: 10%;
+  padding: 1em;
+  position: fixed;
+  top: -100vh;
+  transition: top 0.3s;
+  width: 80%;
+  z-index: 3000;
+}
+
+#upload-image-modal.modal-active {
+  top: 10vh;
+  transition: top 0.3s;
+}
+
+.modal-image {
+  padding: 1em;
+  width: 65%;
+}
+
+#modal-image-original {
+  height: 100%;
   width: 100%;
 }
-.image-selector .image-preview {
-  border: 1px solid hsl(271deg, 97%, 26%);
-  border-radius: 0.25rem;
-  position: relative;
+
+.modal-image-attributes {
+  padding: 1em;
+  width: 30%;
 }
-.image-selector .image-preview svg {
-  height: 6rem;
-  padding: 0.5rem;
-  width: 6rem;
-}
-.image-selector .image-preview svg path {
-  fill: hsl(271deg, 97%, 26%);
-}
-.image-selector .image-preview .image {
-  width: 100%;
-}
-.image-selector .image-preview .image-load {
-  display: block;
-}
-.image-selector .image-preview .image-load.hidden {
-  display: none;
-}
-.image-selector .image-preview .image-delete {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 2em;
-  width: 2em;
-  color: hsl(0deg, 100%, 20%);
-  display: none;
-}
-.image-selector .image-preview .image-delete:hover {
+
+.modal-image-store-button {
   cursor: pointer;
 }
-.image-selector .image-preview .image-delete:hover path {
-  fill: hsl(317deg, 100%, 32%);
+.modal-image-store-button:hover .store-button-icon {
+  fill: hsl(19deg, 100%, 50%);
 }
-.image-selector .image-preview .image-delete.active {
-  display: block;
-  z-index: 100;
+.modal-image-store-button svg {
+  float: right;
+  height: 2.4em;
+  width: 2.4em;
 }
-.image-selector input[type=file] {
+.modal-image-store-button svg .store-button-icon {
+  fill: hsl(0deg, 0%, 50%);
+}
+
+.modal-image-delete-button {
+  bottom: 1em;
   cursor: pointer;
-  height: 6rem;
-  left: 60%;
-  opacity: 0;
   position: absolute;
-  top: 19vh;
-  width: 6rem;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.modal-image-delete-button p {
+  color: hsl(0deg, 100%, 50%);
+  text-decoration: underline;
 }
 
 .overlay {

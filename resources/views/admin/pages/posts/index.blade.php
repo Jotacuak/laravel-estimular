@@ -61,9 +61,8 @@
             <form action="{{route("posts_store")}}" class="admin-form" id="posts-form" autocomplete="off">
                 <div class="crud-form-buttons">
                     <div class="tabs">
-                        <button data-tab="zero" class="tabslinks active">Contenido</button>
-                        <button data-tab="one" class="tabslinks">Imagenes</button>
-                        <button data-tab="two" class="tabslinks">Otros</button>
+                        <button data-tab="content" class="tabslinks active">Contenido</button>
+                        <button data-tab="images" class="tabslinks">Imagenes</button>
                     </div>
                 
                     @include('admin.components.form_buttons', ['visible' => $post->visible, 'create' => 'create'])
@@ -71,7 +70,7 @@
                 </div>
 
                 <div class="content">
-                    <div data-content="zero" class="tabcontent active">
+                    <div data-content="content" class="tabcontent active">
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <input type="hidden" name="id" value="{{isset($post->id) ? $post->id : ''}}">
                         <div class="crud-form-elements">
@@ -133,7 +132,7 @@
 
                 </div>
 
-                <div class="tabcontent"  data-content="one" >
+                <div class="tabcontent"  data-content="images" >
                         
                     <div class="two-columns">
                         <div class="form-group">                                
@@ -143,7 +142,7 @@
                             <div class="crud-form-element">
                                 <div class="crud-form-element">
                                     @include('admin.components.upload_image', [
-                                        'entity' => 'blog',
+                                        'entity' => 'posts',
                                         'type' => 'single', 
                                         'content' => 'featured', 
                                         'alias' => 'es',

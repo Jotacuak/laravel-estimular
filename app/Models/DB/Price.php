@@ -6,14 +6,12 @@ namespace App\Models\DB;
 // use App\Vendor\Locale\Models\LocaleSlugSeo;
 use App;
 
-class Prices extends DBModel
+class Price extends DBModel
 {
-
-    protected $table = 'prices';   
 
     public function rates(){
 
-        return $this->belongsTo(Rates::class);
+        return $this->belongsTo(Rate::class);
 
     }
 }

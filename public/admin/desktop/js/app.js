@@ -2759,17 +2759,27 @@ var renderModalDelete = function renderModalDelete() {
 
 /***/ }),
 
-/***/ "./resources/js/admin/desktop/modalImage.js":
-/*!**************************************************!*\
-  !*** ./resources/js/admin/desktop/modalImage.js ***!
-  \**************************************************/
+/***/ "./resources/js/admin/desktop/modalDeleteImage.js":
+/*!********************************************************!*\
+  !*** ./resources/js/admin/desktop/modalDeleteImage.js ***!
+  \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "renderModalImage": () => (/* binding */ renderModalImage)
+/* harmony export */   "openModal": () => (/* binding */ openModal),
+/* harmony export */   "updateImageModal": () => (/* binding */ updateImageModal)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _uploadImage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./uploadImage */ "./resources/js/admin/desktop/uploadImage.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -2782,134 +2792,330 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var renderModalImage = function renderModalImage() {
-  var modalImageStoreButton = document.getElementById('modal-image-store-button');
-  var modalImageDeleteButton = document.getElementById('modal-image-delete-button');
-  document.addEventListener("openModal", function (event) {
-    var modal = document.getElementById('upload-image-modal');
-    modal.classList.add('modal-active'); // document.dispatchEvent(new CustomEvent('startOverlay'));
-  });
-  document.addEventListener("updateImageModal", function (image) {
-    var imageContainer = document.getElementById('modal-image-original');
-    var imageForm = document.getElementById('image-form');
-    imageForm.reset();
 
-    if (image.path) {
-      if (image.entity_id) {
-        image.imageId = image.id;
-        imageContainer.src = '../storage/' + image.path;
-      } else {
-        imageContainer.src = image.path;
-      }
-    } else {
-      imageContainer.src = image.dataset.path;
-      image = image.dataset;
-    }
-
-    for (var _i = 0, _Object$entries = Object.entries(image); _i < _Object$entries.length; _i++) {
-      var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-          key = _Object$entries$_i[0],
-          val = _Object$entries$_i[1];
-
-      var input = imageForm.elements[key];
-
-      if (input) {
-        switch (input.type) {
-          case 'checkbox':
-            input.checked = !!val;
-            break;
-
-          default:
-            input.value = val;
-            break;
-        }
-      }
-    }
-  }); // modalImageStoreButton.addEventListener("click", (e) => {
-  //     let modal = document.getElementById('upload-image-modal');
-  //     let imageForm = document.getElementById('image-form');
-  //     let url = imageForm.action;
-  //     let data = new FormData(imageForm);
-  //     let temporalId = document.getElementById('modal-image-temporal-id');
-  //     let id = document.getElementById('modal-image-id');
-  //     let sendImagePostRequest = async () => {
-  //         let request = await fetch(url,data, {
-  //             headers: {
-  //                 'Accept': 'application/json',
-  //                 'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-  //             },
-  //             method: 'POST',
-  //             body: data
-  //         })
-  //         .then(response => {
-  //             modal.classList.remove('modal-active');
-  //             temporalId.value = "";
-  //             id.value = "";
-  //             imageForm.reset();
-  //             // document.dispatchEvent(new CustomEvent('stopWait'));
-  //             document.dispatchEvent(new CustomEvent('message', {
-  //                 detail: {
-  //                     message: json.message,
-  //                     type: 'success'
-  //                 }
-  //             }));
-  //         })
-  //         .catch(error =>{
-  //             console.log(error);
-  //         })  
-  //     };
-  //     sendImagePostRequest();
-  // });
-  // modalImageDeleteButton.addEventListener("click", (e) => {
-  //     let url = modalImageDeleteButton.dataset.route;
-  //     let modal = document.getElementById('upload-image-modal');
-  //     let imageForm = document.getElementById('image-form');
-  //     let temporalId = document.getElementById('modal-image-temporal-id');
-  //     let id = document.getElementById('modal-image-id');
-  //     if(id.value){
-  //         let sendImageDeleteRequest = async () => {
-  //             let response = await fetch(url, {
-  //                 headers: {
-  //                     'X-Requested-With': 'XMLHttpRequest',
-  //                     'X-CSRF-TOKEN': document.head.querySelector('meta[name="csrf-token"]').content
-  //                 },
-  //                 method: 'DELETE', 
-  //                 params: {
-  //                     'image': id.value
-  //                 },
-  //             })
-  //             .then(response => {
-  //                 document.dispatchEvent(new CustomEvent('deleteThumnail', {
-  //                     detail: {
-  //                         response: response.data.imageId
-  //                     }
-  //                 }))
-  //                 document.dispatchEvent(new CustomEvent('message', {
-  //                     detail: {
-  //                         message: json.message,
-  //                         type: 'success'
-  //                     }
-  //                 }));
-  //             })
-  //             .catch(error => {
-  //                 console.log(error)
-  //             });
-  //         };
-  //         sendImageDeleteRequest();
-  //     }else{
-  //         document.dispatchEvent(new CustomEvent('deleteThumnail', {
-  //             detail: {
-  //                 temporalId: temporalId.value
-  //             }
-  //         }))
-  //     }
-  //     temporalId.value = "";
-  //     id.value = "";
-  //     imageForm.reset();
-  //     modal.classList.remove('modal-active');
-  //     // document.dispatchEvent(new CustomEvent('stopWait'));
-  // });
+var modalImageStoreButton = document.getElementById('modal-image-store-button');
+var modalImageDeleteButton = document.getElementById('modal-image-delete-button');
+var openModal = function openModal() {
+  var modal = document.getElementById('upload-image-modal');
+  modal.classList.add('modal-active');
+  document.dispatchEvent(new CustomEvent('startOverlay'));
 };
+var updateImageModal = function updateImageModal(image) {
+  var imageContainer = document.getElementById('modal-image-original');
+  var imageForm = document.getElementById('image-form');
+  imageForm.reset();
+
+  if (image.path) {
+    if (image.entity_id) {
+      image.imageId = image.id;
+      imageContainer.src = '../storage/' + image.path;
+    } else {
+      imageContainer.src = image.path;
+    }
+  } else {
+    imageContainer.src = image.dataset.path;
+    image = image.dataset;
+  }
+
+  for (var _i = 0, _Object$entries = Object.entries(image); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        val = _Object$entries$_i[1];
+
+    var input = imageForm.elements[key];
+
+    if (input) {
+      switch (input.type) {
+        case 'checkbox':
+          input.checked = !!val;
+          break;
+
+        default:
+          input.value = val;
+          break;
+      }
+    }
+  }
+};
+modalImageStoreButton.addEventListener("click", function (e) {
+  var modal = document.getElementById('upload-image-modal');
+  var imageForm = document.getElementById('image-form');
+  var url = imageForm.action;
+  var data = new FormData(imageForm);
+  var temporalId = document.getElementById('modal-image-temporal-id');
+  var id = document.getElementById('modal-image-id');
+
+  var sendImagePostRequest = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              try {
+                axios.post(url, data).then(function (response) {
+                  modal.classList.remove('modal-active');
+                  temporalId.value = "";
+                  id.value = "";
+                  imageForm.reset();
+                  document.dispatchEvent(new CustomEvent('stopWait'));
+                  document.dispatchEvent(new CustomEvent('message', {
+                    detail: {
+                      message: json.message,
+                      type: 'success'
+                    }
+                  }));
+                });
+              } catch (error) {}
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function sendImagePostRequest() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  sendImagePostRequest();
+});
+modalImageDeleteButton.addEventListener("click", function (e) {
+  var url = modalImageDeleteButton.dataset.route;
+  var modal = document.getElementById('upload-image-modal');
+  var imageForm = document.getElementById('image-form');
+  var temporalId = document.getElementById('modal-image-temporal-id');
+  var id = document.getElementById('modal-image-id');
+
+  if (id.value) {
+    var sendImageDeleteRequest = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                try {
+                  axios.get(url, {
+                    params: {
+                      'image': id.value
+                    }
+                  }).then(function (response) {
+                    (0,_uploadImage__WEBPACK_IMPORTED_MODULE_1__.deleteThumbnail)(response.data.imageId);
+                    document.dispatchEvent(new CustomEvent('message', {
+                      detail: {
+                        message: json.message,
+                        type: 'success'
+                      }
+                    }));
+                  });
+                } catch (error) {}
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function sendImageDeleteRequest() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    sendImageDeleteRequest();
+  } else {
+    (0,_uploadImage__WEBPACK_IMPORTED_MODULE_1__.deleteThumbnail)(temporalId.value);
+  }
+
+  temporalId.value = "";
+  id.value = "";
+  imageForm.reset();
+  modal.classList.remove('modal-active');
+  document.dispatchEvent(new CustomEvent('stopWait'));
+});
+
+/***/ }),
+
+/***/ "./resources/js/admin/desktop/modalImage.js":
+/*!**************************************************!*\
+  !*** ./resources/js/admin/desktop/modalImage.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "openModal": () => (/* binding */ openModal),
+/* harmony export */   "updateImageModal": () => (/* binding */ updateImageModal)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _uploadImage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./uploadImage */ "./resources/js/admin/desktop/uploadImage.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+var modalImageStoreButton = document.getElementById('modal-image-store-button');
+var modalImageDeleteButton = document.getElementById('modal-image-delete-button');
+var openModal = function openModal() {
+  var modal = document.getElementById('upload-image-modal');
+  modal.classList.add('modal-active');
+  document.dispatchEvent(new CustomEvent('startOverlay'));
+};
+var updateImageModal = function updateImageModal(image) {
+  var imageContainer = document.getElementById('modal-image-original');
+  var imageForm = document.getElementById('image-form');
+  imageForm.reset();
+
+  if (image.path) {
+    if (image.entity_id) {
+      image.imageId = image.id;
+      imageContainer.src = '../storage/' + image.path;
+    } else {
+      imageContainer.src = image.path;
+    }
+  } else {
+    imageContainer.src = image.dataset.path;
+    image = image.dataset;
+  }
+
+  for (var _i = 0, _Object$entries = Object.entries(image); _i < _Object$entries.length; _i++) {
+    var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+        key = _Object$entries$_i[0],
+        val = _Object$entries$_i[1];
+
+    var input = imageForm.elements[key];
+
+    if (input) {
+      switch (input.type) {
+        case 'checkbox':
+          input.checked = !!val;
+          break;
+
+        default:
+          input.value = val;
+          break;
+      }
+    }
+  }
+};
+modalImageStoreButton.addEventListener("click", function (e) {
+  var modal = document.getElementById('upload-image-modal');
+  var imageForm = document.getElementById('image-form');
+  var url = imageForm.action;
+  var data = new FormData(imageForm);
+  var temporalId = document.getElementById('modal-image-temporal-id');
+  var id = document.getElementById('modal-image-id');
+
+  var sendImagePostRequest = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              try {
+                axios.post(url, data).then(function (response) {
+                  modal.classList.remove('modal-active');
+                  temporalId.value = "";
+                  id.value = "";
+                  imageForm.reset();
+                  document.dispatchEvent(new CustomEvent('stopWait'));
+                  document.dispatchEvent(new CustomEvent('message', {
+                    detail: {
+                      message: json.message,
+                      type: 'success'
+                    }
+                  }));
+                });
+              } catch (error) {}
+
+            case 1:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }));
+
+    return function sendImagePostRequest() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  sendImagePostRequest();
+});
+modalImageDeleteButton.addEventListener("click", function (e) {
+  var url = modalImageDeleteButton.dataset.route;
+  var modal = document.getElementById('upload-image-modal');
+  var imageForm = document.getElementById('image-form');
+  var temporalId = document.getElementById('modal-image-temporal-id');
+  var id = document.getElementById('modal-image-id');
+
+  if (id.value) {
+    var sendImageDeleteRequest = /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                try {
+                  axios.get(url, {
+                    params: {
+                      'image': id.value
+                    }
+                  }).then(function (response) {
+                    (0,_uploadImage__WEBPACK_IMPORTED_MODULE_1__.deleteThumbnail)(response.data.imageId);
+                    document.dispatchEvent(new CustomEvent('message', {
+                      detail: {
+                        message: json.message,
+                        type: 'success'
+                      }
+                    }));
+                  });
+                } catch (error) {}
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function sendImageDeleteRequest() {
+        return _ref2.apply(this, arguments);
+      };
+    }();
+
+    sendImageDeleteRequest();
+  } else {
+    (0,_uploadImage__WEBPACK_IMPORTED_MODULE_1__.deleteThumbnail)(temporalId.value);
+  }
+
+  temporalId.value = "";
+  id.value = "";
+  imageForm.reset();
+  modal.classList.remove('modal-active');
+  document.dispatchEvent(new CustomEvent('stopWait'));
+});
 
 /***/ }),
 
@@ -3080,16 +3286,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _modalImage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modalImage */ "./resources/js/admin/desktop/modalImage.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-// import {openModal, updateImageModal} from './modalImage';
+
 var renderUploadImage = function renderUploadImage() {
   document.addEventListener("renderFormModules", function (event) {
     renderUploadImage();
+  }, {
+    once: true
   });
   var inputElements = document.querySelectorAll(".upload-image-input");
   var uploadImages = document.querySelectorAll(".upload-image");
@@ -3181,6 +3390,8 @@ function updateThumbnail(uploadElement, file) {
       inputElement.name = "images[" + content + "-" + temporalId + "." + language + "]";
       uploadElement.classList.remove('upload-image-add');
       uploadElement.classList.add('upload-image');
+      (0,_modalImage__WEBPACK_IMPORTED_MODULE_1__.updateImageModal)(uploadElement);
+      (0,_modalImage__WEBPACK_IMPORTED_MODULE_1__.openModal)();
     };
   } else {
     thumbnailElement.style.backgroundImage = null;
@@ -3206,13 +3417,13 @@ function openImage(image) {
                   }).then(function (response) {
                     if (response.data) {
                       response.data.path = image.dataset.path;
-                      updateImageModal(response.data);
+                      (0,_modalImage__WEBPACK_IMPORTED_MODULE_1__.updateImageModal)(response.data);
                     } else {
-                      updateImageModal(image);
+                      (0,_modalImage__WEBPACK_IMPORTED_MODULE_1__.updateImageModal)(image);
                     }
 
                     ;
-                    openModal();
+                    (0,_modalImage__WEBPACK_IMPORTED_MODULE_1__.openModal)();
                   });
                 } catch (error) {}
 
@@ -3240,8 +3451,8 @@ function openImage(image) {
                 try {
                   axios.get(url).then(function (response) {
                     response.data.path = response.data.original_image.path;
-                    updateImageModal(response.data);
-                    openModal();
+                    (0,_modalImage__WEBPACK_IMPORTED_MODULE_1__.updateImageModal)(response.data);
+                    (0,_modalImage__WEBPACK_IMPORTED_MODULE_1__.openModal)();
                   });
                 } catch (error) {}
 
@@ -21596,11 +21807,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _form_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./form.js */ "./resources/js/admin/desktop/form.js");
 /* harmony import */ var _inputCounter_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./inputCounter.js */ "./resources/js/admin/desktop/inputCounter.js");
 /* harmony import */ var _menu_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./menu.js */ "./resources/js/admin/desktop/menu.js");
-/* harmony import */ var _modalImage_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modalImage.js */ "./resources/js/admin/desktop/modalImage.js");
-/* harmony import */ var _modalDelete_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modalDelete.js */ "./resources/js/admin/desktop/modalDelete.js");
-/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
-/* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
-/* harmony import */ var _uploadImage__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./uploadImage */ "./resources/js/admin/desktop/uploadImage.js");
+/* harmony import */ var _modalDelete_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modalDelete.js */ "./resources/js/admin/desktop/modalDelete.js");
+/* harmony import */ var _table_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./table.js */ "./resources/js/admin/desktop/table.js");
+/* harmony import */ var _tabs_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./tabs.js */ "./resources/js/admin/desktop/tabs.js");
+/* harmony import */ var _uploadImage__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./uploadImage */ "./resources/js/admin/desktop/uploadImage.js");
 __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -21609,7 +21819,11 @@ __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 
 
 
- // import {renderMessages} from './messages.js';
+
+__webpack_require__(/*! ./modalDeleteImage */ "./resources/js/admin/desktop/modalDeleteImage.js");
+
+__webpack_require__(/*! ./modalImage */ "./resources/js/admin/desktop/modalImage.js"); // import {renderMessages} from './messages.js';
+
 
 
 
@@ -21620,12 +21834,11 @@ __webpack_require__(/*! ../../bootstrap */ "./resources/js/bootstrap.js");
 (0,_form_js__WEBPACK_IMPORTED_MODULE_2__.renderForm)();
 (0,_inputCounter_js__WEBPACK_IMPORTED_MODULE_3__.renderInputCounter)();
 (0,_menu_js__WEBPACK_IMPORTED_MODULE_4__.renderMenu)();
-(0,_modalImage_js__WEBPACK_IMPORTED_MODULE_5__.renderModalImage)();
-(0,_modalDelete_js__WEBPACK_IMPORTED_MODULE_6__.renderModalDelete)(); // renderMessages();
+(0,_modalDelete_js__WEBPACK_IMPORTED_MODULE_5__.renderModalDelete)(); // renderMessages();
 
-(0,_table_js__WEBPACK_IMPORTED_MODULE_7__.renderTable)();
-(0,_tabs_js__WEBPACK_IMPORTED_MODULE_8__.renderTabs)();
-(0,_uploadImage__WEBPACK_IMPORTED_MODULE_9__.renderUploadImage)(); // renderWait();
+(0,_table_js__WEBPACK_IMPORTED_MODULE_6__.renderTable)();
+(0,_tabs_js__WEBPACK_IMPORTED_MODULE_7__.renderTabs)();
+(0,_uploadImage__WEBPACK_IMPORTED_MODULE_8__.renderUploadImage)(); // renderWait();
 })();
 
 /******/ })()

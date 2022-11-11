@@ -7,16 +7,15 @@ namespace App\Models\DB;
 use App\Vendor\Image\Models\ImageResized;
 use App;
 
-class Posts extends DBModel
+class Post extends DBModel
 {
 
-    protected $table = 'posts';
     protected $with = ['category'];
     // protected $with = ['category','seo'];
 
     public function category()
     {
-        return $this->belongsTo(PostsCategory::class);
+        return $this->belongsTo(PostCategory::class);
     }
 
     public function images_featured_preview()

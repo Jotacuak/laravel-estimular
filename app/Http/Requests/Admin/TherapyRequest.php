@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PricesRequest extends FormRequest
+class TherapyRequest extends FormRequest
 {
     public function authorize()
     {

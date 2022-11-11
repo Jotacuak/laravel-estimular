@@ -7,21 +7,24 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
-use App\Http\Requests\Admin\RatesRequest;
-use App\Models\DB\Rates; 
+use App\Http\Requests\Admin\TherapyRequest;
+use App\Models\DB\Therapy; 
+use App\Vendor\Image\Image;
 
-class RatesController extends Controller
+class TherapyController extends Controller
 {
     protected $agent;
+    protected $image;
     protected $paginate;
-    protected $rate;
+    protected $therapy;
 
-    function __construct(Rates $rate, Agent $agent)
+    function __construct(Therapy $therapy, Agent $agent, Image $image)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
-        $this->rate = $rate;
-        $this->rate->visible = 1;
+        $this->image = $image;
+        $this->therapy = $therapy;
+        $this->therapy->visible = 1;
 
         if ($this->agent->isMobile()) {
             $this->paginate = 10;
@@ -30,13 +33,15 @@ class RatesController extends Controller
         if ($this->agent->isDesktop()) {
             $this->paginate = 6;
         }
+
+        $this->image->setEntity('therapy');
     }
 
     public function index()
     {
-        $view = View::make('admin.pages.rates.index')
-        ->with('rate', $this->rate)
-        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
+        $view = View::make('admin.pages.therapies.index')
+        ->with('therapy', $this->therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
     
         if(request()->ajax()) {
@@ -54,38 +59,42 @@ class RatesController extends Controller
 
     public function create()
     {
-        $view = View::make('admin.pages.rates.index')
-        ->with('rate', $this->rate)
-        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.therapies.index')
+        ->with('therapy', $this->therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
-
 
         return response()->json([
             'form' => $view['form']
         ]);
     }
 
-    public function store(RatesRequest $request)
+    public function store(TherapyRequest $request)
     {            
                 
-        $rate = $this->rate->updateOrCreate([
+        $therapy = $this->therapy->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
             'title' => request('title'),
-            'content' => request('content'),
+            'subtitle' => request('subtitle'),
+            'description' => request('description'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
 
-        if (request('id')){
-            $message = \Lang::get('admin/rates.rates-update');
-        }else{
-            $message = \Lang::get('admin/rates.rates-create');
+        if(request('images')){
+            $images = $this->image->store(request('images'), $therapy->id);
         }
 
-        $view = View::make('admin.pages.rates.index')
-        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        ->with('rate', $this->rate)
+        if (request('id')){
+            $message = \Lang::get('admin/therapies.therapies-update');
+        }else{
+            $message = \Lang::get('admin/therapies.therapies-create');
+        }
+
+        $view = View::make('admin.pages.therapies.index')
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('therapy', $this->therapy)
         ->renderSections();        
 
         return response()->json([
@@ -95,18 +104,17 @@ class RatesController extends Controller
         ]);
     }
 
-    public function edit(Rates $rate)
+    public function edit(Therapy $therapy)
     {
-        $view = View::make('admin.pages.rates.index')
-        ->with('rate', $rate)
-        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
+        $view = View::make('admin.pages.therapies.index')
+        ->with('therapy', $therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));       
         
         if(request()->ajax()) {
 
             $sections = $view->renderSections(); 
     
             return response()->json([
-                'table' => $sections['table'],
                 'form' => $sections['form'],
             ]); 
         }
@@ -114,11 +122,11 @@ class RatesController extends Controller
         return $view;
     }
 
-    public function show(Rates $rate){
+    public function show(Therapy $therapy){
 
-        $view = View::make('admin.pages.rates.index')
-        ->with('rate', $rate)
-        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.therapies.index')
+        ->with('therapy', $therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -127,16 +135,17 @@ class RatesController extends Controller
         ]);
     }
 
-    public function destroy(Rates $rate)
+    public function destroy(Therapy $therapy)
     {
-        $rate->active = 0;
-        $rate->save();
+        $therapy->active = 0;
+        $therapy->save();
+        $this->image->delete($therapy->id);
 
-        $message = \Lang::get('admin/rates.rates-delete');
+        $message = \Lang::get('admin/therapies.therapies-delete');
 
-        $view = View::make('admin.pages.rates.index')
-        ->with('rate', $this->rate)
-        ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.therapies.index')
+        ->with('therapy', $this->therapy)
+        ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -150,9 +159,19 @@ class RatesController extends Controller
 
         $filters = json_decode($request->input('filters'));
         
-        $query = $this->rate->query();
+        $query = $this->therapy->query();
 
         if($filters != null){
+
+            $query->when($filters->category_id, function ($q, $category_id) {
+
+                if($category_id == 'all'){
+                    return $q;
+                }
+                else{
+                    return $q->where('category_id', $category_id);
+                }
+            });
     
             $query->when($filters->search, function ($q, $search) {
     
@@ -160,7 +179,7 @@ class RatesController extends Controller
                     return $q;
                 }
                 else {
-                    return $q->where('rates.name', 'like', "%$search%");
+                    return $q->where('therapies.name', 'like', "%$search%");
                 }   
             });
     
@@ -170,7 +189,7 @@ class RatesController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('rates.created_at', '>=', $created_at_from);
+                    $q->whereDate('therapies.created_at', '>=', $created_at_from);
                 }   
             });
     
@@ -180,7 +199,7 @@ class RatesController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('rates.created_at', '<=', $created_at_since);
+                    $q->whereDate('therapies.created_at', '<=', $created_at_since);
                 }   
             });
     
@@ -190,13 +209,13 @@ class RatesController extends Controller
             });
         }
     
-        $rates = $query->where('rates.active', 1)
-                ->orderBy('rates.created_at', 'desc')
+        $therapies = $query->where('therapies.active', 1)
+                ->orderBy('therapies.created_at', 'desc')
                 ->paginate($this->paginate)
                 ->appends(['filters' => json_encode($filters)]);   
 
-        $view = View::make('admin.pages.rates.index')
-            ->with('rates', $rates)
+        $view = View::make('admin.pages.therapies.index')
+            ->with('therapies', $therapies)
             ->renderSections();
 
         return response()->json([

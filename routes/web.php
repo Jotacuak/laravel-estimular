@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
-    Route::resource('precios', 'App\Http\Controllers\Admin\PricesController', [
+    Route::resource('precios', 'App\Http\Controllers\Admin\PriceController', [
         'parameters' => [
             'precios' => 'price', 
         ],
@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
-    Route::resource('tarifas', 'App\Http\Controllers\Admin\RatesController', [
+    Route::resource('tarifas', 'App\Http\Controllers\Admin\RateController', [
         'parameters' => [
             'tarifas' => 'rate', 
         ],
@@ -62,7 +62,7 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
-    Route::resource('terapias', 'App\Http\Controllers\Admin\TherapiesController', [
+    Route::resource('terapias', 'App\Http\Controllers\Admin\TherapyController', [
         'parameters' => [
             'terapias' => 'therapy', 
         ],
@@ -76,7 +76,7 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
-    Route::resource('equipo', 'App\Http\Controllers\Admin\WorkersController', [
+    Route::resource('equipo', 'App\Http\Controllers\Admin\WorkerController', [
         'parameters' => [
             'equipo' => 'worker', 
         ],
@@ -119,9 +119,9 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
-    Route::resource('blog/categorias', 'App\Http\Controllers\Admin\PostsCategoryController', [
+    Route::resource('blog/categorias', 'App\Http\Controllers\Admin\PostCategoryController', [
         'parameters' => [
-            'categorias' => 'posts_category', 
+            'categorias' => 'post_category', 
         ],
         'names' => [
             'index' => 'posts_categories',
@@ -133,8 +133,8 @@ Route::group(['prefix' => 'admin'], function () {
         ]
     ]);
 
-    Route::get('/blog/filter/{filters?}', 'App\Http\Controllers\Admin\PostsController@filter')->name('posts_filter');
-    Route::resource('blog', 'App\Http\Controllers\Admin\PostsController', [
+    Route::get('/blog/filter/{filters?}', 'App\Http\Controllers\Admin\PostController@filter')->name('posts_filter');
+    Route::resource('blog', 'App\Http\Controllers\Admin\PostController', [
         'parameters' => [
             'blog' => 'post', 
         ],

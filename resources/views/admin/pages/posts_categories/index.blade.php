@@ -22,14 +22,14 @@
                     </div>
                     <div class="admin-table-element-buttons">
                     <div class="admin-table-element-button">
-                            <button type="button" id="edit-button" data-url="{{route('posts_categories_edit', ['posts_category' => $posts_category_element->id])}}">
+                            <button type="button" id="edit-button" data-url="{{route('posts_categories_edit', ['post_category' => $posts_category_element->id])}}">
                                 <svg viewBox="0 0 24 24">
                                     <path fill="currentColor" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z" />
                                 </svg>
                             </button>
                         </div>
                     <div class="admin-table-element-button">
-                            <button type="button" id="delete-button" data-url="{{route('posts_categories_destroy', ['posts_category' => $posts_category_element->id])}}">
+                            <button type="button" id="delete-button" data-url="{{route('posts_categories_destroy', ['post_category' => $posts_category_element->id])}}">
                                 <svg viewBox="0 0 24 24">
                                     <path fill="currentColor" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
                                 </svg>
@@ -57,7 +57,7 @@
             <form action="{{route("posts_categories_store")}}" class="admin-form" id="posts_categories-form" autocomplete="off">
                 <div class="crud-form-buttons">
                     <div class="tabs">
-                        <button data-tab="zero" class="tabslinks active">Contenido</button>
+                        <button data-tab="content" class="tabslinks active">Contenido</button>
                     </div>
                 
                     @include('admin.components.form_buttons', ['visible' => $posts_category->visible, 'create' => 'create'])
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="content">
-                    <div data-content="zero" class="tabcontent active">
+                    <div data-content="content" class="tabcontent active">
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <input type="hidden" name="id" value="{{isset($posts_category->id) ? $posts_category->id : ''}}">
 

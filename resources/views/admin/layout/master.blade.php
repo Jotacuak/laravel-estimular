@@ -26,6 +26,7 @@
             
             {{-- @include('admin.components.wait') --}}
             @include('admin.components.messages')
+            @include('admin.components.modal_image')
             @include('admin.components.modal_delete')
             @include('admin.layout.partials.topbar')
 

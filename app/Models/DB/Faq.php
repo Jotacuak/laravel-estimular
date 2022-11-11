@@ -10,7 +10,6 @@ use App;
 class Faq extends DBModel
 {
 
-    protected $table = 'faqs';
     protected $with = ['category'];
     // protected $with = ['category','seo'];
 

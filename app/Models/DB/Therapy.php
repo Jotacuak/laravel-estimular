@@ -4,7 +4,7 @@ namespace App\Models\DB;
 
 use App\Vendor\Image\Models\ImageResized;
 
-class Therapies extends DBModel
+class Therapy extends DBModel
 {
 
     protected $table = 'therapies';

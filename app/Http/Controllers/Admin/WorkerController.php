@@ -7,21 +7,24 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
-use App\Http\Requests\Admin\PricesRequest;
-use App\Models\DB\Prices;
+use App\Vendor\Image\Image;
+use App\Http\Requests\Admin\WorkerRequest;
+use App\Models\DB\Worker; 
 
-class PricesController extends Controller
+class WorkerController extends Controller
 {
     protected $agent;
+    protected $image;
     protected $paginate;
-    protected $price;
+    protected $worker;
 
-    function __construct(Prices $price, Agent $agent)
+    function __construct(Worker $worker, Agent $agent, Image $image)
     {
         // $this->middleware('auth');
         $this->agent = $agent;
-        $this->price = $price;
-        $this->price->visible = 1;
+        $this->image = $image;
+        $this->worker = $worker;
+        $this->worker->visible = 1;
 
         if ($this->agent->isMobile()) {
             $this->paginate = 10;
@@ -30,14 +33,15 @@ class PricesController extends Controller
         if ($this->agent->isDesktop()) {
             $this->paginate = 6;
         }
+
+        $this->image->setEntity('workers');
     }
 
     public function index()
     {
-        $view = View::make('admin.pages.prices.index')
-        ->with('price', $this->price)
-        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
-
+        $view = View::make('admin.pages.workers.index')
+        ->with('worker', $this->worker)
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
     
         if(request()->ajax()) {
             
@@ -54,40 +58,41 @@ class PricesController extends Controller
 
     public function create()
     {
-        $view = View::make('admin.pages.prices.index')
-        ->with('price', $this->price)
-        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.workers.index')
+        ->with('worker', $this->worker)
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
-
 
         return response()->json([
             'form' => $view['form']
         ]);
     }
 
-    public function store(PricesRequest $request)
+    public function store(WorkerRequest $request)
     {            
                 
-        $price = $this->price->updateOrCreate([
+        $worker = $this->worker->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'type' => request('type'),
-            'subtotal' => request('subtotal'),
-            'sumary' => request('sumary'),
-            'rates_id' => request('rates_id'),
+            'title' => request('title'),
+            'content' => request('content'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
 
-        if (request('id')){
-            $message = \Lang::get('admin/prices.prices-update');
-        }else{
-            $message = \Lang::get('admin/prices.prices-create');
+        if(request('images')){
+            $images = $this->image->store(request('images'), $worker->id);
         }
 
-        $view = View::make('admin.pages.prices.index')
-        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        ->with('price', $this->price)
+        if (request('id')){
+            $message = \Lang::get('admin/workers.workers-update');
+        }else{
+            $message = \Lang::get('admin/workers.workers-create');
+        }
+
+        $view = View::make('admin.pages.workers.index')
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('worker', $this->worker)
         ->renderSections();        
 
         return response()->json([
@@ -97,19 +102,17 @@ class PricesController extends Controller
         ]);
     }
 
-    public function edit(Prices $price)
+    public function edit(Worker $worker)
     {
-
-        $view = View::make('admin.pages.prices.index')
-        ->with('price', $price)
-        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
+        $view = View::make('admin.pages.workers.index')
+        ->with('worker', $worker)
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
         if(request()->ajax()) {
 
             $sections = $view->renderSections(); 
     
             return response()->json([
-                'table' => $sections['table'],
                 'form' => $sections['form'],
             ]); 
         }
@@ -117,11 +120,11 @@ class PricesController extends Controller
         return $view;
     }
 
-    public function show(Prices $price){
+    public function show(Worker $worker){
 
-        $view = View::make('admin.pages.prices.index')
-        ->with('price', $price)
-        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.workers.index')
+        ->with('worker', $worker)
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -130,16 +133,17 @@ class PricesController extends Controller
         ]);
     }
 
-    public function destroy(Prices $price)
+    public function destroy(Worker $worker)
     {
-        $price->active = 0;
-        $price->save();
+        $this->image->delete($worker->id);
+        $worker->active = 0;
+        $worker->save();
 
-        $message = \Lang::get('admin/prices.prices-delete');
+        $message = \Lang::get('admin/workers.workers-delete');
 
-        $view = View::make('admin.pages.prices.index')
-        ->with('price', $this->price)
-        ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        $view = View::make('admin.pages.workers.index')
+        ->with('worker', $this->worker)
+        ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -153,9 +157,19 @@ class PricesController extends Controller
 
         $filters = json_decode($request->input('filters'));
         
-        $query = $this->price->query();
+        $query = $this->workers->query();
 
         if($filters != null){
+
+            $query->when($filters->category_id, function ($q, $category_id) {
+
+                if($category_id == 'all'){
+                    return $q;
+                }
+                else{
+                    return $q->where('category_id', $category_id);
+                }
+            });
     
             $query->when($filters->search, function ($q, $search) {
     
@@ -163,7 +177,7 @@ class PricesController extends Controller
                     return $q;
                 }
                 else {
-                    return $q->where('prices.name', 'like', "%$search%");
+                    return $q->where('workers.name', 'like', "%$search%");
                 }   
             });
     
@@ -173,7 +187,7 @@ class PricesController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('prices.created_at', '>=', $created_at_from);
+                    $q->whereDate('workers.created_at', '>=', $created_at_from);
                 }   
             });
     
@@ -183,7 +197,7 @@ class PricesController extends Controller
                     return $q;
                 }
                 else {
-                    $q->whereDate('prices.created_at', '<=', $created_at_since);
+                    $q->whereDate('workers.created_at', '<=', $created_at_since);
                 }   
             });
     
@@ -193,13 +207,13 @@ class PricesController extends Controller
             });
         }
     
-        $prices = $query->where('prices.active', 1)
-                ->orderBy('prices.created_at', 'desc')
+        $workers = $query->where('workers.active', 1)
+                ->orderBy('workers.created_at', 'desc')
                 ->paginate($this->paginate)
                 ->appends(['filters' => json_encode($filters)]);   
 
-        $view = View::make('admin.pages.prices.index')
-            ->with('prices', $prices)
+        $view = View::make('admin.pages.workers.index')
+            ->with('workers', $workers)
             ->renderSections();
 
         return response()->json([

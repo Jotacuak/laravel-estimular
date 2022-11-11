@@ -6,21 +6,21 @@ use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PostsCategoryRequest;
-use App\Models\DB\PostsCategory;
+use App\Http\Requests\Admin\PostCategoryRequest;
+use App\Models\DB\PostCategory;
 
-class PostsCategoryController extends Controller
+class PostCategoryController extends Controller
 {
 
     protected $paginate;
-    protected $posts_category;
+    protected $post_category;
 
-    function __construct(PostsCategory $posts_category)
+    function __construct(PostCategory $post_category)
     {        
         // $this->middleware('auth');
         
-        $this->posts_category = $posts_category;
-        $this->posts_category->visible = 1;
+        $this->post_category = $post_category;
+        $this->post_category->visible = 1;
 
     }
 
@@ -28,8 +28,8 @@ class PostsCategoryController extends Controller
     {
 
         $view = View::make('admin.pages.posts_categories.index')
-            ->with('posts_category', $this->posts_category)
-            ->with('posts_categories', $this->posts_category->where('active', 1)->get());
+            ->with('posts_category', $this->post_category)
+            ->with('posts_categories', $this->post_category->where('active', 1)->get());
 
         if(request()->ajax()) {
 
@@ -48,8 +48,8 @@ class PostsCategoryController extends Controller
     {
 
         $view = View::make('admin.pages.posts_categories.index')
-        ->with('posts_category', $this->posts_category)
-        ->with('posts_categories', $this->posts_category->where('active', 1)->get())
+        ->with('posts_category', $this->post_category)
+        ->with('posts_categories', $this->post_category->where('active', 1)->get())
         ->renderSections();
 
         return response()->json([
@@ -57,10 +57,10 @@ class PostsCategoryController extends Controller
         ]);
     }
 
-    public function store(PostsCategoryRequest $request)
+    public function store(PostCategoryRequest $request)
     {
 
-        $posts_category = PostsCategory::updateOrCreate([
+        $post_category = PostCategory::updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
             'active' => 1,
@@ -68,23 +68,23 @@ class PostsCategoryController extends Controller
         ]);
 
         $view = View::make('admin.pages.posts_categories.index')
-        ->with('posts_categories', $this->posts_category->where('active', 1)->get())
-        ->with('posts_category', $this->posts_category)
+        ->with('posts_categories', $this->post_category->where('active', 1)->get())
+        ->with('posts_category', $this->post_category)
         ->renderSections();
 
         return response()->json([
             'table' => $view['table'],
             'form' => $view['form'],
-            'id' => $posts_category->id        
+            'id' => $post_category->id        
         ]);
     }
 
-    public function edit(PostsCategory $posts_category)
+    public function edit(PostCategory $post_category)
     {
                 
         $view = View::make('admin.pages.posts_categories.index')
-        ->with('posts_categories', $this->posts_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        ->with('posts_category', $posts_category);
+        ->with('posts_categories', $this->post_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('posts_category', $post_category);
         
         if(request()->ajax()) {
             $sections = $view->renderSections(); 
@@ -97,11 +97,11 @@ class PostsCategoryController extends Controller
         return $view;
     }
 
-    public function show(PostsCategory $posts_category)
+    public function show(PostCategory $post_category)
     {
         $view = View::make('admin.pages.posts_categories.index')
-        ->with('posts_category', $posts_category)
-        ->with('posts_categories', $this->posts_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
+        ->with('posts_category', $post_category)
+        ->with('posts_categories', $this->post_category->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
 
         return response()->json([
@@ -110,14 +110,14 @@ class PostsCategoryController extends Controller
         ]);
     }
 
-    public function destroy(PostsCategory $posts_category)
+    public function destroy(PostCategory $post_category)
     {   
-        $posts_category->active = 0;
-        $posts_category->save();
+        $post_category->active = 0;
+        $post_category->save();
 
         $view = View::make('admin.pages.posts_categories.index')
-        ->with('posts_categories', $this->posts_category->where('active', 1)->get())
-        ->with('posts_category', $this->posts_category)
+        ->with('posts_categories', $this->post_category->where('active', 1)->get())
+        ->with('posts_category', $this->post_category)
         // ->with('locale', $this->locale->create())
         // ->with('crud_permissions', $this->crud_permissions)
         ->renderSections();

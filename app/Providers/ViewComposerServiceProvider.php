@@ -27,27 +27,27 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         view()->composer([
             'admin.pages.faqs.index'],
-            'App\Http\ViewComposers\Admin\FaqsCategories'
+            'App\Http\ViewComposers\Admin\FaqCategories'
         );
 
         view()->composer([
             'admin.pages.posts.index'],
-            'App\Http\ViewComposers\Admin\PostsCategories'
+            'App\Http\ViewComposers\Admin\PostCategories'
         );
 
         view()->composer([
             'admin.pages.prices.index'],
-            'App\Http\ViewComposers\Admin\RatesComposers'
+            'App\Http\ViewComposers\Admin\Rates'
         );
 
         view()->composer([
             'front.comnponents.desktop.main_blog_nav'],
-            'App\Http\ViewComposers\Front\PostsCategories'
+            'App\Http\ViewComposers\Front\PostCategories'
         );
 
         view()->composer([
             'front.comnponents.mobile.main_blog_nav'],
-            'App\Http\ViewComposers\Front\PostsCategories'
+            'App\Http\ViewComposers\Front\PostCategories'
         );
     }
 

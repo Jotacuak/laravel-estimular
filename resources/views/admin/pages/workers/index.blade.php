@@ -57,9 +57,8 @@
             <form action="{{route("workers_store")}}" class="admin-form" id="workers-form" autocomplete="off">
                 <div class="crud-form-buttons">
                     <div class="tabs">
-                        <button data-tab="zero" class="tabslinks active">Contenido</button>
-                        <button data-tab="one" class="tabslinks">Imagenes</button>
-                        <button data-tab="two" class="tabslinks">Otros</button>
+                        <button data-tab="content" class="tabslinks active">Contenido</button>
+                        <button data-tab="images" class="tabslinks">Imagenes</button>
                     </div>
                 
                     @include('admin.components.form_buttons', ['visible' => $worker->visible, 'create' => 'create'])
@@ -67,7 +66,7 @@
                 </div>
 
                 <div class="content">
-                    <div data-content="zero" class="tabcontent active">
+                    <div data-content="content" class="tabcontent active">
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <input type="hidden" name="id" value="{{isset($worker->id) ? $worker->id : ''}}">
                         <div class="crud-form-elements">
@@ -97,50 +96,29 @@
                             </div>
                         </div>        
                     </div>
-
-                    {{-- <div  data-content="one" class="tabcontent">
-                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($workers->id) ? $workers->id : ''}}">
-
-                        <div class="crud-form-elements">
+                </div>
+                <div class="tabcontent"  data-content="images" >
+                        
+                    <div class="two-columns">
+                        <div class="form-group">                                
                             <div class="crud-form-element">
-                                <label for="title">Título:</label>
+                                <label for="title">Imagen destacada:</label>
                             </div>
                             <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="title">
-                            </div>
+                                <div class="crud-form-element">
+                                    @include('admin.components.upload_image', [
+                                        'entity' => 'worker',
+                                        'type' => 'single', 
+                                        'content' => 'featured', 
+                                        'alias' => 'es',
+                                        'files' => $worker->images_featured_preview
+                                    ])
+                                </div>
+                            </div>                                
                         </div>
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                            </div>
-                        </div>   
+                    
                     </div>
 
-                    <div  data-content="two" class="tabcontent">
-                        <input autocomplete="false" name="hidden" type="text" style="display:none;">
-                        <input type="hidden" name="id" value="{{isset($workers->id) ? $workers->id : ''}}">
-
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="title">
-                            </div>
-                        </div>
-                        <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input type="textarea" class="ckeditor" name="content" id="ckeditor" >
-                            </div>
-                        </div>   
-                    </div> --}}
                 </div>
             </form>
         </div>

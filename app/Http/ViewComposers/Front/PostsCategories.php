@@ -3,13 +3,13 @@
 namespace App\Http\ViewComposers\Front;
 
 use Illuminate\View\View;
-use App\Models\DB\PostsCategory;
+use App\Models\DB\PostCategory;
 
-class PostsCategories
+class PostCategories
 {
     static $composed;
 
-    public function __construct(PostsCategory $posts_categories)
+    public function __construct(PostCategory $posts_categories)
     {
         $this->posts_categories = $posts_categories;
     }

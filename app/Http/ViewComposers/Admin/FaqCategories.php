@@ -5,7 +5,7 @@ namespace App\Http\ViewComposers\Admin;
 use Illuminate\View\View;
 use App\Models\DB\FaqCategory;
 
-class FaqsCategories
+class FaqCategories
 {
     static $composed;
 

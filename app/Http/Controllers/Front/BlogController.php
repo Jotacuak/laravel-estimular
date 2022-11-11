@@ -6,29 +6,29 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Vendor\Image\Image;
-use App\Models\DB\Posts;
-use App\Models\DB\PostsCategory;
+use App\Models\DB\Post;
+use App\Models\DB\PostCategory;
 
 class BlogController extends Controller
 {
 
-    protected $posts;
-    protected $posts_categories;
+    protected $post;
+    protected $post_category;
     protected $image;
 
-    public function __construct(Posts $posts, PostsCategory $posts_categories, Image $image){
+    public function __construct(Post $post, PostCategory $post_category, Image $image){
         
-        $this->posts = $posts;
-        $this->posts_categories = $posts_categories;
+        $this->post = $post;
+        $this->post_category = $posts_category;
     }
 
     public function index()
     {
         $view = View::make('front.pages.blog.index')
-        ->with('posts_categories',  $this->posts_categories->get())
-        ->with('posts', $this->posts->with('image_featured_desktop')->where('active', 1)->where('visible', 1)->orderBy('created_at', 'desc')->get());
+        ->with('posts_categories',  $this->post_category->get())
+        ->with('posts', $this->post->with('image_featured_desktop')->where('active', 1)->where('visible', 1)->orderBy('created_at', 'desc')->get());
 
-        $posts = $this->posts->with('image_featured_desktop')->where('active', 1)->where('visible', 1)->orderBy('created_at', 'desc')->get();
+        $posts = $this->post->with('image_featured_desktop')->where('active', 1)->where('visible', 1)->orderBy('created_at', 'desc')->get();
     
         if(request()->ajax()) {
             
@@ -44,7 +44,7 @@ class BlogController extends Controller
 
     public function show($name)
     {
-        $post = $this->posts->where('name', $name)->first();
+        $post = $this->post->where('name', $name)->first();
 
         $view = View::make('front.pages.blog.index')
         ->with('post', $post);
@@ -63,7 +63,7 @@ class BlogController extends Controller
 
     public function categoryFilter($name)
     {
-        $post_category = $this->posts_categories->where('name', $name)->first();
+        $post_category = $this->post_category->where('name', $name)->first();
         $posts = $post_category->posts()->get();
         
         $view = View::make('front.pages.blog.index')
@@ -73,8 +73,6 @@ class BlogController extends Controller
             
             $sections = $view->renderSections(); 
 
-
-    
             return response()->json([
                 'content' => $sections['content'],
             ]); 
