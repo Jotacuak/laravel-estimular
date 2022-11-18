@@ -2539,64 +2539,75 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var renderMenu = function renderMenu() {
-  var mainContent = document.getElementById('main-content');
+  var formContainer = document.getElementById('form');
+  var tableContainer = document.getElementById("table");
   var menuButtons = document.querySelectorAll('.menu-item');
+  var hamburger = document.getElementById("collapse-button");
+  var overlay = document.getElementById("overlay");
+  hamburger.addEventListener("click", function () {
+    hamburger.classList.toggle("active");
+    overlay.classList.toggle("active");
+  });
+  menuButtons.forEach(function (menuButton) {
+    menuButton.addEventListener('click', function () {
+      var pageTitle = document.querySelector('.topbar-element-title h3');
+      var section = menuButton.dataset.section;
+      pageTitle.innerHTML = section;
+      var url = menuButton.dataset.url;
+      var currentSection = document.querySelector('.page-section').id;
+      sessionStorage.setItem('lastSection', currentSection);
 
-  if (menuButtons) {
-    menuButtons.forEach(function (menuButton) {
-      menuButton.addEventListener('click', function () {
-        var url = menuButton.dataset.url;
-        var section = menuButton.dataset.section;
-        var currentSection = document.querySelector('.page-section').id;
-        sessionStorage.setItem('lastSection', currentSection);
+      var sendIndexRequest = /*#__PURE__*/function () {
+        var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+          var response;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  _context.next = 2;
+                  return fetch(url, {
+                    headers: {
+                      'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    method: 'GET'
+                  }).then(function (response) {
+                    if (!response.ok) throw response;
+                    return response.json();
+                  }).then(function (json) {
+                    console.log(json);
+                    window.history.pushState('', '', url);
+                    formContainer.innerHTML = json.form;
+                    tableContainer.innerHTML = json.table;
+                    hamburger.classList.toggle("active");
+                    overlay.classList.toggle("active");
+                    document.dispatchEvent(new CustomEvent(section));
+                    document.dispatchEvent(new CustomEvent("renderFormModules"));
+                    document.dispatchEvent(new CustomEvent("renderTableModules"));
+                  })["catch"](function (error) {
+                    if (error.status == '500') {
+                      console.log(error);
+                    }
+                  });
 
-        var sendIndexRequest = /*#__PURE__*/function () {
-          var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-            var response;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-              while (1) {
-                switch (_context.prev = _context.next) {
-                  case 0:
-                    _context.next = 2;
-                    return fetch(url, {
-                      headers: {
-                        'X-Requested-With': 'XMLHttpRequest'
-                      },
-                      method: 'GET'
-                    }).then(function (response) {
-                      if (!response.ok) throw response;
-                      return response.json();
-                    }).then(function (json) {
-                      window.history.pushState('', '', url);
-                      mainContent.innerHTML = json.content;
-                      document.dispatchEvent(new CustomEvent(section));
-                    })["catch"](function (error) {
-                      if (error.status == '500') {
-                        console.log(error);
-                      }
-                    });
+                case 2:
+                  response = _context.sent;
 
-                  case 2:
-                    response = _context.sent;
-
-                  case 3:
-                  case "end":
-                    return _context.stop();
-                }
+                case 3:
+                case "end":
+                  return _context.stop();
               }
-            }, _callee);
-          }));
+            }
+          }, _callee);
+        }));
 
-          return function sendIndexRequest() {
-            return _ref.apply(this, arguments);
-          };
-        }();
+        return function sendIndexRequest() {
+          return _ref.apply(this, arguments);
+        };
+      }();
 
-        sendIndexRequest();
-      });
+      sendIndexRequest();
     });
-  }
-
+  });
   window.addEventListener('popstate', function (event) {
     var url = window.location.href;
 

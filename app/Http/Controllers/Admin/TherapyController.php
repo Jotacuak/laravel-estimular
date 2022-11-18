@@ -20,7 +20,7 @@ class TherapyController extends Controller
 
     function __construct(Therapy $therapy, Agent $agent, Image $image)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->agent = $agent;
         $this->image = $image;
         $this->therapy = $therapy;

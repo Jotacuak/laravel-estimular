@@ -17,8 +17,7 @@ class PostCategoryController extends Controller
 
     function __construct(PostCategory $post_category)
     {        
-        // $this->middleware('auth');
-        
+        $this->middleware('auth');
         $this->post_category = $post_category;
         $this->post_category->visible = 1;
 

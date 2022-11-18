@@ -20,7 +20,7 @@ class SlideController extends Controller
 
     function __construct(Slide $slide, Agent $agent, Image $image)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->agent = $agent;
         $this->image = $image;
         $this->slide = $slide;

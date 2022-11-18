@@ -8,7 +8,7 @@
 
 @section('table')
 
-    <div class="admin-table" id="sliders">
+    <div class="admin-table page-section" id="sliders">
 
         @if(!$sliders->isEmpty())
 
@@ -156,7 +156,7 @@
                                     @include('admin.components.upload_image', [
                                         'entity' => 'slider',
                                         'type' => 'single', 
-                                        'content' => 'desktop', 
+                                        'content' => 'main-desktop', 
                                         'alias' => 'es',
                                         'files' => $slide->images_featured_desktop_preview
                                     ])
@@ -173,7 +173,7 @@
                                     @include('admin.components.upload_image', [
                                         'entity' => 'slider',
                                         'type' => 'single', 
-                                        'content' => 'mobile', 
+                                        'content' => 'main-mobile', 
                                         'alias' => 'es',
                                         'files' => $slide->images_featured_mobile_preview
                                     ])

@@ -10,7 +10,7 @@
 
 @section('table')
 
-    <div class="admin-table" id="posts">
+    <div class="admin-table page-section" id="posts">
 
         @if(!$posts->isEmpty())
 

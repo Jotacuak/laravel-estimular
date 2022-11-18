@@ -20,7 +20,7 @@ class WorkerController extends Controller
 
     function __construct(Worker $worker, Agent $agent, Image $image)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->agent = $agent;
         $this->image = $image;
         $this->worker = $worker;

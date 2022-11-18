@@ -20,7 +20,7 @@ class RateController extends Controller
 
     function __construct(Rate $rate, Agent $agent, Image $image)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->agent = $agent;
         $this->rate = $rate;
         $this->image = $image;

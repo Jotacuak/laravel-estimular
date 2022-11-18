@@ -1,53 +1,67 @@
 export let renderMenu = () => {
     
-    let mainContent = document.getElementById('main-content');
+    let formContainer = document.getElementById('form');
+    let tableContainer = document.getElementById("table");
     let menuButtons = document.querySelectorAll('.menu-item');
+    let hamburger = document.getElementById("collapse-button");
+    let overlay = document.getElementById("overlay");
 
-    if(menuButtons) {
-        
-        menuButtons.forEach(menuButton => {
+    hamburger.addEventListener("click" , () => {
+        hamburger.classList.toggle("active");
+        overlay.classList.toggle("active");        
+    });
 
-            menuButton.addEventListener('click', () => {
-                    
-                let url = menuButton.dataset.url;
-                let section = menuButton.dataset.section;
-                let currentSection = document.querySelector('.page-section').id;
-                sessionStorage.setItem('lastSection', currentSection);
-    
-                let sendIndexRequest = async () => {
-        
-                    let response = await fetch(url, {
-                        headers: {
-                            'X-Requested-With': 'XMLHttpRequest',
-                        },
-                        method: 'GET'
-                    })
-                    .then(response => {
-    
-                        if (!response.ok) throw response;
-    
-                        return response.json();
-                    })
-                    .then(json => {
+    menuButtons.forEach(menuButton => {
 
-                        window.history.pushState('', '', url);
-                        mainContent.innerHTML = json.content;
+        menuButton.addEventListener('click', () => {
+                
+            let pageTitle =  document.querySelector('.topbar-element-title h3');
+            let section = menuButton.dataset.section;
+            pageTitle.innerHTML = section;
+
+            let url = menuButton.dataset.url;
+            let currentSection = document.querySelector('.page-section').id;
+            sessionStorage.setItem('lastSection', currentSection);
+
+            let sendIndexRequest = async () => {
     
-                        document.dispatchEvent(new CustomEvent(section));
-                    
-                    })
-                    .catch ( error =>  {
-    
-                        if(error.status == '500'){
-                            console.log(error);
-                        }
-    
-                    });
-                }
-                sendIndexRequest();
-            });
+                let response = await fetch(url, {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                    },
+                    method: 'GET'
+                })
+                .then(response => {
+
+                    if (!response.ok) throw response;
+
+                    return response.json();
+                })
+                .then(json => {
+
+                    console.log(json);
+                    window.history.pushState('', '', url);
+                    formContainer.innerHTML = json.form;
+                    tableContainer.innerHTML = json.table;
+
+                    hamburger.classList.toggle("active");
+                    overlay.classList.toggle("active");  
+
+                    document.dispatchEvent(new CustomEvent(section));
+                    document.dispatchEvent(new CustomEvent("renderFormModules"));
+                    document.dispatchEvent(new CustomEvent("renderTableModules"));
+                })
+                .catch ( error =>  {
+
+                    if(error.status == '500'){
+                        console.log(error);
+                    }
+
+                });
+            }
+            sendIndexRequest();
         });
-    }
+    });
     
     window.addEventListener('popstate', event => {
 

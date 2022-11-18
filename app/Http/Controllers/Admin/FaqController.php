@@ -20,7 +20,7 @@ class FaqController extends Controller
 
     function __construct(Faq $faq, Agent $agent, Image $image)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->agent = $agent;
         $this->image = $image;
         $this->faq = $faq;

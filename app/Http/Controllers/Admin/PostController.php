@@ -20,7 +20,7 @@ class PostController extends Controller
 
     function __construct(Post $post, Agent $agent, Image $image)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->agent = $agent;
         $this->image = $image;
         $this->post = $post;

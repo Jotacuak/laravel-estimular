@@ -162,6 +162,14 @@ Route::group(['prefix' => 'admin'], function () {
             'show' => 'sliders_show',
         ]
     ]);
+
+    //Login admin
+    Route::get('/login', 'App\Http\Controllers\Auth\LoginController@showLoginForm')->name('admin_login');
+    Route::post('/login', 'App\Http\Controllers\Auth\LoginController@login')->name('admin_login_submit');
+    Route::get('/logout', 'App\Http\Controllers\Auth\LoginController@logout')->name('logout');
+    Route::get('/', function () {
+        return redirect()->route('admin_login');
+    });
    
 });
 

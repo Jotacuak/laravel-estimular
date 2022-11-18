@@ -18,7 +18,7 @@ class PriceController extends Controller
 
     function __construct(Price $price, Agent $agent)
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         $this->agent = $agent;
         $this->price = $price;
         $this->price->visible = 1;

@@ -8,7 +8,7 @@
 
 @section('table')
 
-    <div class="admin-table" id="users">
+    <div class="admin-table page-section" id="users">
 
         @if(!$users->isEmpty())
 
