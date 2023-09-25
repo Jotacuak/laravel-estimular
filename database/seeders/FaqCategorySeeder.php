@@ -17,8 +17,7 @@ class FaqCategorySeeder extends Seeder
 
         FaqCategory::create([
             'name' => 'general',
-            'active' => 1,
-            'visible' => 1
+            'active' => 1
         ]);
 
     }

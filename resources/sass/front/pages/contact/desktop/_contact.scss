@@ -6,7 +6,6 @@
     .contact-info{
         display: flex;
         flex-wrap: wrap;
-        padding: 20% 0;
 
         .contact-info-option-text{
             font-weight: 600;
@@ -71,6 +70,7 @@
             border: .2rem solid $secondary-color;
             border-radius: .25rem;
             color: $secondary-color;
+            cursor: pointer;
             float: right;
             font-weight: 600;
             padding: 1rem .5rem;

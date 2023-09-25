@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
+use App\Vendor\Locale\Locale;
+use App\Vendor\Locale\LocaleSlugSeo;
 use App\Http\Requests\Admin\PostRequest;
 use App\Vendor\Image\Image;
 use App\Models\DB\Post; 
@@ -14,15 +16,19 @@ use App\Models\DB\Post;
 class PostController extends Controller
 {
     protected $agent;
+    protected $locale;
+    protected $locale_slug_seo;
     protected $image;
     protected $paginate;
     protected $post;
 
-    function __construct(Post $post, Agent $agent, Image $image)
+    function __construct(Post $post, Locale $locale, LocaleSlugSeo $locale_slug_seo, Agent $agent, Image $image)
     {
         $this->middleware('auth');
         $this->agent = $agent;
         $this->image = $image;
+        $this->locale = $locale;
+        $this->locale_slug_seo = $locale_slug_seo;
         $this->post = $post;
         $this->post->visible = 1;
 
@@ -34,6 +40,8 @@ class PostController extends Controller
             $this->paginate = 6;
         }
 
+        $this->locale->setParent('posts');
+        $this->locale_slug_seo->setParent('posts');
         $this->image->setEntity('posts');
     }
 
@@ -75,10 +83,7 @@ class PostController extends Controller
         $post = $this->post->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'title' => request('title'),
             'author' => request('author'),
-            'sumary' => request('sumary'),
-            'description' => request('description'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
             'category_id' => request('category_id'),
@@ -88,6 +93,14 @@ class PostController extends Controller
             $message = \Lang::get('admin/posts.posts-update');
         }else{
             $message = \Lang::get('admin/posts.posts-create');
+        }
+
+        if(request('seo')){
+            $seo = $this->locale_slug_seo->store(request('seo'), $post->id, 'front_post');
+        }
+
+        if(request('locale')){
+            $locale = $this->locale->store(request('locale'), $post->id);
         }
 
         if(request('images')){
@@ -108,7 +121,13 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+
+        $locale = $this->locale->show($post->id);
+        $seo = $this->locale_slug_seo->show($post->id);
+
         $view = View::make('admin.pages.posts.index')
+        ->with('locale', $locale)
+        ->with('seo', $seo)
         ->with('post', $post)
         ->with('posts', $this->post->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
@@ -140,6 +159,8 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $this->locale->delete($post->id);
+        $this->locale_slug_seo->delete($post->id);
         $this->image->delete($post->id);
         $post->active = 0;
         $post->save();

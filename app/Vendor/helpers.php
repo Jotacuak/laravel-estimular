@@ -55,3 +55,4 @@ if ( ! function_exists('display_menu'))
         return $menu->displayMenu($menu_name, $type);
     }
 }
+

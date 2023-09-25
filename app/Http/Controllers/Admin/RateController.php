@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
+use App\Vendor\Locale\Locale;
 use App\Vendor\Image\Image;
 use App\Http\Requests\Admin\RateRequest;
 use App\Models\DB\Rate; 
@@ -14,13 +15,15 @@ use App\Models\DB\Rate;
 class RateController extends Controller
 {
     protected $agent;
+    protected $locale;
     protected $image;
     protected $paginate;
     protected $rate;
 
-    function __construct(Rate $rate, Agent $agent, Image $image)
+    function __construct(Locale $locale, Rate $rate, Agent $agent, Image $image)
     {
         $this->middleware('auth');
+        $this->locale = $locale;
         $this->agent = $agent;
         $this->rate = $rate;
         $this->image = $image;
@@ -34,6 +37,7 @@ class RateController extends Controller
             $this->paginate = 6;
         }
 
+        $this->locale->setParent('rates');
         $this->image->setEntity('rates');
     }
 
@@ -43,7 +47,6 @@ class RateController extends Controller
         ->with('rate', $this->rate)
         ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
-    
         if(request()->ajax()) {
             
             $sections = $view->renderSections(); 
@@ -76,11 +79,13 @@ class RateController extends Controller
         $rate = $this->rate->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'title' => request('title'),
-            'content' => request('content'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
+
+        if(request('locale')){
+            $locale = $this->locale->store(request('locale'), $rate->id);
+        }
 
         if(request('images')){
             $images = $this->image->store(request('images'), $rate->id);
@@ -106,7 +111,10 @@ class RateController extends Controller
 
     public function edit(Rate $rate)
     {
+        $locale = $this->locale->show($rate->id);
+
         $view = View::make('admin.pages.rates.index')
+        ->with('locale', $locale)
         ->with('rate', $rate)
         ->with('rates', $this->rate->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
@@ -138,6 +146,7 @@ class RateController extends Controller
 
     public function destroy(Rate $rate)
     {
+        $this->locale->delete($rate->id);
         $this->image->delete($rate->id);
         $rate->active = 0;
         $rate->save();

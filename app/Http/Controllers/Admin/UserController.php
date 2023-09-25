@@ -2,28 +2,32 @@
 
 namespace App\Http\Controllers\Admin;
 
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
+use Jenssegers\Agent\Agent;
 use App\Models\DB\User;
 use App\Http\Requests\Admin\UserRequest;
 
 class UserController extends Controller
 {
+    protected $agent;
     protected $user;
 
-    public function __construct(User $user)
+    public function __construct(User $user, Agent $agent)
     {
-        $this->middleware('auth');        
+        $this->middleware('auth');
+        $this->agent = $agent;
         $this->user = $user;
+        $this->user->visible = 1;
     }
-    
+
     public function index()
     {
 
         $view = View::make('admin.pages.users.index')
                 ->with('user', $this->user)
-                ->with('users', $this->user->where('active', 1)->get());
+                ->with('users', $this->user->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
         if(request()->ajax()) {
             
@@ -42,7 +46,7 @@ class UserController extends Controller
     {
         $view = View::make('admin.pages.users.index')
         ->with('user', $this->user)
-        ->with('users', $this->user->where('active', 1)->get())
+        ->with('users', $this->user->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();
 
         return response()->json([
@@ -74,7 +78,7 @@ class UserController extends Controller
         }
 
         $view = View::make('admin.pages.users.index')
-        ->with('users', $this->user->where('active', 1)->get())
+        ->with('users', $this->user->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->with('user', $this->user)
         ->renderSections();        
 
@@ -89,7 +93,7 @@ class UserController extends Controller
     {
         $view = View::make('admin.pages.users.index')
         ->with('user', $user)
-        ->with('users', $this->user->where('active', 1)->get());   
+        ->with('users', $this->user->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
         
         if(request()->ajax()) {
 
@@ -106,7 +110,7 @@ class UserController extends Controller
     public function show(User $user){
         $view = View::make('admin.pages.users.index')
         ->with('user', $user)
-        ->with('users', $this->user->where('active', 1)->get());   
+        ->with('users', $this->user->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
         
         if(request()->ajax()) {
 
@@ -128,7 +132,7 @@ class UserController extends Controller
 
         $view = View::make('admin.pages.users.index')
             ->with('user', $this->user)
-            ->with('users', $this->user->where('active', 1)->get())
+            ->with('users', $this->user->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
             ->renderSections();
         
         return response()->json([

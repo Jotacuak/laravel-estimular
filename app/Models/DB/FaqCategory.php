@@ -12,4 +12,9 @@ class FaqCategory extends DBModel
         return $this->hasMany(Faq::class, 'category_id');
     }
 
+    public function locale()
+    {
+        return $this->hasMany(Locale::class, 'key')->where('rel_parent', 'faqs_categories')->where('language', App::getLocale());
+    }
+
 }

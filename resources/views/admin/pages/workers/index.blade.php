@@ -47,6 +47,8 @@
 
     </div>
 
+    @include('admin.components.table_pagination', ['items' => $workers])
+
 @endsection
 
 @section('form')
@@ -70,7 +72,7 @@
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <input type="hidden" name="id" value="{{isset($worker->id) ? $worker->id : ''}}">
                         <div class="crud-form-elements">
-                            <div class="two-columns">
+                            <div class="one-column">
                                 <div class="form-group">                                
                                     <div class="crud-form-element">
                                         <label for="title">Nombre:</label>
@@ -81,20 +83,39 @@
                                 </div>
                             </div>
 
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="input-bar" type="text" name="title" value="{{isset($worker->title) ? $worker->title : ''}}">
-                            </div>
+                            @component('admin.components.locale', ['tab' => 'content'])
+
+                                @foreach ($localizations as $localization)
+
+                                    <div class="locale-tab-panel {{ $loop->first ? 'locale-tab-active':'' }}" data-tab="content" data-localetab="{{$localization->alias}}">
+            
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="title">Título:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <input class="input-bar" type="text" name="locale[title.{{$localization->alias}}]" value="{{isset($locale["title.$localization->alias"]) ? $locale["title.$localization->alias"] : ''}}">
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="comment">Descripción:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <textarea class="ckeditor" name="locale[description.{{$localization->alias}}]">{{isset($locale["description.$localization->alias"]) ? $locale["description.$localization->alias"] : ''}}</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                @endforeach
                         
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <textarea class="ckeditor" name="content" id="ckeditor" value="{{isset($worker->content) ? $worker->content : ''}}">{{isset($worker["content"]) ? $worker["content"] : ''}}</textarea>
-                            </div>
-                        </div>        
+                            @endcomponent
+                        </div>
+
+                        
+     
                     </div>
                 </div>
                 <div class="tabcontent"  data-content="images" >

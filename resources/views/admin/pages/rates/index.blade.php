@@ -47,6 +47,8 @@
 
     </div>
 
+    @include('admin.components.table_pagination', ['items' => $rates])
+
 @endsection
 
 @section('form')
@@ -71,7 +73,7 @@
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <input type="hidden" name="id" value="{{isset($rate->id) ? $rate->id : ''}}">
                         <div class="crud-form-elements">
-                            <div class="two-columns">
+                            <div class="one-column">
                                 <div class="form-group">                                
                                     <div class="crud-form-element">
                                         <label for="title">Nombre:</label>
@@ -82,19 +84,36 @@
                                 </div>
                             </div>
 
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="input-bar" type="text" name="title" value="{{isset($rate->title) ? $rate->title : ''}}">
-                            </div>                               
+                            @component('admin.components.locale', ['tab' => 'content'])
 
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <textarea class="ckeditor" name="content" id="ckeditor" value="{{isset($rate->content) ? $rate->content : ''}}">{{isset($rate["content"]) ? $rate["content"] : ''}}</textarea>
-                            </div>
+                                @foreach ($localizations as $localization)
+
+                                    <div class="locale-tab-panel {{ $loop->first ? 'locale-tab-active':'' }}" data-tab="content" data-localetab="{{$localization->alias}}">
+            
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="title">Título:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <input class="input-bar" type="text" name="locale[title.{{$localization->alias}}]" value="{{isset($locale["title.$localization->alias"]) ? $locale["title.$localization->alias"] : ''}}">
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="comment">Descripción:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <textarea class="ckeditor" name="locale[description.{{$localization->alias}}]">{{isset($locale["description.$localization->alias"]) ? $locale["description.$localization->alias"] : ''}}</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                @endforeach
+                        
+                            @endcomponent
+                            
                         </div> 
 
                     </div>

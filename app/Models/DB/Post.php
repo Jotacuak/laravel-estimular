@@ -2,20 +2,31 @@
 
 namespace App\Models\DB;
 
-// use App\Vendor\Locale\Models\Locale;
-// use App\Vendor\Locale\Models\LocaleSlugSeo;
+use App\Vendor\Locale\Models\Locale;
+use App\Vendor\Locale\Models\LocaleSlugSeo;
 use App\Vendor\Image\Models\ImageResized;
+use Illuminate\Support\Facades\Log;
+
 use App;
 
 class Post extends DBModel
 {
 
-    protected $with = ['category'];
-    // protected $with = ['category','seo'];
+    protected $with = ['category','seo'];
 
     public function category()
     {
         return $this->belongsTo(PostCategory::class);
+    }
+
+    public function locale()
+    {
+        return $this->hasMany(Locale::class, 'key')->where('rel_parent', 'posts')->where('language', App::getLocale());
+    }
+
+    public function seo()
+    {
+        return $this->hasOne(LocaleSlugSeo::class, 'key')->where('rel_parent', 'posts')->where('language', App::getLocale());
     }
 
     public function images_featured_preview()

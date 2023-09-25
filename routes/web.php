@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Vendor\Locale\LocalizationSeo;
+
+$localizationseo = new LocalizationSeo();
 
 /*
 |--------------------------------------------------------------------------
@@ -176,8 +179,17 @@ Route::group(['prefix' => 'admin'], function () {
 Route::get('/', 'App\Http\Controllers\Front\HomeController@index')->name('front_home');
 Route::get('/equipo', 'App\Http\Controllers\Front\TeamController@index')->name('front_team');
 Route::get('/contacto', 'App\Http\Controllers\Front\ContactController@index')->name('front_contact');
-Route::get('/terapias/{name}', 'App\Http\Controllers\Front\TherapyController@show')->name('front_therapy');
+Route::get('/terapias/{slug}', 'App\Http\Controllers\Front\TherapyController@show')->name('front_therapy');
 Route::get('/blog', 'App\Http\Controllers\Front\BlogController@index')->name('front_blog');
-Route::get('/blog/categoria/{name}', 'App\Http\Controllers\Front\BlogController@categoryFilter')->name('post_category_filter');
+Route::get('/blog/categoria/{slug}', 'App\Http\Controllers\Front\BlogController@categoryFilter')->name('post_category_filter');
+Route::get('/blog/{slug}', 'App\Http\Controllers\Front\BlogController@index')->name('front_post');
 Route::get('/tarifas', 'App\Http\Controllers\Front\RateController@index')->name('front_rates');
 Route::get('/faqs', 'App\Http\Controllers\Front\FaqController@index')->name('front_faq');
+
+
+// Route::group(['prefix' => $localizationseo->setLocale(),
+//               'middleware' => [ 'localize' ]
+//             ], function () use ($localizationseo) { 
+                
+//     Route::get($localizationseo->transRoute('routes.front_post'), 'App\Http\Controllers\Front\BlogController@show')->name('front_post');
+// });

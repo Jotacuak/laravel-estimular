@@ -48,6 +48,8 @@
         
     </div>
 
+    @include('admin.components.table_pagination', ['items' => $users])
+
 @endsection
 
 @section('form')

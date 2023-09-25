@@ -16,9 +16,6 @@ return new class extends Migration
         Schema::create('therapies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
-            $table->string('title');
-            $table->string('subtitle');
-            $table->text('description');
             $table->boolean('visible');
             $table->boolean('active');
             $table->timestamps();

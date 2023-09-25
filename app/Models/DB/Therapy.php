@@ -2,12 +2,26 @@
 
 namespace App\Models\DB;
 
+use App\Vendor\Locale\Models\Locale;
+use App\Vendor\Locale\Models\LocaleSlugSeo;
 use App\Vendor\Image\Models\ImageResized;
+use App;
 
 class Therapy extends DBModel
 {
 
     protected $table = 'therapies';
+
+    
+    public function locale()
+    {
+        return $this->hasMany(Locale::class, 'key')->where('rel_parent', 'therapy')->where('language', App::getLocale());
+    }
+
+    public function seo()
+    {
+        return $this->hasOne(LocaleSlugSeo::class, 'key')->where('rel_parent', 'therapy')->where('language', App::getLocale());
+    }
 
     public function image_featured_preview()
     {

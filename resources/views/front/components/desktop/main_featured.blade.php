@@ -22,11 +22,15 @@
                             @endif
                         </div>
                         <div class="featured-element-title">
-                            <h3>{{$therapy->title}}</h3>
+                            @if($therapy->seo()->first())
+                                <h3>{{$therapy->seo()->first()->title}}</h3>
+                            @endif
                         </div>
 
                         <div class="featured-element-subtitle">
-                            <h4>{{$therapy->subtitle}}</h4>
+                            @isset($therapy->locale['subtitle'])
+                                <h4>{{$therapy->locale['subtitle']}}</h4>
+                            @endif
                         </div>
 
                         <div class="featured-element-button">

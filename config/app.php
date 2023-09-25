@@ -169,6 +169,9 @@ return [
          */
 
         Jenssegers\Agent\AgentServiceProvider::class,
+        App\Vendor\Locale\ManagerServiceProvider::class,
+        App\Vendor\Locale\TranslationServiceProvider::class,
+        App\Vendor\Locale\LocalizationSeoServiceProvider::class,
 
          // Custom View Composers 
          App\Providers\ViewComposerServiceProvider::class,
@@ -198,7 +201,9 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
+        'localizationseo' => App\Vendor\Locale\LocalizationSeo::class
     ])->toArray(),
 
 ];

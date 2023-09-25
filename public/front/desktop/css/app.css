@@ -432,10 +432,6 @@ body {
   width: 100%;
 }
 
-.main {
-  margin-top: 6rem;
-}
-
 .page-section {
   width: 100%;
 }
@@ -455,10 +451,9 @@ header {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 1rem 2%;
-  position: absolute;
+  position: relative;
   top: 0;
   width: 96%;
-  z-index: 2000;
 }
 header .header-top {
   display: flex;
@@ -930,9 +925,11 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
 }
 
 .slider {
-  height: 110vh;
+  height: 80vh;
+  max-height: 80vh;
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  overflow: hidden;
   width: 100%;
 }
 .slider .slider-image {
@@ -940,7 +937,6 @@ footer .footer-bottom .footer-element .footer-element-icon svg path {
   overflow: hidden;
   position: absolute;
   z-index: 1000;
-  top: -20vh;
   width: 100%;
 }
 .slider .slider-image img {
@@ -1156,25 +1152,10 @@ input:checked + .slider-bar:before {
 .personal-element .personal-element-txt {
   margin-right: 2rem;
 }
-.personal-element .personal-element-txt .personal-element-txt-studies {
-  margin-bottom: 2rem;
+.personal-element .personal-element-txt ul {
+  list-style: disc;
 }
-.personal-element .personal-element-txt .personal-element-txt-studies p {
-  display: list-item;
-  font-weight: 300;
-  list-style-type: disc;
-  list-style-position: inside;
-}
-.personal-element .personal-element-txt .personal-element-txt-exp {
-  margin-bottom: 2rem;
-}
-.personal-element .personal-element-txt .personal-element-txt-exp p {
-  display: list-item;
-  font-weight: 300;
-  list-style-type: disc;
-  list-style-position: inside;
-}
-.personal-element .personal-element-txt .personal-element-txt-about p {
+.personal-element .personal-element-txt p {
   font-weight: 300;
   margin-bottom: 1rem;
 }
@@ -1225,7 +1206,6 @@ input:checked + .slider-bar:before {
 .contact .contact-info {
   display: flex;
   flex-wrap: wrap;
-  padding: 20% 0;
 }
 .contact .contact-info .contact-info-option-text {
   font-weight: 600;
@@ -1277,6 +1257,7 @@ input:checked + .slider-bar:before {
   border: 0.2rem solid hsl(271deg, 97%, 26%);
   border-radius: 0.25rem;
   color: hsl(271deg, 97%, 26%);
+  cursor: pointer;
   float: right;
   font-weight: 600;
   padding: 1rem 0.5rem;

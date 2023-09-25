@@ -2,26 +2,30 @@
 
 namespace App\Http\Controllers\Admin;
 
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use App\Vendor\Image\Image;
+use App\Vendor\Locale\Locale;
 use App\Http\Requests\Admin\WorkerRequest;
 use App\Models\DB\Worker; 
+use Debugbar;
 
 class WorkerController extends Controller
 {
     protected $agent;
+    protected $locale;
     protected $image;
     protected $paginate;
     protected $worker;
 
-    function __construct(Worker $worker, Agent $agent, Image $image)
+    function __construct(Worker $worker, Locale $locale, Agent $agent, Image $image)
     {
         $this->middleware('auth');
         $this->agent = $agent;
+        $this->locale = $locale;
         $this->image = $image;
         $this->worker = $worker;
         $this->worker->visible = 1;
@@ -35,6 +39,7 @@ class WorkerController extends Controller
         }
 
         $this->image->setEntity('workers');
+        $this->locale->setParent('workers');
     }
 
     public function index()
@@ -74,11 +79,13 @@ class WorkerController extends Controller
         $worker = $this->worker->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'title' => request('title'),
-            'content' => request('content'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
+
+        if(request('locale')){
+            $locale = $this->locale->store(request('locale'), $worker->id);
+        }
 
         if(request('images')){
             $images = $this->image->store(request('images'), $worker->id);
@@ -122,7 +129,10 @@ class WorkerController extends Controller
 
     public function show(Worker $worker){
 
+        $locale = $this->locale->show($worker->id);
+
         $view = View::make('admin.pages.workers.index')
+        ->with('locale', $locale)
         ->with('worker', $worker)
         ->with('workers', $this->worker->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
         ->renderSections();        
@@ -136,6 +146,7 @@ class WorkerController extends Controller
     public function destroy(Worker $worker)
     {
         $this->image->delete($worker->id);
+        $this->locale->delete($worker->id);
         $worker->active = 0;
         $worker->save();
 

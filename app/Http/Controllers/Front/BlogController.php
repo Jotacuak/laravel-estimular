@@ -5,21 +5,29 @@ namespace App\Http\Controllers\Front;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Vendor\Image\Image;
+use Jenssegers\Agent\Agent;
+use App\Vendor\Locale\LocaleSlugSeo;
 use App\Models\DB\Post;
 use App\Models\DB\PostCategory;
+use Debugbar;
 
 class BlogController extends Controller
 {
 
     protected $post;
     protected $post_category;
-    protected $image;
+    protected $agent;
+    protected $locale_slug_seo;
 
-    public function __construct(Post $post, PostCategory $post_category, Image $image){
+    public function __construct(Post $post, PostCategory $post_category, Agent $agent, LocaleSlugSeo $locale_slug_seo){
         
+        $this->agent = $agent;
+        $this->locale_slug_seo = $locale_slug_seo;
         $this->post = $post;
         $this->post_category = $post_category;
+
+        $this->locale_slug_seo->setLanguage(app()->getLocale()); 
+        $this->locale_slug_seo->setParent('posts');    
     }
 
     public function index()
@@ -42,23 +50,46 @@ class BlogController extends Controller
         return $view;
     }
 
-    public function show($name)
+    public function show($slug)
     {
-        $post = $this->post->where('name', $name)->first();
+        $seo = $this->locale_slug_seo->getIdByLanguage($slug);
 
-        $view = View::make('front.pages.blog.index')
-        ->with('post', $post);
+        if(isset($seo->key)){
 
-        if(request()->ajax()) {
+            if($this->agent->isDesktop()){
+                $post = $this->post
+                    ->with('image_featured_desktop')
+                    ->where('active', 1)
+                    ->where('visible', 1)
+                    ->find($seo->key);
+            }
             
-            $sections = $view->renderSections(); 
-    
-            return response()->json([
-                'content' => $sections['content'],
-            ]); 
-        }
+            elseif($this->agent->isMobile()){
+                $post = $this->post
+                    ->with('image_featured_mobile')
+                    ->where('active', 1)
+                    ->where('visible', 1)
+                    ->find($seo->key);
+            }
 
-        return $view;
+            $post['locale'] = $post->locale->pluck('value','tag');
+
+            $view = View::make('front.pages.blog.single')->with('post', $post);
+
+            if(request()->ajax()) {
+    
+                $sections = $view->renderSections(); 
+        
+                return response()->json([
+                    'view' => $sections['content'],
+                ]); 
+            }
+
+            return $view;
+
+        }else{
+            return response()->view('errors.404', [], 404);
+        }
     }
 
     public function categoryFilter($name)

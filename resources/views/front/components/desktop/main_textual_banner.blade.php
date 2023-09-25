@@ -2,10 +2,17 @@
     <div class="two-columns">
         <div class="column">
             <div class="textual-banner-title">
-                <h3>{{$post->title}}</h3>
+                @if($post->seo()->first())
+                    <h3>{{$post->seo()->first()->title}}</h3>
+                @endif
             </div>
             <div class="textual-banner-description">
-                <p>{!! $post->sumary !!}</p>
+                <p>{!! $post->locale['sumary'] !!}</p>
+            </div>
+            <div class="slider-button">
+                <button class="menu-item featured-button" data-route="">
+                    Lee más
+                </button>
             </div>
         </div>
     

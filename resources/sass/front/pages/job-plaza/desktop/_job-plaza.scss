@@ -3,35 +3,14 @@
 
     .personal-element-txt{
         margin-right: 2rem;
-    
-        .personal-element-txt-studies{
-            margin-bottom: 2rem;
-    
-            p{
-                display: list-item;
-                font-weight: 300;
-                list-style-type: disc;
-                list-style-position: inside;
-            }
+
+        ul{
+            list-style: disc;
         }
-    
-        .personal-element-txt-exp{
-            margin-bottom: 2rem;
-    
-            p{
-                display: list-item;
-                font-weight: 300;
-                list-style-type: disc;
-                list-style-position: inside;
-            }
-        }
-    
-        .personal-element-txt-about{
-            p{
-                font-weight: 300;
-                margin-bottom: 1rem;
-            }
-    
+
+        p{
+            font-weight: 300;
+            margin-bottom: 1rem;
         }
     }
 }

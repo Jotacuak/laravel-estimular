@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use App\Http\Requests\Admin\TherapyRequest;
+use App\Vendor\Locale\Locale;
+use App\Vendor\Locale\LocaleSlugSeo;
 use App\Models\DB\Therapy; 
 use App\Vendor\Image\Image;
 
@@ -15,14 +17,18 @@ class TherapyController extends Controller
 {
     protected $agent;
     protected $image;
+    protected $locale;
+    protected $locale_slug_seo;
     protected $paginate;
     protected $therapy;
 
-    function __construct(Therapy $therapy, Agent $agent, Image $image)
+    function __construct(Therapy $therapy, Locale $locale, LocaleSlugSeo $locale_slug_seo, Agent $agent, Image $image)
     {
         $this->middleware('auth');
         $this->agent = $agent;
         $this->image = $image;
+        $this->locale = $locale;
+        $this->locale_slug_seo = $locale_slug_seo;
         $this->therapy = $therapy;
         $this->therapy->visible = 1;
 
@@ -34,6 +40,8 @@ class TherapyController extends Controller
             $this->paginate = 6;
         }
 
+        $this->locale->setParent('therapy');
+        $this->locale_slug_seo->setParent('therapy');
         $this->image->setEntity('therapy');
     }
 
@@ -75,12 +83,17 @@ class TherapyController extends Controller
         $therapy = $this->therapy->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'title' => request('title'),
-            'subtitle' => request('subtitle'),
-            'description' => request('description'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
         ]);
+
+        if(request('seo')){
+            $seo = $this->locale_slug_seo->store(request('seo'), $therapy->id, 'front_therapy');
+        }
+
+        if(request('locale')){
+            $locale = $this->locale->store(request('locale'), $therapy->id);
+        }
 
         if(request('images')){
             $images = $this->image->store(request('images'), $therapy->id);
@@ -94,7 +107,7 @@ class TherapyController extends Controller
 
         $view = View::make('admin.pages.therapies.index')
         ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        ->with('therapy', $this->therapy)
+        ->with('therapy', $therapy)
         ->renderSections();        
 
         return response()->json([
@@ -106,7 +119,12 @@ class TherapyController extends Controller
 
     public function edit(Therapy $therapy)
     {
+        $locale = $this->locale->show($therapy->id);
+        $seo = $this->locale_slug_seo->show($therapy->id);
+        
         $view = View::make('admin.pages.therapies.index')
+        ->with('locale', $locale)
+        ->with('seo', $seo)
         ->with('therapy', $therapy)
         ->with('therapies', $this->therapy->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));       
         
@@ -137,9 +155,12 @@ class TherapyController extends Controller
 
     public function destroy(Therapy $therapy)
     {
+        $this->locale->delete($therapy->id);
+        $this->locale_slug_seo->delete($therapy->id);
+        $this->image->delete($therapy->id);
+
         $therapy->active = 0;
         $therapy->save();
-        $this->image->delete($therapy->id);
 
         $message = \Lang::get('admin/therapies.therapies-delete');
 

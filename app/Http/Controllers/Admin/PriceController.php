@@ -2,23 +2,26 @@
 
 namespace App\Http\Controllers\Admin;
 
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
+use App\Vendor\Locale\Locale;
 use App\Http\Requests\Admin\PriceRequest;
 use App\Models\DB\Price;
 
 class PriceController extends Controller
 {
     protected $agent;
+    protected $locale;
     protected $paginate;
     protected $price;
 
-    function __construct(Price $price, Agent $agent)
+    function __construct(Locale $locale, Price $price, Agent $agent)
     {
         $this->middleware('auth');
+        $this->locale = $locale;
         $this->agent = $agent;
         $this->price = $price;
         $this->price->visible = 1;
@@ -31,6 +34,7 @@ class PriceController extends Controller
             $this->paginate = 6;
         }
 
+        $this->locale->setParent('prices');
     }
 
     public function index()
@@ -73,7 +77,6 @@ class PriceController extends Controller
             'name' => request('name'),
             'type' => request('type'),
             'subtotal' => request('subtotal'),
-            'sumary' => request('sumary'),
             'rates_id' => request('rates_id'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
@@ -83,6 +86,10 @@ class PriceController extends Controller
             $message = \Lang::get('admin/prices.prices-update');
         }else{
             $message = \Lang::get('admin/prices.prices-create');
+        }
+
+        if(request('locale')){
+            $locale = $this->locale->store(request('locale'), $price->id);
         }
 
         $view = View::make('admin.pages.prices.index')
@@ -99,8 +106,10 @@ class PriceController extends Controller
 
     public function edit(Price $price)
     {
+        $locale = $this->locale->show($price->id);
 
         $view = View::make('admin.pages.prices.index')
+        ->with('locale', $locale)
         ->with('price', $price)
         ->with('prices', $this->price->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
@@ -132,6 +141,7 @@ class PriceController extends Controller
 
     public function destroy(Price $price)
     {
+        $this->locale->delete($price->id);
         $price->active = 0;
         $price->save();
 

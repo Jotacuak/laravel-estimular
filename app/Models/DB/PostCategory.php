@@ -12,4 +12,9 @@ class PostCategory extends DBModel
         return $this->hasMany(Post::class, 'category_id');
     }
 
+    public function seo()
+    {
+        return $this->hasOne(LocaleSlugSeo::class, 'key')->where('rel_parent', 'posts_categories')->where('language', App::getLocale());
+    }
+
 }

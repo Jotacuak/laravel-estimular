@@ -47,6 +47,8 @@
 
     </div>
 
+    @include('admin.components.table_pagination', ['items' => $sliders])
+
 @endsection
 
 @section('form')
@@ -70,7 +72,7 @@
                         <input autocomplete="false" name="hidden" type="text" style="display:none;">
                         <input type="hidden" name="id" value="{{isset($slide->id) ? $slide->id : ''}}">
                         <div class="crud-form-elements">
-                            <div class="two-columns">
+                            <div class="one-column">
                                 <div class="form-group">                                
                                     <div class="crud-form-element">
                                         <label for="title">Nombre:</label>
@@ -79,66 +81,56 @@
                                         <input class="input-bar" type="text" name="name" value="{{isset($slide->name) ? $slide->name : ''}}">
                                     </div>                                
                                 </div>
-                                <div class="form-group">
-                                    <div class="crud-form-element">
-                                        <label for="title">Sección:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="section" value="{{isset($slide->section) ? $slide->section : ''}}">
-                                    </div>    
-                                </div>
                             </div>
 
-                            <div class="one-column">
-                                <div class="form-group">
-                                    <div class="crud-form-element">
-                                        <label for="title">Título:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="title" value="{{isset($slide->title) ? $slide->title : ''}}">
-                                    </div>    
-                                </div>
-                            </div>
+                            @component('admin.components.locale', ['tab' => 'content'])
 
-                            <div class="two-columns">
-                                <div class="form-group">                                
-                                    <div class="crud-form-element">
-                                        <label for="title">Subtítulo:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="subtitle" value="{{isset($slide->subtitle) ? $slide->subtitle : ''}}">
-                                    </div>                                
-                                </div>
-                                <div class="form-group">
-                                    <div class="crud-form-element">
-                                        <label for="title">Descripción:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="description" value="{{isset($slide->description) ? $slide->description : ''}}">
-                                    </div>    
-                                </div>
-                            </div>
+                                @foreach ($localizations as $localization)
 
-                            <div class="two-columns">
+                                    <div class="locale-tab-panel {{ $loop->first ? 'locale-tab-active':'' }}" data-tab="content" data-localetab="{{$localization->alias}}">
+            
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="title">Título:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <input class="input-bar" type="text" name="locale[title.{{$localization->alias}}]" value="{{isset($locale["title.$localization->alias"]) ? $locale["title.$localization->alias"] : ''}}">
+                                            </div>
+                                        </div>
 
-                                <div class="form-group">
-                                    <div class="crud-form-element">
-                                        <label for="title">Texto del botón:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="text_button" value="{{isset($slide->text_button) ? $slide->text_button : ''}}">
-                                    </div>   
-                                </div>
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="title">Subtítulo:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <input class="input-bar" type="text" name="locale[subtitle.{{$localization->alias}}]" value="{{isset($locale["subtitle.$localization->alias"]) ? $locale["subtitle.$localization->alias"] : ''}}">
+                                            </div>
+                                        </div>
 
-                                <div class="form-group">
-                                    <div class="crud-form-element">
-                                        <label for="title">Enlace *</label>
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="title">Texto del botón:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <input class="input-bar" type="text" name="locale[textbutton.{{$localization->alias}}]" value="{{isset($locale["textbutton.$localization->alias"]) ? $locale["textbutton.$localization->alias"] : ''}}">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="title">Enlace:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <input class="input-bar" type="text" name="locale[link.{{$localization->alias}}]" value="{{isset($locale["link.$localization->alias"]) ? $locale["link.$localization->alias"] : ''}}">
+                                            </div>
+                                        </div>
+                                    
                                     </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="link_button" value="{{isset($slide->link_button) ? $slide->link_button : ''}}">
-                                    </div>   
-                                </div>
-                            </div>
+
+                                @endforeach
+                        
+                            @endcomponent
+
                         </div>        
                     </div>
 

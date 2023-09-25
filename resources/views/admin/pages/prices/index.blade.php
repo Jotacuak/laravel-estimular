@@ -49,6 +49,8 @@
 
     </div>
 
+    @include('admin.components.table_pagination', ['items' => $prices])
+
 @endsection
 
 @section('form')
@@ -73,13 +75,23 @@
                         <input type="hidden" name="id" value="{{isset($price->id) ? $price->id : ''}}">
                         <div class="crud-form-elements">
 
-                            <div class="two-columns">
-                                <div class="form-group">
+                            <div class="one-column">
+                                <div class="group-form">
                                     <div class="crud-form-element">
-                                        <label for="title">Selecciona tarifa de referencia:</label>
+                                        <label for="title">Nombre:</label>
                                     </div>
+                                    <div class="crud-form-element">
+                                        <input class="input-bar" type="text" name="name" value="{{isset($price->name) ? $price->name : ''}}">
+                                    </div> 
                                 </div>
-                                <div class="form-group">
+                            </div>
+
+                            <div class="three-columns">
+
+                                <div class="form-group">                                
+                                    <div class="crud-form-element">
+                                        <label for="title">Tarifa:</label>
+                                    </div>
                                     <div class="crud-form-element">
                                         <select name="rates_id" class="input-bar" data-placeholder="Seleccione una categoría">
                                             <option></option>
@@ -88,18 +100,6 @@
                                             @endforeach
                                         </select>   
                                     </div>  
-                                </div>
-                            </div>
-
-                            <div class="three-columns">
-
-                                <div class="form-group">                                
-                                    <div class="crud-form-element">
-                                        <label for="title">Nombre:</label>
-                                    </div>
-                                    <div class="crud-form-element">
-                                        <input class="input-bar" type="text" name="name" value="{{isset($price->name) ? $price->name : ''}}">
-                                    </div>                                
                                 </div>
 
                                 <div class="form-group">                                
@@ -123,14 +123,29 @@
                                     </div>                                
                                 </div>
 
-                            </div>                             
+                            </div>  
+                            
+                            @component('admin.components.locale', ['tab' => 'content'])
 
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <textarea class="ckeditor" name="sumary" id="ckeditor" value="{{isset($price->sumary) ? $price->sumary : ''}}">{{isset($price["sumary"]) ? $price["sumary"] : ''}}</textarea>
-                            </div>
+                                @foreach ($localizations as $localization)
+
+                                    <div class="locale-tab-panel {{ $loop->first ? 'locale-tab-active':'' }}" data-tab="content" data-localetab="{{$localization->alias}}">
+                        
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="comment">Descripción:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <textarea class="ckeditor" name="locale[description.{{$localization->alias}}]">{{isset($locale["description.$localization->alias"]) ? $locale["description.$localization->alias"] : ''}}</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                @endforeach
+                        
+                            @endcomponent
+
                         </div>
 
                     </div>

@@ -1,13 +1,15 @@
 .menu{
-    margin: 5rem auto;
+    margin: 3rem auto;
     width: 75%;
 
     .menu-elements{
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-template-rows: 1fr;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
 
         .menu-element{
+
+            margin-bottom: 1rem;
 
             button{
                 background-color: transparent;

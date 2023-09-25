@@ -47,6 +47,9 @@
 
     </div>
 
+    @include('admin.components.table_pagination', ['items' => $faqs_categories])
+
+
 @endsection
 
 @section('form')
@@ -70,12 +73,34 @@
                         <input type="hidden" name="id" value="{{isset($faqs_category->id) ? $faqs_category->id : ''}}">
 
                         <div class="crud-form-elements">
-                            <div class="crud-form-element">
-                                <label for="name">Nombre:</label>
+                            <div class="form-group">
+                                <div class="crud-form-element">
+                                    <label for="name">Nombre:</label>
+                                </div>
+                                <div class="crud-form-element">
+                                    <input class="input-bar" type="text" id="title" name="name" value="{{isset($faqs_category->name) ? $faqs_category->name : ''}}">
+                                </div>
                             </div>
-                            <div class="crud-form-element">
-                                <input class="title-bar" type="text" id="title" name="name" value="{{isset($faqs_category->name) ? $faqs_category->name : ''}}">
-                            </div>
+
+                            @component('admin.components.locale', ['tab' => 'content'])
+
+                                @foreach ($localizations as $localization)
+        
+                                    <div class="locale-tab-panel {{ $loop->first ? 'locale-tab-active':'' }}" data-tab="content" data-localetab="{{$localization->alias}}">
+        
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="title">Título:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <input class="input-bar" type="text" name="locale[title.{{$localization->alias}}]" value="{{isset($locale["title.$localization->alias"]) ? $locale["title.$localization->alias"] : ''}}">
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                @endforeach
+                        
+                            @endcomponent
                         </div>
                     </div>
                 </div>

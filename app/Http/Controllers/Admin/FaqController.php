@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
+use App\Vendor\Locale\Locale;
 use App\Http\Requests\Admin\FaqRequest;
 use App\Vendor\Image\Image;
 use App\Models\DB\Faq; 
@@ -14,14 +15,16 @@ use App\Models\DB\Faq;
 class FaqController extends Controller
 {
     protected $agent;
+    protected $locale;
     protected $image;
     protected $paginate;
     protected $faq;
 
-    function __construct(Faq $faq, Agent $agent, Image $image)
+    function __construct(Faq $faq, Locale $locale, Agent $agent, Image $image)
     {
         $this->middleware('auth');
         $this->agent = $agent;
+        $this->locale = $locale;
         $this->image = $image;
         $this->faq = $faq;
         $this->faq->visible = 1;
@@ -34,6 +37,7 @@ class FaqController extends Controller
             $this->paginate = 6;
         }
 
+        $this->locale->setParent('faqs');
         $this->image->setEntity('faqs');
     }
 
@@ -43,7 +47,6 @@ class FaqController extends Controller
         ->with('faq', $this->faq)
         ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));
 
-    
         if(request()->ajax()) {
             
             $sections = $view->renderSections(); 
@@ -75,8 +78,6 @@ class FaqController extends Controller
         $faq = $this->faq->updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'title' => request('title'),
-            'description' => request('description'),
             'active' => 1,
             'visible' => request('visible') == "true" ? 1 : 0 ,
             'category_id' => request('category_id'),
@@ -90,6 +91,10 @@ class FaqController extends Controller
 
         if(request('images')){
             $images = $this->image->store(request('images'), $faq->id);
+        }
+
+        if(request('locale')){
+            $locale = $this->locale->store(request('locale'), $faq->id);
         }
 
         $view = View::make('admin.pages.faqs.index')
@@ -106,7 +111,10 @@ class FaqController extends Controller
 
     public function edit(Faq $faq)
     {
+        $locale = $this->locale->show($faq->id);
+
         $view = View::make('admin.pages.faqs.index')
+        ->with('locale', $locale)
         ->with('faq', $faq)
         ->with('faqs', $this->faq->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
@@ -138,6 +146,7 @@ class FaqController extends Controller
 
     public function destroy(Faq $faq)
     {
+        $this->locale->delete($faq->id);
         $this->image->delete($faq->id);
         $faq->active = 0;
         $faq->save();

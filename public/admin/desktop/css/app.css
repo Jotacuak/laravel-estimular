@@ -565,13 +565,16 @@ a:hover, a:focus {
 }
 
 .menu {
-  margin: 5rem auto;
+  margin: 3rem auto;
   width: 75%;
 }
 .menu .menu-elements {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.menu .menu-elements .menu-element {
+  margin-bottom: 1rem;
 }
 .menu .menu-elements .menu-element button {
   background-color: transparent;
@@ -759,6 +762,228 @@ a:hover, a:focus {
 }
 .modal-delete .modal-delete-footer .modal-delete-option#delete-confirm {
   background-color: hsl(0deg, 65%, 55%);
+}
+
+#menu-item-modal {
+  background-color: hsl(0deg, 0%, 100%);
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  justify-content: space-between;
+  left: 35%;
+  padding: 2em 1em;
+  position: fixed;
+  top: -100vh;
+  transition: top 0.3s;
+  width: 30%;
+  z-index: 3000;
+}
+
+#menu-item-modal.modal-active {
+  top: 20vh;
+  transition: top 0.3s;
+}
+
+.modal-menu-item-store-button {
+  cursor: pointer;
+  float: right;
+  padding-top: 1em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.modal-menu-item-store-button:hover .store-button-icon {
+  fill: hsl(271deg, 97%, 26%);
+}
+.modal-menu-item-store-button svg {
+  float: right;
+  height: 2.4em;
+  width: 2.4em;
+}
+.modal-menu-item-store-button svg .store-button-icon {
+  fill: hsl(0deg, 0%, 50%);
+}
+
+.modal-menu-item-delete-button {
+  bottom: 1em;
+  cursor: pointer;
+  position: absolute;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.modal-menu-item-delete-button p {
+  color: hsl(0deg, 100%, 50%);
+  text-decoration: underline;
+}
+
+.nested-sort-wrap {
+  width: 100%;
+}
+.nested-sort-wrap .nested-sort {
+  margin-top: 1.5em;
+}
+.nested-sort-wrap .nested-sort li {
+  background: #fafafa;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  justify-content: space-between;
+  font-weight: bold;
+  margin-top: 1em;
+  padding: 1em;
+  text-decoration: none;
+}
+.nested-sort-wrap .nested-sort li:hover {
+  color: hsl(271deg, 97%, 26%);
+}
+.nested-sort-wrap .nested-sort .item-actions {
+  display: flex;
+  float: right;
+  position: relative;
+  top: -0.5em;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+}
+.nested-sort-wrap .nested-sort .item-actions .item-button {
+  cursor: pointer;
+}
+.nested-sort-wrap .nested-sort .item-actions .item-button svg {
+  height: 2em;
+  margin: 0 0.5em;
+  width: 2em;
+}
+.nested-sort-wrap .nested-sort .item-actions .item-button svg .button-icon {
+  fill: hsl(0deg, 0%, 40%);
+}
+.nested-sort-wrap .nested-sort .item-actions .item-button:hover svg .menu-button-icon {
+  fill: hsl(271deg, 97%, 26%);
+}
+
+.item-actions.clone {
+  display: none;
+}
+
+.locale-tabs {
+  background-color: hsl(0deg, 0%, 84%);
+}
+
+.locale-tabs-container {
+  background-color: hsl(0deg, 0%, 84%);
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1em;
+}
+
+.locale-tabs-container-menu {
+  width: 100%;
+}
+.locale-tabs-container-menu ul {
+  background-color: hsl(0deg, 0%, 84%);
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+.locale-tabs-container-menu li {
+  color: hsl(0deg, 0%, 50%);
+  cursor: pointer;
+  font-weight: 600;
+  padding: 1em 0.5em;
+  text-align: center;
+}
+.locale-tabs-container-menu li:hover {
+  color: hsl(271deg, 97%, 26%);
+}
+.locale-tabs-container-menu li.locale-tab-active,
+.locale-tabs-container-menu li.locale-tab-active:hover {
+  background-color: hsl(271deg, 97%, 26%);
+  color: hsl(0deg, 0%, 100%);
+}
+
+.locale-tab-panel {
+  display: none;
+}
+
+.locale-tab-panel.locale-tab-active {
+  display: block;
+  padding: 2em;
+}
+
+.table-filter {
+  background-color: hsl(0deg, 0%, 100%);
+  height: -webkit-max-content;
+  height: -moz-max-content;
+  height: max-content;
+  position: fixed;
+  top: 10vh;
+  width: 100%;
+  z-index: 1003;
+}
+.table-filter.filter-active .table-filter-container {
+  max-height: 70vh;
+}
+.table-filter .table-filter-container {
+  max-height: 0;
+  margin: 0 auto;
+  overflow: hidden;
+  transition: max-height 0.5s;
+  width: 40%;
+}
+.table-filter .table-filter-container form {
+  background-color: hsl(0deg, 0%, 100%);
+  padding: 1em;
+}
+.table-filter .table-filter-buttons {
+  width: 100%;
+}
+.table-filter .table-filter-buttons .table-filter-button {
+  cursor: pointer;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s;
+  width: 100%;
+  text-align: center;
+}
+.table-filter .table-filter-buttons .table-filter-button:hover svg path {
+  fill: hsl(271deg, 97%, 26%);
+}
+.table-filter .table-filter-buttons .table-filter-button.button-active {
+  max-height: 10vh;
+}
+.table-filter .table-filter-buttons .table-filter-button.open-filter {
+  background-color: hsl(0deg, 0%, 69%);
+}
+.table-filter .table-filter-buttons .table-filter-button.apply-filter {
+  background-color: hsl(160deg, 51%, 33%);
+}
+.table-filter .table-filter-buttons .table-filter-button svg {
+  height: 1.5em;
+  padding: 0.5em;
+  width: 1.5em;
+}
+.table-filter .table-filter-buttons .table-filter-button svg path {
+  fill: hsl(0deg, 0%, 100%);
+}
+
+.table-pagination .table-pagination-info {
+  display: flex;
+  justify-content: space-between;
+}
+.table-pagination .table-pagination-buttons p {
+  margin: 0;
+}
+.table-pagination .table-pagination-buttons .table-pagination-button {
+  cursor: pointer;
+  margin-right: 1em;
+}
+.table-pagination .table-pagination-buttons .table-pagination-button:hover {
+  color: hsl(271deg, 97%, 26%);
+}
+.table-pagination .table-pagination-buttons .table-pagination-button.inactive {
+  color: hsl(0deg, 0%, 69%);
 }
 
 #upload-image-modal {

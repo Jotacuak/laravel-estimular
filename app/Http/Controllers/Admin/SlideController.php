@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Controllers\Controller;
 use Jenssegers\Agent\Agent;
 use Illuminate\Http\Request;
+use App\Vendor\Locale\Locale;
 use App\Vendor\Image\Image;
 use App\Models\DB\Slide;
 
@@ -15,13 +16,15 @@ class SlideController extends Controller
 
     protected $agent;
     protected $image;
+    protected $locale;
     protected $paginate;
     protected $slide;
 
-    function __construct(Slide $slide, Agent $agent, Image $image)
+    function __construct(Locale $locale, Slide $slide, Agent $agent, Image $image)
     {
         $this->middleware('auth');
         $this->agent = $agent;
+        $this->locale = $locale;
         $this->image = $image;
         $this->slide = $slide;
         $this->slide->visible = 1;
@@ -34,6 +37,7 @@ class SlideController extends Controller
             $this->paginate = 6;
         }
 
+        $this->locale->setParent('slider');
         $this->image->setEntity('slider');
     }
 
@@ -74,11 +78,6 @@ class SlideController extends Controller
         $slide = Slide::updateOrCreate([
             'id' => request('id')],[
             'name' => request('name'),
-            'title' => request('title'),
-            'subtitle' => request('subtitle'),
-            'description' => request('description'),
-            'text_button' => request('text_button'),
-            'link_button' => request('link_button'),
             'active' => 1
         ]);
 
@@ -88,13 +87,17 @@ class SlideController extends Controller
             $message = \Lang::get('admin/sliders.sliders-create');
         }
 
+        if(request('locale')){
+            $locale = $this->locale->store(request('locale'), $slide->id);
+        }
+
         if(request('images')){
             $images = $this->image->store(request('images'), $slide->id);
         }
 
         $view = View::make('admin.pages.sliders.index')
         ->with('sliders', $this->slide->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate))
-        ->with('slide', $this->slide)
+        ->with('slide', $slide)
         ->renderSections();        
 
         return response()->json([
@@ -106,7 +109,11 @@ class SlideController extends Controller
 
     public function edit(Slide $slide)
     {
+
+        $locale = $this->locale->show($slide->id);
+
         $view = View::make('admin.pages.sliders.index')
+        ->with('locale', $locale)
         ->with('slide', $slide)
         ->with('sliders', $this->slide->where('active', 1)->orderBy('created_at', 'desc')->paginate($this->paginate));        
         
@@ -138,6 +145,7 @@ class SlideController extends Controller
 
     public function destroy(Slide $slide)
     {
+        $this->locale->delete($slide->id);
         $this->image->delete($slide->id);
         $slide->active = 0;
         $slide->save();

@@ -1,6 +1,6 @@
 <header class="partial header-fixed fixed">
     <div class="header-top">
-        <div class="three-columns">
+        <div class="two-columns">
             <div class="column">    
                 <div class="header-logo">
                     <div class="header-logo-image">
@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <div class="column desktop-only">
+            <div class="column desktop-only">   
                 <nav>
                     <div class="header-menu overlay" id="menu">
                         <ul class="header-menu-list">
@@ -23,7 +23,7 @@
                             <li class="menu-item"> Terapias
                                 <ul class="header-menu-innerlist">
                                     @foreach ($therapies as $therapy)
-                                        <li class="menu-item" id="therapies" data-url="{{route('front_therapy', ['name' => $therapy->name ])}}" data-section="therapy">{{ $therapy->name }}</li>
+                                        <li class="menu-item" id="therapies" data-url="{{route('front_therapy', ['slug' => $therapy->name ])}}" data-section="therapy">{{ $therapy->name }}</li>
                                     @endforeach
                                 </ul>
                             </li>
@@ -34,17 +34,6 @@
                         </ul>
                     </div>
                 </nav>
-            </div>
-
-            <div class="column desktop-only">   
-                <div class="header-user" id="menu-buttons">                                
-                    <div class="header-user-button">
-                        <button>Entrar</button>
-                    </div>
-                    <div class="header-user-button">
-                        <button class="header-button">Registrarse</button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

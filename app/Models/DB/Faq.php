@@ -11,11 +11,15 @@ class Faq extends DBModel
 {
 
     protected $with = ['category'];
-    // protected $with = ['category','seo'];
 
     public function category()
     {
         return $this->belongsTo(FaqCategory::class);
+    }
+
+    public function locale()
+    {
+        return $this->hasMany(Locale::class, 'key')->where('rel_parent', 'faqs')->where('language', App::getLocale());
     }
 
     public function images_featured_preview()

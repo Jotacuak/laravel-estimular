@@ -51,6 +51,9 @@
 
     </div>
 
+    @include('admin.components.table_pagination', ['items' => $posts])
+
+
 @endsection
 
 @section('form')
@@ -97,35 +100,53 @@
                                     </div>                         
                                 </div>
                             </div>
-
-                            <div class="crud-form-element">
-                                <label for="title">Autor:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="input-bar" type="text" name="author" value="{{isset($post->author) ? $post->author : ''}}">
-                            </div>
-
-                            <div class="crud-form-element">
-                                <label for="title">Título:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <input class="input-bar" type="text" name="title" value="{{isset($post->title) ? $post->title : ''}}">
+                            <div class="form-group">                       
+                                <div class="crud-form-element">
+                                    <label for="title">Autor:</label>
+                                </div>
+                                <div class="crud-form-element">
+                                    <input class="input-bar" type="text" name="author" value="{{isset($post->author) ? $post->author : ''}}">
+                                </div>
                             </div>
 
-                            <div class="crud-form-element">
-                                <label for="comment">Resumen:</label>
-                            </div>
-                            <div class="crud-form-element sumary">
-                                <textarea class="ckeditor input-counter" maxlength='160' name="sumary" id="ckeditor" value="{{isset($post->sumary) ? $post->sumary : ''}}">{{isset($post["sumary"]) ? $post["sumary"] : ''}}</textarea>
-                                <p><span>0</span>/160</p>
-                            </div>
+                            @component('admin.components.locale', ['tab' => 'content'])
+
+                                @foreach ($localizations as $localization)
+
+                                    <div class="locale-tab-panel {{ $loop->first ? 'locale-tab-active':'' }}" data-tab="content" data-localetab="{{$localization->alias}}">
+            
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="title">Título:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <input class="input-bar" type="text" name="seo[title.{{$localization->alias}}]" value="{{isset($seo["title.$localization->alias"]) ? $seo["title.$localization->alias"] : ''}}">
+                                            </div>
+                                        </div>
+            
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="comment">Resumen (máximo 160 carácteres):</label>
+                                            </div>
+                                            <div class="crud-form-element sumary">
+                                                <textarea class="ckeditor input-counter" maxlength='160' name="locale[sumary.{{$localization->alias}}]">{{isset($locale["sumary.$localization->alias"]) ? $locale["sumary.$localization->alias"] : ''}}</textarea>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="form-group">                       
+                                            <div class="crud-form-element">
+                                                <label for="comment">Texto del post:</label>
+                                            </div>
+                                            <div class="crud-form-element">
+                                                <textarea class="ckeditor" name="locale[description.{{$localization->alias}}]">{{isset($locale["description.$localization->alias"]) ? $locale["description.$localization->alias"] : ''}}</textarea>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                @endforeach
                         
-                            <div class="crud-form-element">
-                                <label for="comment">Descripción:</label>
-                            </div>
-                            <div class="crud-form-element">
-                                <textarea class="ckeditor" name="description" id="ckeditor" value="{{isset($post->description) ? $post->description : ''}}">{{isset($post["description"]) ? $post["description"] : ''}}</textarea>
-                            </div>
+                            @endcomponent
 
                         </div>        
                     </div>
